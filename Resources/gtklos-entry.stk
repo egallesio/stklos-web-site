@@ -1,0 +1,36 @@
+;;;;
+;;;; entry.stk
+;;;;
+
+(require "stklos-gtklos")
+(import stklos-gtklos stklos-gtk-base)
+
+
+(define (main args)
+  (let* ((window (make <window> :title "STklos Entry and Events" :border-width 15))
+         (box    (make <vbox> :parent window :padding 5 :expand #t))
+
+         (line1  (make <hbox> :parent box))
+         (line2  (make <hbox> :parent box))
+         (quit   (make <button> :parent box :text "Quit" :command (λ (_) (exit 0))))
+
+         (lab1   (make <label> :parent line1 :text "Only digits: " :width 150))
+         (entry1 (make <entry> :parent line1))
+
+         (lab2   (make <label> :parent line2 :text "Convert to upper: " :width 150))
+         (entry2 (make <entry> :parent line2)))
+
+    ;; digits entry
+    (event-connect entry1 "key-press-event"
+                   (lambda (e) (not (char-numeric? (event-char e)))))
+    ;; upper entry
+    (event-connect entry2 "key-release-event"
+                   (lambda (e)
+                     (let* ((pos (cursor-position entry2))
+                            (val (value entry2))
+                            (up  (string-upper val)))
+                       (unless (equal? val up)
+                         (set! (value entry2) up)
+                         (set! (cursor-position entry2) pos)))))
+
+    (gtk-main)))

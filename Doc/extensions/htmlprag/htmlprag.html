@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+ <style type="text/css">
+  <!--
+  tt { font-family: monospace }
+  code { font-family: monospace }
+  -->
+ </style>
+<link href="htmlprag-doc-style.css" rel="stylesheet" type="text/css">
+</head>
+<body >
+<table width='100%' cellpadding='0' cellspacing='0'><tr><td bgcolor="#E6F2E6"><center><h1>HtmlPrag Extension</h1></center></table><table cellpadding="3" cellspacing="0" width="100%"><tr>
+<td align="left" valign="top" width="20%" bgcolor="#E6F2E6">
+<center><table width="90%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><th align="center">Version:</th></tr>
+<tr bgcolor="white"><td align="left">0.50</td></tr>
+<tr><th align="center">Useful Links:</th></tr>
+<tr bgcolor="white"><td align="left"><a href="http://stklos.net">STklos Home page</a></td></tr>
+<tr bgcolor="white"><td align="left"><a href="http://stklos.net/extensions">STklos Extensions</a></td></tr>
+</tbody></table>
+</center>
+</td>
+<td align="left" valign="top">
+<a name="Introduction"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Introduction"><font color="#000000">1 Introduction</font></h3></table>
+<p> HtmlPrag is a package developed by Neil Van Dyke. All
+the hard work was done by Neil. This extension is only a mean to
+have an easy access to the HtmlPrag. This extension embeds the
+source of version 0.16 (2005-12-18) of HtmlPrag.</p><p><strong>This documentation is mostly copied from the
+<a href="http://www.neilvandyke.org/htmlprag/">HtmlPrag</a>
+homepage.  Only the exported functions are described here. For
+more information, please look at the complete HtmlPrag API 
+described in Neil Van Dyke <a href="htmlprag-orinal.html">original documentation</a>.</strong></p><a name="HtmlPrag-purpose"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="HtmlPrag-purpose"><font color="#000000">2 HtmlPrag purpose</font></h3></table>
+<p><em>This text comes from the 
+<a href="http://www.neilvandyke.org/htmlprag/">HtmlPrag</a> homepage.</em></p><p>HtmlPrag provides permissive HTML parsing and emitting
+capability to Scheme programs. The parser is useful for software
+agent extraction of information from Web pages, for
+programmatically transforming HTML files, and for implementing
+interactive Web browsers. HtmlPrag emits &quot;SHTML,&quot; which is an
+encoding of HTML in SXML, so that conventional HTML may be
+processed with XML tools such as 
+<a href="http://pair.com/lisovsky/query/sxpath">SXPath</a>. 
+Like Oleg Kiselyov's 
+<a href="http://pobox.com/~oleg/ftp/Scheme/xml.html#HTML-parser">SSAX-based HTML parser</a>, HtmlPrag provides a permissive tokenizer,
+but also attempts to recover structure. HtmlPrag also includes
+procedures for encoding SHTML in HTML syntax.</p><p>The HtmlPrag parsing behavior is permissive in that it
+accepts erroneous HTML, handling several classes of HTML syntax
+errors gracefully, without yielding a parse error. This is
+crucial for parsing arbitrary real-world Web pages, since many
+pages actually contain syntax errors that would defeat a strict
+or validating parser. HtmlPrag's handling of errors is intended
+to generally emulate popular Web browsers' interpretation of the
+structure of erroneous HTML. We euphemistically term this kind of
+parse &quot;pragmatic.&quot;</p><p>HtmlPrag also has some support for XHTML, although XML
+namespace qualifiers are currently accepted but stripped from the
+resulting SHTML. Note that valid XHTML input is of course better
+handled by a validating XML parser like Kiselyov's 
+<a href="http://pobox.com/~oleg/ftp/Scheme/xml.html#XML-parser">SSAX</a>.</p><a name="SHTML-and-SXML"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="SHTML-and-SXML"><font color="#000000">3 SHTML and SXML</font></h3></table>
+<p>SHTML is a variant of SXML, with two minor but useful extensions:</p><ol><li>The SXML keyword symbols, such as <code>*TOP*</code>, are
+defined to be in all uppercase, regardless of the
+case-sensitivity of the reader of the hosting Scheme
+implementation in any context.  This avoids several pitfalls.</li>
+<li>Since not all character entity references used in
+HTML can be converted to Scheme characters in all R5RS Scheme
+implementations, nor represented in conventional text files or
+other common external text formats to which one might wish to
+write SHTML, SHTML adds a special <code>&amp;</code> syntax for
+non-ASCII (or non-Extended-ASCII) characters.  The syntax is
+<code>(&amp; val)</code>, where <code>val</code> is a symbol or string
+naming with the symbolic name of the character, or an integer
+with the numeric value of the character.</li>
+</ol><br /><table cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td bgcolor="#dddddd"><a name="make-shtml-entity-value"></a><a name="--index-entry-634"></a><table width="100%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><td align="left"><code><strong><font color="IndianRed">(make-shtml-entity-value val)</font></strong></code></td><td align="right"><font color="darkolivegreen"><i><span style="font-variant: small-caps">STklos</span> procedure</i></font></td></tr>
+</tbody></table>
+<br />Yields an SHTML character entity reference 
+for <code>val</code>.  For example:
+<blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(make-shtml-entity <font color="red">&quot;rArr&quot;</font>)                  &#8658; (&amp; rArr)
+(make-shtml-entity (string-&gt;symbol <font color="red">&quot;rArr&quot;</font>)) &#8658; (&amp; rArr)
+(make-shtml-entity 151)                     &#8658; (&amp; 151)
+</pre></td></tr>
+</tbody></table></blockquote>
+</td></tr>
+</tbody></table><br /><table cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td bgcolor="#dddddd"><a name="shtml-entity-value"></a><a name="--index-entry-669"></a><table width="100%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><td align="left"><code><strong><font color="IndianRed">(shtml-entity-value obj)</font></strong></code></td><td align="right"><font color="darkolivegreen"><i><span style="font-variant: small-caps">STklos</span> procedure</i></font></td></tr>
+</tbody></table>
+<br />
+Yields the value for the SHTML entity <code>obj</code>, or <code>#f</code> if <code>obj</code>
+is not a recognized entity.  Values of named entities are symbols, and
+values of numeric entities are numbers.  An error may raised if <code>obj</code>
+is an entity with system ID inconsistent with its public ID.  
+For example:
+<blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(<font color="#6959cf"><strong>define</strong></font> (f s) (shtml-entity-value (cadr (html-&gt;shtml s))))
+(f <font color="red">&quot;&amp;nbsp;&quot;</font>)  &#8658; nbsp
+(f <font color="red">&quot;&amp;#2000;&quot;</font>) &#8658; 2000
+</pre></td></tr>
+</tbody></table></blockquote>
+</td></tr>
+</tbody></table><a name="Tokenizing"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Tokenizing"><font color="#000000">4 Tokenizing</font></h3></table>
+<p>The tokenizer is used by the higher-level structural
+parser, but can also be called directly for debugging purposes or
+unusual applications. Some of the list structure of tokens, such as
+for start tag tokens, is mutated and incorporated into the SHTML list 
+structure emitted by the parser.</p><br /><table cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td bgcolor="#dddddd"><a name="make-html-tokenizer"></a><a name="--index-entry-709"></a><table width="100%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><td align="left"><code><strong><font color="IndianRed">(make-html-tokenizer in normalized?)</font></strong></code></td><td align="right"><font color="darkolivegreen"><i><span style="font-variant: small-caps">STklos</span> procedure</i></font></td></tr>
+</tbody></table>
+<br />
+Constructs an HTML tokenizer procedure on input port <code>in</code>.  If boolean
+<code>normalized?</code> is true, then tokens will be in a format conducive to use
+with a parser emitting normalized SXML.  Each call to the resulting
+procedure yields a successive token from the input.  When the tokens have
+been exhausted, the procedure returns the null list.  For example:
+<blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(<font color="#6959cf"><strong>define</strong></font> input (open-input-string <font color="red">&quot;&lt;a href=&quot;</font>foo<font color="red">&quot;&gt;bar&lt;/a&gt;&quot;</font>))
+(<font color="#6959cf"><strong>define</strong></font> next  (make-html-tokenizer input #f))
+(next) &#8658; (a (&#x40; (href <font color="red">&quot;foo&quot;</font>)))
+(next) &#8658; <font color="red">&quot;bar&quot;</font>
+(next) &#8658; (*END* a)
+(next) &#8658; ()
+(next) &#8658; ()
+</pre></td></tr>
+</tbody></table></blockquote>
+</td></tr>
+</tbody></table><a name="Parsing"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Parsing"><font color="#000000">5 Parsing</font></h3></table>
+<p>Most applications will call a parser procedure such as
+<code>html-&gt;shtml</code> rather than calling the tokenizer
+directly.</p><br /><table cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td bgcolor="#dddddd"><a name="-f"></a><a name="--index-entry-761"></a><table width="100%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><td align="left"><code><strong><font color="IndianRed">(html-&gt;sxml-0nf input)</font></strong></code></td><td align="right"><font color="darkolivegreen"><i><span style="font-variant: small-caps">STklos</span> procedure</i></font></td></tr>
+</tbody></table>
+<code><strong><font color="IndianRed">(html-&gt;sxml-1nf input)</font></strong></code><br /><code><strong><font color="IndianRed">(html-&gt;sxml-2nf input)</font></strong></code><br /><code><strong><font color="IndianRed">(html-&gt;sxml input)</font></strong></code><br /><code><strong><font color="IndianRed">(html-&gt;shtml input)</font></strong></code><br /><br />
+Permissively parse HTML from <code>input</code>, which is either an input port or
+a string, and emit an SHTML equivalent or approximation.  To borrow and
+slightly modify an example from Kiselyov's discussion of his HTML parser:
+<br /><br />
+<blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(html-&gt;shtml
+ <font color="red">&quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;title&gt;whatever&lt;/title&gt;&lt;/head&gt;&lt;body&gt;
+&lt;a href=&quot;</font>url<font color="red">&quot;&gt;link&lt;/a&gt;&lt;p align=center&gt;&lt;ul compact style=&quot;</font>aa<font color="red">&quot;&gt;
+&lt;p&gt;BLah&lt;!-- comment &lt;comment&gt; --&gt; &lt;i&gt; italic &lt;b&gt; bold &lt;tt&gt; ened&lt;/i&gt;
+still &amp;lt; bold &lt;/b&gt;&lt;/body&gt;&lt;P&gt; But not done yet...&quot;</font>)
+&#8658;
+(*TOP* (html (head (title) (title <font color="red">&quot;whatever&quot;</font>))
+             (body <font color="red">&quot;n&quot;</font>
+                   (a (&#x40; (href <font color="red">&quot;url&quot;</font>)) <font color="red">&quot;link&quot;</font>)
+                   (p (&#x40; (align <font color="red">&quot;center&quot;</font>))
+                      (ul (&#x40; (compact) (style <font color="red">&quot;aa&quot;</font>)) <font color="red">&quot;n&quot;</font>))
+                   (p <font color="red">&quot;BLah&quot;</font>
+                      (*COMMENT* <font color="red">&quot; comment &lt;comment&gt; &quot;</font>)
+                      <font color="red">&quot; &quot;</font>
+                      (i <font color="red">&quot; italic &quot;</font> (b <font color="red">&quot; bold &quot;</font> (tt <font color="red">&quot; ened&quot;</font>)))
+                      <font color="red">&quot;n&quot;</font>
+                      <font color="red">&quot;still &lt; bold &quot;</font>))
+             (p <font color="red">&quot; But not done yet...&quot;</font>)))
+</pre></td></tr>
+</tbody></table></blockquote>
+
+Note that in the emitted SHTML the text token <code>&quot;still &lt; bold&quot;</code> is
+not inside the <code>&quot;b&quot;</code> element, which represents an unfortunate
+failure to emulate all the quirks-handling behavior of some popular Web
+browsers.
+<br /><br />
+The procedures <code>&quot;html-&gt;sxml-Xnf&quot;</code> for <code>X</code> 0 through 2
+correspond to 0th through 2nd normal forms of SXML as specified in SXML,
+and indicate the minimal requirements of the emitted SXML.
+<br /><br />
+<code>html-&gt;sxml and </code>html-&gt;shtml<code> are currently aliases for
+</code>html-&gt;sxml-0nf|.</td></tr>
+</tbody></table><a name="Emiting-HTML"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Emiting-HTML"><font color="#000000">6 Emiting HTML</font></h3></table>
+<br /><table cellspacing="0" cellpadding="0" width="100%"><tbody>
+<tr><td bgcolor="#dddddd"><a name="-f"></a><a name="--index-entry-848"></a><table width="100%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><td align="left"><code><strong><font color="IndianRed">(write-shtml-as-html shtml)</font></strong></code></td><td align="right"><font color="darkolivegreen"><i><span style="font-variant: small-caps">STklos</span> procedure</i></font></td></tr>
+</tbody></table>
+<code><strong><font color="IndianRed">(write-shtml-as-html shtml out)</font></strong></code><br /><code><strong><font color="IndianRed">(write-shtml-as-html shtml out foreign-filter)</font></strong></code><br /><br />
+Writes a conventional HTML transliteration of the SHTML <code>shtml</code> to
+output port <code>out</code>.  If <code>out</code> is not specified, the default is the
+current output port.  HTML elements of types that are always empty are
+written using HTML4-compatible XHTML tag syntax.
+<br /><br />
+If <code>foreign-filter</code> is specified, it is a procedure of two argument
+that is applied to any non-SHTML (&quot;foreign&quot;) object encountered in
+<code>shtml</code>, and should yield SHTML.  The first argument is the object, and
+the second argument is a boolean for whether or not the object is part of
+an attribute value.
+<br /><br />
+No inter-tag whitespace or line breaks not explicit in <code>shtml</code> is
+emitted.</td></tr>
+</tbody></table><a name="Example"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Example"><font color="#000000">7 Example</font></h3></table>
+<p>The following example shows how one can extract, in a
+very <em>ad hoc</em> way,  the titles of the <code>h1</code>, <code>h2</code>
+and <code>h3</code> sections of the HtmpPrag original HTML documentation.</p><blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(require <font color="red">&quot;htmlprag&quot;</font>)
+
+(<font color="#6959cf"><strong>define</strong></font> source (open-input-file <font color="red">&quot;../doc/htmlprag-original.html&quot;</font>))
+
+(<font color="#6959cf"><strong>define</strong></font> (main _)
+  (<strong>let*</strong> ((doc (html-&gt;sxml-2nf source))
+          (html (cadr doc))
+          (head (caddr html))
+          (body (cadddr html)))
+    (for-each (<strong>lambda</strong> (x)
+                 (when (and (pair? x) (member (car x) '(h1 h2 h3)))
+                   (format #t <font color="red">&quot;==&gt; ~A\n&quot;</font> (caddr x))))
+               body)))
+</pre></td></tr>
+</tbody></table></blockquote>
+</td>
+</tr></table><small><hr>This <span style="font-variant: small-caps">Html</span> page has been produced by 
+				     <a href="http://www.inria.fr/mimosa/fp/Skribe">Skribe</a>.<br />Last update <em>Fri May 26 19:28:49 2006</em></small>
+</body>
+</html>

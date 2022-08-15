@@ -1,0 +1,155 @@
+((interface
+   "stklos-posix"
+   :version
+   "1.1.0"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-posix-1.1.0.tar.gz"
+   :path
+   #f
+   :md5
+   "251531267f6c2521dc5eb20d61f2e6d9"
+   :description
+   "Support of POSIX functions for STklos"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html pdf)
+   :dependencies
+   ())
+ (interface
+   "stklos-gtk-glade"
+   :version
+   "1.0.0"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-gtk-glade-1.0.0.tar.gz"
+   :path
+   #f
+   :md5
+   "ee174878084eb0d1bdbfe93ea60daa5a"
+   :description
+   "STklos interface to libglade"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html)
+   :dependencies
+   (("stklos-gtk-base" "*")))
+ (interface
+   "stklos-gtk-base"
+   :version
+   "1.0.0"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-gtk-base-1.0.0.tar.gz"
+   :path
+   #f
+   :md5
+   "13747323ee5d16147725513bfcba5ae9"
+   :description
+   "GTK+ 2.x binding for STklos"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html)
+   :dependencies
+   ())
+ (interface
+   "stklos-fuse"
+   :version
+   "0.90.6"
+   :language
+   (stklos stdlib)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-fuse-0.90.6.tar.gz"
+   :path
+   #f
+   :md5
+   "68599e5d1af386890e5771ac28394669"
+   :description
+   "FUSE Support for STklos"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html pdf)
+   :dependencies
+   (("stklos-posix" "*")))
+ (interface
+   "stklos-gtk-canvas"
+   :version
+   "1.0.0"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-gtk-canvas-1.0.0.tar.gz"
+   :path
+   #f
+   :md5
+   "ae3f099508999d36e16823a0551cba93"
+   :description
+   "Gnome/GTK+ canvas binding for STklos"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html)
+   :dependencies
+   (("stklos-gtk-base" "*")))
+ (interface
+   "stklos-gtklos"
+   :version
+   "1.0.0"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-gtklos-1.0.0.tar.gz"
+   :path
+   #f
+   :md5
+   "cc6ef1177ef5687b584604d2c0e3afdd"
+   :description
+   "GTK+ 2.x binding for STklos -- GTklos level"
+   :author
+   "Erick Gallesio <eg at unice.fr>"
+   :stklos-doc
+   (html)
+   :dependencies
+   (("stklos-gtk-base" "*")
+    ("stklos-gtk-canvas" "*")))
+ (interface
+   "stklos-ssax"
+   :version
+   "5.1.2"
+   :language
+   (stklos)
+   :category
+   "misc"
+   :url
+   "http://www.stklos.net/ScmPkg/Packages/STklos/stklos-ssax-5.1.2.tar.gz"
+   :path
+   #f
+   :md5
+   "5673bfaa8febce31291a0adec6ecaacf"
+   :description
+   "Oleg Kiselyov's XML parser"
+   :author
+   "Oleg Kiselyov <oleg at pobox.com>"
+   :stklos-doc
+   (html)
+   :dependencies
+   ()))

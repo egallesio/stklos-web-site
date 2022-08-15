@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+ <style type="text/css">
+  <!--
+  tt { font-family: monospace }
+  code { font-family: monospace }
+  -->
+ </style>
+<link href="posix-doc-style.css" rel="stylesheet" type="text/css">
+</head>
+<body >
+<table width='100%' cellpadding='0' cellspacing='0'><tr><td bgcolor="#E6F2E6"><center><h1>Fuse Extension</h1></center><center><table cellspacing=0><tbody>
+<tr><td align="center"><big><big><font size="+2"><strong>Erick Gallesio</strong></font></big></big></td></tr><tr><tr><td align="center">Université de Nice - Sophia Antipolis</td></tr><tr><td align="center">930 route des Colles, BP 145</td></tr><tr><td align="center">F-06903 Sophia Antipolis, Cedex</td></tr><tr><td align="center">France</td></tr></tbody></table></center></table><table cellpadding="3" cellspacing="0" width="100%"><tr>
+<td align="left" valign="top" width="20%" bgcolor="#E6F2E6">
+<center><table width="90%" style="border-collapse: collapse;" frame="void" rules="none"><tbody>
+<tr><th align="center">Version:</th></tr>
+<tr bgcolor="white"><td align="left">0.90</td></tr>
+<tr><th align="center">Useful Links:</th></tr>
+<tr bgcolor="white"><td align="left"><a href="http://stklos.net">STklos Home page</a></td></tr>
+<tr bgcolor="white"><td align="left"><a href="http://stklos.net/extensions">STklos Extensions</a></td></tr>
+</tbody></table>
+</center>
+</td>
+<td align="left" valign="top">
+<a name="Introduction"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Introduction"><font color="#000000">1 Introduction</font></h3></table>
+<p>This extension permits the implementation of virtual
+file systems in Scheme thanks to the
+<a href="http://fuse.sourceforge.net">FUSE library</a>. Here is an excerpt 
+of the FUSE site:</p><blockquote><em>With FUSE it is possible to implement a fully
+functional filesystem in a userspace program.  Features include:<ul><li>Simple library API</li>
+<li>Simple installation (no need to patch or recompile the kernel)</li>
+<li>Secure implementation</li>
+<li>Userspace - kernel interface is very efficient</li>
+<li>Usable by non privileged users</li>
+<li>Runs on Linux kernels 2.4.X and 2.6.X</li>
+<li>Has proven very stable over time</li>
+</ul></em></blockquote>
+<a name="Using-the-fuse-extension"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="Using-the-fuse-extension"><font color="#000000">2 Using the fuse extension</font></h3></table>
+<p>To use this extension you need to include the following
+form in your program:</p><blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(<strong>begin</strong> (require <font color="red">&quot;stklos-fuse&quot;</font>) (import <font color="red">&quot;stklos-fuse&quot;</font>))
+</pre></td></tr>
+</tbody></table></blockquote>
+<p>This library provides only one entry point called
+"<code>fuse-mount</code>". This function takes a first parameter
+which is the list of the program arguments and key-list of
+functions used to implement the file system. The arguments recognized 
+by the version 2.6.5 "<code>fuse-mount</code>" are given below:</p><blockquote><table cellspacing="0" cellpadding="0" width="90%"><tbody>
+<tr><td bgcolor="#cccccc"><pre>
+usage: &lt;filesystem&gt; mountpoint `(options)
+
+general options:
+    -o opt,`(opt...)        mount options
+    -h   --help            print help
+    -V   --version         print version
+
+FUSE options:
+    -d   -o debug          enable debug output (implies -f)
+    -f                     foreground operation
+    -s                     disable multi-threaded operation
+
+    -o allow_other         allow access to other users
+    -o allow_root          allow access to root
+    -o nonempty            allow mounts over non-empty file/dir
+    -o default_permissions enable permission checking by kernel
+    -o fsname=NAME         set filesystem name
+    -o large_read          issue large read requests (2.4 only)
+    -o max_read=N          set maximum size of read requests
+
+    -o hard_remove         immediate removal (don't hide files)
+    -o use_ino             let filesystem set inode numbers
+    -o readdir_ino         try to fill in d_ino in readdir
+    -o direct_io           use direct I/O
+    -o kernel_cache        cache files in kernel
+    -o `(no)auto_cache      enable caching based on modification times
+    -o umask=M             set file permissions (octal)
+    -o uid=N               set file owner
+    -o gid=N               set file group
+    -o entry_timeout=T     cache timeout for names (1.0s)
+    -o negative_timeout=T  cache timeout for deleted names (0.0s)
+    -o attr_timeout=T      cache timeout for attributes (1.0s)
+    -o ac_attr_timeout=T   auto cache timeout for attributes (attr_timeout)
+    -o intr                allow requests to be interrupted
+    -o intr_signal=NUM     signal to send on interrupt (10)
+
+    -o max_write=N         set maximum size of write requests
+    -o max_readahead=N     set maximum readahead
+    -o async_read          perform reads asynchronously (default)
+    -o sync_read           perform reads synchronously
+</pre></td></tr>
+</tbody></table></blockquote>
+<p>The list of functions used to implement the file system is given
+in the next section</p><a name="File-system-primitives"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3 id="File-system-primitives"><font color="#000000">3 File system primitives</font></h3></table>
+<p>The following functions are available to implement a Scheme
+file system:</p><table cellpadding="5" style="border-collapse: collapse;" frame="box" rules="all"><tbody>
+<tr><td align="left" valign="top"><strong>:getattr</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">returns a vector of 8 elements containing: mode bits,
+		     number of links, size, uid, gid, atime, mtime, ctime</td></tr>
+<tr><td align="left" valign="top"><strong>:opendir</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">this is a hook for controlling directory access, returns 0 
+if no error</td></tr>
+<tr><td align="left" valign="top"><strong>:readdir</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">returns a list of the files in the firectorry &quot;path&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:releasedir</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">This is a hook called after readdir, returns 0 if no error</td></tr>
+<tr><td align="left" valign="top"><strong>:mknod</strong></td><td align="left" valign="top"><em>path mode</em></td><td align="left" valign="top">creates the file named &quot;path&quot; with given &quot;mode&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:open</strong></td><td align="left" valign="top"><em>path mode fd</em></td><td align="left" valign="top">opens file named &quot;path&quot; with given mode (O = RDONLY, 1 = WRONLY, 
+2 = RDWR). The value &quot;fd&quot; is an unique integer associated by the system to this file</td></tr>
+<tr><td align="left" valign="top"><strong>:read</strong></td><td align="left" valign="top"><em>fd size offset</em></td><td align="left" valign="top">returns a string of  &quot;size&quot; bytes starting at &quot;offset&quot; on &quot;fd&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:write</strong></td><td align="left" valign="top"><em>fd buffer size offset</em></td><td align="left" valign="top">writes the first &quot;size&quot; characters of &quot;buffer&quot; at &quot;offset&quot; on 
+&quot;fd&quot;. The offset can be after the actual end of file</td></tr>
+<tr><td align="left" valign="top"><strong>:release</strong></td><td align="left" valign="top"><em>fd</em></td><td align="left" valign="top">This function is called when there are no more references 
+to the open  file &quot;fd&quot;. The return value of this function is ignored</td></tr>
+<tr><td align="left" valign="top"><strong>:rename</strong></td><td align="left" valign="top"><em>from to</em></td><td align="left" valign="top">renames file &quot;from&quot; with name &quot;to&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:unlink</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">removes the file with given &quot;path&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:link</strong></td><td align="left" valign="top"><em>old new</em></td><td align="left" valign="top">creates a link from file &quot;old&quot; to file &quot;to&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:symlink</strong></td><td align="left" valign="top"><em>old new</em></td><td align="left" valign="top">creates a symbolic link from file &quot;old&quot; to file &quot;to&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:readlink</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">returns the file that the symbolic link &quot;path&quot; point to</td></tr>
+<tr><td align="left" valign="top"><strong>:mkdir</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">creates directory &quot;path&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:rmdir</strong></td><td align="left" valign="top"><em>path</em></td><td align="left" valign="top">removes directory &quot;path&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:chmod</strong></td><td align="left" valign="top"><em>path mode</em></td><td align="left" valign="top">change the mode of file &quot;path&quot; to &quot;mode&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:chown</strong></td><td align="left" valign="top"><em>path uid gid</em></td><td align="left" valign="top">changes the owner of &quot;path&quot; to &quot;uid&quot; and &quot;gid&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:utime</strong></td><td align="left" valign="top"><em>path atime mtime</em></td><td align="left" valign="top">changes the access and modification time of file &quot;path&quot; to 
+&quot;atime&quot; and &quot;mtime&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:truncate</strong></td><td align="left" valign="top"><em>path size</em></td><td align="left" valign="top">changes the size of &quot;path&quot; to &quot;size&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:flush</strong></td><td align="left" valign="top"><em>path fd</em></td><td align="left" valign="top">flushes cached data on file &quot;fd&quot;</td></tr>
+<tr><td align="left" valign="top"><strong>:fsync</strong></td><td align="left" valign="top"><em>path datasync fd</em></td><td align="left" valign="top">if the &quot;datasync&quot; parameter is non-zero, then only the user data
+should be flushed, not the meta data</td></tr>
+<tr><td align="left" valign="top"><strong>:fsyncdir</strong></td><td align="left" valign="top"><em>path datasync</em></td><td align="left" valign="top">if the &quot;datasync&quot; parameter is non-zero, then only the user data
+should be flushed, not the meta data</td></tr>
+<tr><td align="left" valign="top"><strong>:init</strong></td><td align="left" valign="top"><em></em></td><td align="left" valign="top">This is a hook called when the file system is mounted. It can
+return a value which will be used when the file systeme is unmounted</td></tr>
+<tr><td align="left" valign="top"><strong>:destroy</strong></td><td align="left" valign="top"><em>data</em></td><td align="left" valign="top">This is a hook called when the file system is unmounted. Its
+parameter is the return value of the &quot;init&quot; call.</td></tr>
+</tbody></table>
+<a name="-section-4733"></a>
+<table width="100%"><tr><td bgcolor="#E6F2E6"><h3><font color="#000000">4 The <em>hellofs</em> filesystem</font></h3></table>
+<p>The following example is a very simple (even simplistic) file system 
+written in <span style="font-variant: small-caps">STklos</span>. This is a file system which contains only a file named
+  &quot;hello&quot;. You cannot do a lot with this file system and most actions
+  produce errors. 
+  To mount the file system you can for instance type:</p><blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>$ hellofs -f ~/fuse
+</pre></td></tr>
+</tbody></table></blockquote>
+<p>This will mount the hellofs on the (already existing and empty) 
+"<code>~/fuse</code>" directory. To unmount this file system, you can do: </p><blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>$ fusermount -u ~/fuse
+</pre></td></tr>
+</tbody></table></blockquote>
+<p> A more complete and realistic example is provided in the 
+"<code>examples</code>" directory.</p><blockquote><table cellspacing="0" class="code" cellpadding="4" width="90%"><tbody>
+<tr><td bgcolor="#eee8bf"><pre>(require <font color="red">&quot;stklos-fuse&quot;</font>)
+
+(define-module HELLOFS
+  (import stklos-posix stklos-fuse)
+  
+(<font color="#6959cf"><strong>define</strong></font> content <font color="red">&quot;Hello, world!\n&quot;</font>)
+
+(<font color="#6959cf"><strong>define</strong></font> (hellofs-main args)
+  (fuse-mount args
+     <font color="#00cf00">:getattr</font> (<strong>lambda</strong> (path)
+                 (<strong>let</strong> ((tm (current-seconds)))
+                   (<strong>cond</strong>
+                     ((equal? path <font color="red">&quot;/&quot;</font>)
+                     (vector (+ posix/ifdir #o755)   <font color="#ffa600"><i>;; mode</i></font>
+                             2                       <font color="#ffa600"><i>;; links</i></font>
+                             123                     <font color="#ffa600"><i>;; size (why not this one?)</i></font>
+                             (posix-user-id)         <font color="#ffa600"><i>;; uid</i></font>
+                             (posix-group-id)        <font color="#ffa600"><i>;; gid</i></font>
+                             tm tm tm))              <font color="#ffa600"><i>;; atime, mtime, ctime</i></font>
+                    ((equal? path <font color="red">&quot;/hello&quot;</font>)
+                     (vector (+ posix/ifreg #o440)   <font color="#ffa600"><i>;; mode</i></font>
+                             1                       <font color="#ffa600"><i>;; links</i></font>
+                             (string-length content) <font color="#ffa600"><i>;; size</i></font>
+                             (posix-user-id)         <font color="#ffa600"><i>;; uid</i></font>
+                             (posix-group-id)        <font color="#ffa600"><i>;; gid</i></font>
+                             tm tm tm))              <font color="#ffa600"><i>;; atime, mtime, ctime</i></font>
+                     (<strong>else</strong>  (- posix/enoent)))))
+
+     <font color="#00cf00">:readdir</font> (<strong>lambda</strong> (path)
+                 (<strong>if</strong> (equal? path <font color="red">&quot;/&quot;</font>)
+                     '(<font color="red">&quot;.&quot;</font> <font color="red">&quot;..&quot;</font> <font color="red">&quot;hello&quot;</font>)
+                     (- posix/enoent)))
+     <font color="#00cf00">:open</font> (<strong>lambda</strong> (path mode fd)
+              (<strong>cond</strong>
+                ((not (equal? path <font color="red">&quot;/hello&quot;</font>))
+                 (- posix/enoent))
+                ((not (equal? mode 0))
+                 (- posix/eaccess))
+                (<strong>else</strong>
+                 0)))
+     <font color="#00cf00">:read</font> (<strong>lambda</strong> (fd size offset)
+              (<strong>let</strong> ((len (string-length content)))
+                (<strong>if</strong> (&lt; offset len)
+                    (<strong>begin</strong>
+                      (<strong>if</strong> (&gt; (+ offset size) len)
+                          (<strong>set!</strong> size (- len offset)))
+                      (substring content offset size))
+                    0)))))
+
+) <font color="#ffa600"><i>;; End of module HELLOFS</i></font>
+
+<font color="#ffa600"><strong>;; ======================================================================</strong></font>
+<font color="#ffa600"><strong>;;         HELLOFS ...</strong></font>
+<font color="#ffa600"><strong>;; ======================================================================</strong></font>
+(<font color="#6959cf"><strong>define</strong></font> main (in-module HELLOFS hellofs-main))
+</pre></td></tr>
+</tbody></table></blockquote>
+</td>
+</tr></table><small><hr>This <span style="font-variant: small-caps">Html</span> page has been produced by 
+				     <a href="http://www.inria.fr/mimosa/fp/Skribe">Skribe</a>.<br />Last update <em>Tue Jun 12 19:15:19 2007</em></small>
+</body>
+</html>

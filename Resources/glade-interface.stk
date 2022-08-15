@@ -1,0 +1,43 @@
+;;;;
+;;;; glade-interface.stk
+;;;;
+
+(require "stklos-gtk-glade")
+(import stklos-gtk-base
+        stklos-gtk-glade)
+
+;; ======================================================================
+;;      Callbacks ...
+;; ======================================================================
+
+;; Dialog close
+(define (dialog-destroy-cb widget data)
+  (eprintf "Destroying dialog\n")
+  (gtk-main-quit))
+
+;; Button OK 
+(define (ok-clicked-cb widget data)
+  (eprintf "You have clicked the OK button\n")
+  (gtk-main-quit))
+
+;; Button Cancel
+(define (cancel-clicked-cb widget data)
+  (eprintf "You have clicked the Cancel button\n"))
+
+
+;; ======================================================================
+;;      Glade GUI ...
+;; ======================================================================
+(define (gtk-gui)
+  (gtk-init (void) (void))
+  (let* ((xml    (glade-xml-new "./interface.glade" (void) (void)))
+         (widget (glade-xml-get-widget xml "dialog1")))
+    (gtk-widget-show-all widget)
+    (glade-xml-signal-autoconnect xml)
+    (gtk-main)))
+
+;; ======================================================================
+(define (main args)
+  (gtk-gui)
+  (eprintf "GTk+ GUI is destroyed.\nBye\n")
+  (exit 0))

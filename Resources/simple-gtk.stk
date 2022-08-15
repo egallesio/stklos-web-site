@@ -1,0 +1,61 @@
+;;;
+;;; simple-gtk.stk         -- A Simple example in GTK+
+;;;
+
+(require "stklos-gtk-base")
+(import stklos-gtk-base)
+
+;;;;
+;;;; Callbacks
+;;;;
+(define (hello widget data)
+  (printf "Hello: ~S was pressed\n" data))
+
+(define (delete-event widget event data)
+  (gtk-main-quit)
+  #f)
+
+;;;;
+;;;; Application
+;;;; 
+
+(define window #f)
+(define button #f)
+(define box1 #f)
+
+;; Initialize GTK+
+(gtk-init (void) (void))
+
+;; Window
+(set! window (gtk-window-new 0))
+(gtk-window-set-title window "Hello Buttons!")
+(g-signal-connect window "delete_event" delete-event 1)
+(gtk-container-set-border-width window 10)
+
+;; box1
+(set! box1 (gtk-hbox-new #f 0))
+(gtk-container-add window  box1)
+
+;; button1
+(set! button (gtk-button-new-with-label "Button 1"))
+(g-signal-connect button "clicked" hello "Button 1")
+(gtk-box-pack-start box1 button #t #t 0)
+(gtk-widget-show button)
+
+;; button2
+(set! button (gtk-button-new-with-label "Button 2"))
+(g-signal-connect button "clicked" hello "Button 2")
+(gtk-box-pack-start box1 button #t #t 0)
+(gtk-widget-show button)
+
+(gtk-widget-show box1)
+(gtk-widget-show window)
+
+;; Here we go....
+(let ((thr (make-thread (lambda ()
+                           (gtk-main)
+                           (eprintf "End of GTK+ thread\n")))))
+  ;; thr is the GTK+ thread in charge of GTK+ event
+  (thread-join! (thread-start! thr))
+  ;; GTK thread is dead; we can exit
+  (exit 0))
