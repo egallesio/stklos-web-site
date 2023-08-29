@@ -1,159 +1,225 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
+<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="author" content="Erick Gallesio" />
-    <meta name="generator" content="Gomd 3.1-beta / Erick Gallesio" />
+    <meta name="generator" content="stklos-pp (v0.3) Erick Gallesio" />
 
-     <!-- W3css  "https://www.w3schools.com/lib/w3.css" -->
+    <!-- W3css  stuff (See "https://www.w3schools.com/lib/w3.css") -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}progress{vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}dfn{font-style:italic}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}figure{margin:1em 40px}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}hr{box-sizing:content-box;height:0;overflow:visible}button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:0.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html,body{font-family:Verdana,sans-serif;font-size:15px;line-height:1.5}html{overflow-x:hidden}h1,h2,h3,h4,h5,h6,.w3-slim,.w3-wide{font-family:"Segoe UI",Arial,sans-serif}h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}.w3-serif{font-family:"Times New Roman",Times,serif}h1,h2,h3,h4,h5,h6{font-weight:400;margin:10px 0}.w3-wide{letter-spacing:4px}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit}hr{border:0;border-top:1px solid #eee;margin:20px 0}img{margin-bottom:-5px}a{color:inherit}.w3-image{max-width:100%;height:auto}.w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.w3-table-all{border:1px solid #ccc}.w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}.w3-table-all tr:nth-child(odd){background-color:#fff}.w3-table-all tr:nth-child(even){background-color:#f1f1f1}.w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}.w3-table td,.w3-table th,.w3-table-all td,.w3-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}.w3-table th:first-child,.w3-table td:first-child,.w3-table-all th:first-child,.w3-table-all td:first-child{padding-left:16px}.w3-btn,.w3-btn-block,.w3-button{border:none;display:inline-block;outline:0;padding:6px 16px;vertical-align:middle;overflow:hidden;text-decoration:none!important;color:#fff;background-color:#000;text-align:center;cursor:pointer;white-space:nowrap}.w3-btn:hover,.w3-btn-block:hover,.w3-btn-floating:hover,.w3-btn-floating-large:hover{box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}.w3-button{color:#000;background-color:#f1f1f1;padding:8px 16px}.w3-button:hover{color:#000!important;background-color:#ccc!important}.w3-btn,.w3-btn-floating,.w3-btn-floating-large,.w3-closenav,.w3-opennav,.w3-btn-block,.w3-button{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none} .w3-btn-floating,.w3-btn-floating-large{display:inline-block;text-align:center;color:#fff;background-color:#000;position:relative;overflow:hidden;z-index:1;padding:0;border-radius:50%;cursor:pointer;font-size:24px}.w3-btn-floating{width:40px;height:40px;line-height:40px}.w3-btn-floating-large{width:56px;height:56px;line-height:56px}.w3-disabled,.w3-btn:disabled,.w3-button:disabled,.w3-btn-floating:disabled,.w3-btn-floating-large:disabled{cursor:not-allowed;opacity:0.3}.w3-disabled *,:disabled *{pointer-events:none}.w3-btn.w3-disabled:hover,.w3-btn-block.w3-disabled:hover,.w3-btn:disabled:hover,.w3-btn-floating.w3-disabled:hover,.w3-btn-floating:disabled:hover,.w3-btn-floating-large.w3-disabled:hover,.w3-btn-floating-large:disabled:hover{box-shadow:none}.w3-btn-group .w3-btn{float:left}.w3-btn-block{width:100%}.w3-btn-bar .w3-btn{box-shadow:none;background-color:inherit;color:inherit;float:left}.w3-btn-bar .w3-btn:hover{background-color:#ccc}.w3-badge,.w3-tag,.w3-sign{background-color:#000;color:#fff;display:inline-block;padding-left:8px;padding-right:8px;text-align:center}.w3-badge{border-radius:50%}ul.w3-ul{list-style-type:none;padding:0;margin:0}ul.w3-ul li{padding:6px 2px 6px 16px;border-bottom:1px solid #ddd}ul.w3-ul li:last-child{border-bottom:none}.w3-tooltip,.w3-display-container{position:relative}.w3-tooltip .w3-text{display:none}.w3-tooltip:hover .w3-text{display:inline-block}.w3-navbar{list-style-type:none;margin:0;padding:0;overflow:hidden}.w3-navbar li{float:left}.w3-navbar li a,.w3-navitem,.w3-navbar li .w3-btn,.w3-navbar li .w3-input{display:block;padding:8px 16px}.w3-navbar li .w3-btn,.w3-navbar li .w3-input{border:none;outline:none;width:100%}.w3-navbar li a:hover{color:#000;background-color:#ccc}.w3-navbar .w3-dropdown-hover,.w3-navbar .w3-dropdown-click{position:static}.w3-navbar .w3-dropdown-hover:hover,.w3-navbar .w3-dropdown-hover:first-child,.w3-navbar .w3-dropdown-click:hover{background-color:#ccc;color:#000}.w3-navbar a,.w3-topnav a,.w3-sidenav a,.w3-dropdown-content a,.w3-accordion-content a,.w3-dropnav a,.w3-navblock a{text-decoration:none!important}.w3-navbar .w3-opennav.w3-right{float:right!important}.w3-topnav{padding:8px 8px}.w3-navblock .w3-dropdown-hover:hover,.w3-navblock .w3-dropdown-hover:first-child,.w3-navblock .w3-dropdown-click:hover{background-color:#ccc;color:#000}.w3-navblock .w3-dropdown-hover,.w3-navblock .w3-dropdown-click{width:100%}.w3-navblock .w3-dropdown-hover .w3-dropdown-content,.w3-navblock .w3-dropdown-click .w3-dropdown-content{min-width:100%}.w3-topnav a{padding:0 8px;border-bottom:3px solid transparent;-webkit-transition:border-bottom .25s;transition:border-bottom .25s}.w3-topnav a:hover{border-bottom:3px solid #fff}.w3-topnav .w3-dropdown-hover a{border-bottom:0}.w3-opennav,.w3-closenav{color:inherit}.w3-opennav:hover,.w3-closenav:hover{cursor:pointer;opacity:0.8}.w3-btn,.w3-btn-floating,.w3-dropnav a,.w3-btn-floating-large,.w3-btn-block, .w3-navbar a,.w3-navblock a,.w3-sidenav a,.w3-pagination li a,.w3-hoverable tbody tr,.w3-hoverable li,.w3-accordion-content a,.w3-dropdown-content a,.w3-dropdown-click:hover,.w3-dropdown-hover:hover,.w3-opennav,.w3-closenav,.w3-closebtn,*[class*="w3-hover-"]{-webkit-transition:background-color .25s,color .15s,box-shadow .25s,opacity 0.25s,filter 0.25s,border 0.15s;transition:background-color .25s,color .15s,box-shadow .15s,opacity .25s,filter .25s,border .15s}.w3-ripple:active{opacity:0.5}.w3-ripple{-webkit-transition:opacity 0s;transition:opacity 0s}.w3-sidenav,.w3-sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}.w3-sidenav a,.w3-navblock a{padding:4px 2px 4px 16px}.w3-sidenav a:hover,.w3-navblock a:hover{background-color:#ccc;color:#000}.w3-sidenav a,.w3-dropnav a,.w3-navblock a{display:block}.w3-sidenav .w3-dropdown-hover:hover,.w3-sidenav .w3-dropdown-hover:first-child,.w3-sidenav .w3-dropdown-click:hover,.w3-dropnav a:hover{background-color:#ccc;color:#000}.w3-sidenav .w3-dropdown-hover,.w3-sidenav .w3-dropdown-click,.w3-bar-block .w3-dropdown-hover,.w3-bar-block .w3-dropdown-click{width:100%}.w3-sidenav .w3-dropdown-hover .w3-dropdown-content,.w3-sidenav .w3-dropdown-click .w3-dropdown-content,.w3-bar-block .w3-dropdown-hover .w3-dropdown-content,.w3-bar-block .w3-dropdown-click .w3-dropdown-content{min-width:100%}.w3-bar-block .w3-dropdown-hover .w3-button,.w3-bar-block .w3-dropdown-click .w3-button{width:100%;text-align:left;background-color:inherit;color:inherit;padding:6px 2px 6px 16px}.w3-main,#main{transition:margin-left .4s}.w3-modal{z-index:3;display:none;padding-top:100px;position:fixed;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgb(0,0,0);background-color:rgba(0,0,0,0.4)}.w3-modal-content{margin:auto;background-color:#fff;position:relative;padding:0;outline:0;width:600px}.w3-closebtn{text-decoration:none;float:right;font-size:24px;font-weight:bold;color:inherit}.w3-closebtn:hover,.w3-closebtn:focus{color:#000;text-decoration:none;cursor:pointer}.w3-pagination{display:inline-block;padding:0;margin:0}.w3-pagination li{display:inline}.w3-pagination li a{text-decoration:none;color:#000;float:left;padding:8px 16px}.w3-pagination li a:hover{background-color:#ccc}.w3-input-group,.w3-group{margin-top:24px;margin-bottom:24px}.w3-input{padding:8px;display:block;border:none;border-bottom:1px solid #808080;width:100%}.w3-label{color:#009688}.w3-input:not(:valid)~.w3-validate{color:#f44336}.w3-select{padding:9px 0;width:100%;color:#000;border:1px solid transparent;border-bottom:1px solid #009688}.w3-select select:focus{color:#000;border:1px solid #009688}.w3-select option[disabled]{color:#009688}.w3-dropdown-click,.w3-dropdown-hover{position:relative;display:inline-block;cursor:pointer}.w3-dropdown-hover:hover .w3-dropdown-content{display:block;z-index:1}.w3-dropdown-hover:first-child,.w3-dropdown-click:hover{background-color:#ccc;color:#000}.w3-dropdown-hover:hover > .w3-button:first-child,.w3-dropdown-click:hover > .w3-button:first-child{background-color:#ccc;color:#000}.w3-dropdown-content{cursor:auto;color:#000;background-color:#fff;display:none;position:absolute;min-width:160px;margin:0;padding:0}.w3-dropdown-content a{padding:6px 16px;display:block}.w3-dropdown-content a:hover{background-color:#ccc}.w3-accordion{width:100%;cursor:pointer}.w3-accordion-content{cursor:auto;display:none;position:relative;width:100%;margin:0;padding:0}.w3-accordion-content a{padding:6px 16px;display:block}.w3-accordion-content a:hover{background-color:#ccc}.w3-progress-container{width:100%;height:1.5em;position:relative;background-color:#f1f1f1}.w3-progressbar{background-color:#757575;height:100%;position:absolute;line-height:inherit}input[type=checkbox].w3-check,input[type=radio].w3-radio{width:24px;height:24px;position:relative;top:6px}input[type=checkbox].w3-check:checked+.w3-validate,input[type=radio].w3-radio:checked+.w3-validate{color:#009688} input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:disabled+.w3-validate{color:#aaa}.w3-bar{width:100%;overflow:hidden}.w3-center .w3-bar{display:inline-block;width:auto}.w3-bar .w3-bar-item{padding:8px 16px;float:left;background-color:inherit;color:inherit;width:auto;border:none;outline:none;display:block}.w3-bar .w3-dropdown-hover,.w3-bar .w3-dropdown-click{position:static;float:left}.w3-bar .w3-button{background-color:inherit;color:inherit;white-space:normal}.w3-bar-block .w3-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;background-color:inherit;color:inherit;border:none;outline:none;white-space:normal}.w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}.w3-responsive{overflow-x:auto}.w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,.w3-cell-row:before,.w3-cell-row:after,.w3-topnav:after,.w3-topnav:before,.w3-clear:after,.w3-clear:before,.w3-btn-group:before,.w3-btn-group:after,.w3-btn-bar:before,.w3-btn-bar:after,.w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}.w3-col,.w3-half,.w3-third,.w3-twothird,.w3-threequarter,.w3-quarter{float:left;width:100%}.w3-col.s1{width:8.33333%}.w3-col.s2{width:16.66666%}.w3-col.s3{width:24.99999%}.w3-col.s4{width:33.33333%}.w3-col.s5{width:41.66666%}.w3-col.s6{width:49.99999%}.w3-col.s7{width:58.33333%}.w3-col.s8{width:66.66666%}.w3-col.s9{width:74.99999%}.w3-col.s10{width:83.33333%}.w3-col.s11{width:91.66666%}.w3-col.s12,.w3-half,.w3-third,.w3-twothird,.w3-threequarter,.w3-quarter{width:99.99999%}@media (min-width:601px){.w3-col.m1{width:8.33333%}.w3-col.m2{width:16.66666%}.w3-col.m3,.w3-quarter{width:24.99999%}.w3-col.m4,.w3-third{width:33.33333%}.w3-col.m5{width:41.66666%}.w3-col.m6,.w3-half{width:49.99999%}.w3-col.m7{width:58.33333%}.w3-col.m8,.w3-twothird{width:66.66666%}.w3-col.m9,.w3-threequarter{width:74.99999%}.w3-col.m10{width:83.33333%}.w3-col.m11{width:91.66666%}.w3-col.m12{width:99.99999%}}@media (min-width:993px){.w3-col.l1{width:8.33333%}.w3-col.l2{width:16.66666%}.w3-col.l3,.w3-quarter{width:24.99999%}.w3-col.l4,.w3-third{width:33.33333%}.w3-col.l5{width:41.66666%}.w3-col.l6,.w3-half{width:49.99999%}.w3-col.l7{width:58.33333%}.w3-col.l8,.w3-twothird{width:66.66666%}.w3-col.l9,.w3-threequarter{width:74.99999%}.w3-col.l10{width:83.33333%}.w3-col.l11{width:91.66666%}.w3-col.l12{width:99.99999%}}.w3-content{max-width:980px;margin:auto}.w3-rest{overflow:hidden}.w3-layout-container,.w3-cell-row{display:table;width:100%}.w3-layout-row{display:table-row}.w3-layout-cell,.w3-layout-col,.w3-cell{display:table-cell}.w3-layout-top,.w3-cell-top{vertical-align:top}.w3-layout-middle,.w3-cell-middle{vertical-align:middle}.w3-layout-bottom,.w3-cell-bottom{vertical-align:bottom}.w3-hide{display:none!important}.w3-show-block,.w3-show{display:block!important}.w3-show-inline-block{display:inline-block!important}@media (max-width:600px){.w3-modal-content{margin:0 10px;width:auto!important}.w3-modal{padding-top:30px}.w3-topnav a{display:block}.w3-navbar li:not(.w3-opennav){float:none;width:100%!important}.w3-navbar li.w3-right{float:none!important}.w3-topnav .w3-dropdown-hover .w3-dropdown-content,.w3-navbar .w3-dropdown-click .w3-dropdown-content,.w3-navbar .w3-dropdown-hover .w3-dropdown-content,.w3-dropdown-hover.w3-mobile .w3-dropdown-content,.w3-dropdown-click.w3-mobile .w3-dropdown-content{position:relative}    .w3-topnav,.w3-navbar{text-align:center}.w3-hide-small{display:none!important}.w3-layout-col,.w3-mobile{display:block;width:100%!important}.w3-bar-item.w3-mobile,.w3-dropdown-hover.w3-mobile,.w3-dropdown-click.w3-mobile{text-align:center}.w3-dropdown-hover.w3-mobile,.w3-dropdown-hover.w3-mobile .w3-btn,.w3-dropdown-hover.w3-mobile .w3-button,.w3-dropdown-click.w3-mobile,.w3-dropdown-click.w3-mobile .w3-btn,.w3-dropdown-click.w3-mobile .w3-button{width:100%}}@media (max-width:768px){.w3-modal-content{width:500px}.w3-modal{padding-top:50px}}@media (min-width:993px){.w3-modal-content{width:900px}.w3-hide-large{display:none!important}.w3-sidenav.w3-collapse,.w3-sidebar.w3-collapse{display:block!important}}@media (max-width:992px) and (min-width:601px){.w3-hide-medium{display:none!important}}@media (max-width:992px){.w3-sidenav.w3-collapse,.w3-sidebar.w3-collapse{display:none}.w3-main{margin-left:0!important;margin-right:0!important}}.w3-top,.w3-bottom{position:fixed;width:100%;z-index:1}.w3-top{top:0}.w3-bottom{bottom:0}.w3-overlay{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:2}.w3-left{float:left!important}.w3-right{float:right!important}.w3-tiny{font-size:10px!important}.w3-small{font-size:12px!important}.w3-medium{font-size:15px!important}.w3-large{font-size:18px!important}.w3-xlarge{font-size:24px!important}.w3-xxlarge{font-size:36px!important}.w3-xxxlarge{font-size:48px!important}.w3-jumbo{font-size:64px!important}.w3-vertical{word-break:break-all;line-height:1;text-align:center;width:0.6em}.w3-left-align{text-align:left!important}.w3-right-align{text-align:right!important}.w3-justify{text-align:justify!important}.w3-center{text-align:center!important}.w3-display-topleft{position:absolute;left:0;top:0}.w3-display-topright{position:absolute;right:0;top:0}.w3-display-bottomleft{position:absolute;left:0;bottom:0}.w3-display-bottomright{position:absolute;right:0;bottom:0}.w3-display-middle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%)}.w3-display-left{position:absolute;top:50%;left:0%;transform:translate(0%,-50%);-ms-transform:translate(-0%,-50%)}.w3-display-right{position:absolute;top:50%;right:0%;transform:translate(0%,-50%);-ms-transform:translate(0%,-50%)}.w3-display-topmiddle{position:absolute;left:50%;top:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}.w3-display-bottommiddle{position:absolute;left:50%;bottom:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}.w3-display-container:hover .w3-display-hover{display:block}.w3-display-container:hover span.w3-display-hover{display:inline-block}.w3-display-hover{display:none}.w3-display-position{position:absolute}.w3-circle{border-radius:50%!important}.w3-round-small{border-radius:2px!important}.w3-round,.w3-round-medium{border-radius:4px!important}.w3-round-large{border-radius:8px!important}.w3-round-xlarge{border-radius:16px!important}.w3-round-xxlarge{border-radius:32px!important}.w3-round-jumbo{border-radius:64px!important}.w3-border-0{border:0!important}.w3-border{border:1px solid #ccc!important}.w3-border-top{border-top:1px solid #ccc!important}.w3-border-bottom{border-bottom:1px solid #ccc!important}.w3-border-left{border-left:1px solid #ccc!important}.w3-border-right{border-right:1px solid #ccc!important}.w3-margin{margin:16px!important}.w3-margin-0{margin:0!important}.w3-margin-top{margin-top:16px!important}.w3-margin-bottom{margin-bottom:16px!important}.w3-margin-left{margin-left:16px!important}.w3-margin-right{margin-right:16px!important}.w3-section{margin-top:16px!important;margin-bottom:16px!important}.w3-padding-tiny{padding:2px 4px!important}.w3-padding-small{padding:4px 8px!important}.w3-padding-medium,.w3-padding,.w3-form{padding:8px 16px!important}.w3-padding-large{padding:12px 24px!important}.w3-padding-xlarge{padding:16px 32px!important}.w3-padding-xxlarge{padding:24px 48px!important}.w3-padding-jumbo{padding:32px 64px!important}.w3-padding-4{padding-top:4px!important;padding-bottom:4px!important}.w3-padding-8{padding-top:8px!important;padding-bottom:8px!important}.w3-padding-12{padding-top:12px!important;padding-bottom:12px!important}.w3-padding-16{padding-top:16px!important;padding-bottom:16px!important}.w3-padding-24{padding-top:24px!important;padding-bottom:24px!important}.w3-padding-32{padding-top:32px!important;padding-bottom:32px!important}.w3-padding-48{padding-top:48px!important;padding-bottom:48px!important}.w3-padding-64{padding-top:64px!important;padding-bottom:64px!important}.w3-padding-128{padding-top:128px!important;padding-bottom:128px!important}.w3-padding-0{padding:0!important}.w3-padding-top{padding-top:8px!important}.w3-padding-bottom{padding-bottom:8px!important}.w3-padding-left{padding-left:16px!important}.w3-padding-right{padding-right:16px!important}.w3-topbar{border-top:6px solid #ccc!important}.w3-bottombar{border-bottom:6px solid #ccc!important}.w3-leftbar{border-left:6px solid #ccc!important}.w3-rightbar{border-right:6px solid #ccc!important}.w3-row-padding,.w3-row-padding>.w3-half,.w3-row-padding>.w3-third,.w3-row-padding>.w3-twothird,.w3-row-padding>.w3-threequarter,.w3-row-padding>.w3-quarter,.w3-row-padding>.w3-col{padding:0 8px}.w3-spin{animation:w3-spin 2s infinite linear;-webkit-animation:w3-spin 2s infinite linear}@-webkit-keyframes w3-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes w3-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.w3-container{padding:0.01em 16px}.w3-panel{padding:0.01em 16px;margin-top:16px!important;margin-bottom:16px!important}.w3-example{background-color:#f1f1f1;padding:0.01em 16px}.w3-code,.w3-codespan{font-family:Consolas,"courier new";font-size:16px}.w3-code{line-height:1.4;width:auto;background-color:#fff;padding:8px 12px;border-left:4px solid #4CAF50;word-wrap:break-word}.w3-codespan{color:crimson;background-color:#f1f1f1;padding-left:4px;padding-right:4px;font-size:110%}.w3-example,.w3-code{margin:20px 0}.w3-card{border:1px solid #ccc}.w3-card-2,.w3-example{box-shadow:0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important}.w3-card-4,.w3-hover-shadow:hover{box-shadow:0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important}.w3-card-8{box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)!important}.w3-card-12{box-shadow:0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19)!important}.w3-card-16{box-shadow:0 16px 24px 0 rgba(0,0,0,0.22),0 25px 55px 0 rgba(0,0,0,0.21)!important}.w3-card-24{box-shadow:0 24px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22)!important}.w3-animate-fading{-webkit-animation:fading 10s infinite;animation:fading 10s infinite}@-webkit-keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}.w3-animate-opacity{-webkit-animation:opac 0.8s;animation:opac 0.8s}@-webkit-keyframes opac{from{opacity:0} to{opacity:1}}@keyframes opac{from{opacity:0} to{opacity:1}}.w3-animate-top{position:relative;-webkit-animation:animatetop 0.4s;animation:animatetop 0.4s}@-webkit-keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}}.w3-animate-left{position:relative;-webkit-animation:animateleft 0.4s;animation:animateleft 0.4s}@-webkit-keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}@keyframes animateleft{from{left:-300px;opacity:0} to{left:0;opacity:1}}.w3-animate-right{position:relative;-webkit-animation:animateright 0.4s;animation:animateright 0.4s}@-webkit-keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}@keyframes animateright{from{right:-300px;opacity:0} to{right:0;opacity:1}}.w3-animate-bottom{position:relative;-webkit-animation:animatebottom 0.4s;animation:animatebottom 0.4s}@-webkit-keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0px;opacity:1}}@keyframes animatebottom{from{bottom:-300px;opacity:0} to{bottom:0;opacity:1}}.w3-animate-zoom {-webkit-animation:animatezoom 0.6s;animation:animatezoom 0.6s}@-webkit-keyframes animatezoom{from{-webkit-transform:scale(0)} to{-webkit-transform:scale(1)}}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}.w3-animate-input{-webkit-transition:width 0.4s ease-in-out;transition:width 0.4s ease-in-out}.w3-animate-input:focus{width:100%!important}.w3-opacity,.w3-hover-opacity:hover{opacity:0.60;-webkit-backface-visibility:hidden}.w3-opacity-off,.w3-hover-opacity-off:hover{opacity:1;-webkit-backface-visibility:hidden}.w3-opacity-max{opacity:0.25;-webkit-backface-visibility:hidden}.w3-opacity-min{opacity:0.75;-webkit-backface-visibility:hidden}.w3-greyscale-max,.w3-grayscale-max,.w3-hover-greyscale:hover,.w3-hover-grayscale:hover{-webkit-filter:grayscale(100%);filter:grayscale(100%)}.w3-greyscale,.w3-grayscale{-webkit-filter:grayscale(75%);filter:grayscale(75%)}.w3-greyscale-min,.w3-grayscale-min{-webkit-filter:grayscale(50%);filter:grayscale(50%)}.w3-sepia{-webkit-filter:sepia(75%);filter:sepia(75%)}.w3-sepia-max,.w3-hover-sepia:hover{-webkit-filter:sepia(100%);filter:sepia(100%)}.w3-sepia-min{-webkit-filter:sepia(50%);filter:sepia(50%)}.w3-text-shadow{text-shadow:1px 1px 0 #444}.w3-text-shadow-white{text-shadow:1px 1px 0 #ddd}.w3-transparent{background-color:transparent!important}.w3-hover-none:hover{box-shadow:none!important;background-color:transparent!important}.w3-amber,.w3-hover-amber:hover{color:#000!important;background-color:#ffc107!important}.w3-aqua,.w3-hover-aqua:hover{color:#000!important;background-color:#00ffff!important}.w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}.w3-light-blue,.w3-hover-light-blue:hover{color:#000!important;background-color:#87CEEB!important}.w3-brown,.w3-hover-brown:hover{color:#fff!important;background-color:#795548!important}.w3-cyan,.w3-hover-cyan:hover{color:#000!important;background-color:#00bcd4!important}.w3-blue-grey,.w3-hover-blue-grey:hover,.w3-blue-gray,.w3-hover-blue-gray:hover{color:#fff!important;background-color:#607d8b!important}.w3-green,.w3-hover-green:hover{color:#fff!important;background-color:#4CAF50!important}.w3-light-green,.w3-hover-light-green:hover{color:#000!important;background-color:#8bc34a!important}.w3-indigo,.w3-hover-indigo:hover{color:#fff!important;background-color:#3f51b5!important}.w3-khaki,.w3-hover-khaki:hover{color:#000!important;background-color:#f0e68c!important}.w3-lime,.w3-hover-lime:hover{color:#000!important;background-color:#cddc39!important}.w3-orange,.w3-hover-orange:hover{color:#000!important;background-color:#ff9800!important}.w3-deep-orange,.w3-hover-deep-orange:hover{color:#fff!important;background-color:#ff5722!important}.w3-pink,.w3-hover-pink:hover{color:#fff!important;background-color:#e91e63!important}.w3-purple,.w3-hover-purple:hover{color:#fff!important;background-color:#9c27b0!important}.w3-deep-purple,.w3-hover-deep-purple:hover{color:#fff!important;background-color:#673ab7!important}.w3-red,.w3-hover-red:hover{color:#fff!important;background-color:#f44336!important}.w3-sand,.w3-hover-sand:hover{color:#000!important;background-color:#fdf5e6!important}.w3-teal,.w3-hover-teal:hover{color:#fff!important;background-color:#009688!important}.w3-yellow,.w3-hover-yellow:hover{color:#000!important;background-color:#ffeb3b!important}.w3-white,.w3-hover-white:hover{color:#000!important;background-color:#fff!important}.w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}.w3-grey,.w3-hover-grey:hover,.w3-gray,.w3-hover-gray:hover{color:#000!important;background-color:#9e9e9e!important}.w3-light-grey,.w3-hover-light-grey:hover,.w3-light-gray,.w3-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}.w3-dark-grey,.w3-hover-dark-grey:hover,.w3-dark-gray,.w3-hover-dark-gray:hover{color:#fff!important;background-color:#616161!important}.w3-pale-red,.w3-hover-pale-red:hover{color:#000!important;background-color:#ffdddd!important}.w3-pale-green,.w3-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}.w3-pale-yellow,.w3-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}.w3-pale-blue,.w3-hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}.w3-text-amber,.w3-hover-text-amber:hover{color:#ffc107!important}.w3-text-aqua,.w3-hover-text-aqua:hover{color:#00ffff!important}.w3-text-blue,.w3-hover-text-blue:hover{color:#2196F3!important}.w3-text-light-blue,.w3-hover-text-light-blue:hover{color:#87CEEB!important}.w3-text-brown,.w3-hover-text-brown:hover{color:#795548!important}.w3-text-cyan,.w3-hover-text-cyan:hover{color:#00bcd4!important}.w3-text-blue-grey,.w3-hover-text-blue-grey:hover,.w3-text-blue-gray,.w3-hover-text-blue-gray:hover{color:#607d8b!important}.w3-text-green,.w3-hover-text-green:hover{color:#4CAF50!important}.w3-text-light-green,.w3-hover-text-light-green:hover{color:#8bc34a!important}.w3-text-indigo,.w3-hover-text-indigo:hover{color:#3f51b5!important}.w3-text-khaki,.w3-hover-text-khaki:hover{color:#b4aa50!important}.w3-text-lime,.w3-hover-text-lime:hover{color:#cddc39!important}.w3-text-orange,.w3-hover-text-orange:hover{color:#ff9800!important}.w3-text-deep-orange,.w3-hover-text-deep-orange:hover{color:#ff5722!important}.w3-text-pink,.w3-hover-text-pink:hover{color:#e91e63!important}.w3-text-purple,.w3-hover-text-purple:hover{color:#9c27b0!important}.w3-text-deep-purple,.w3-hover-text-deep-purple:hover{color:#673ab7!important}.w3-text-red,.w3-hover-text-red:hover{color:#f44336!important}.w3-text-sand,.w3-hover-text-sand:hover{color:#fdf5e6!important}.w3-text-teal,.w3-hover-text-teal:hover{color:#009688!important}.w3-text-yellow,.w3-hover-text-yellow:hover{color:#d2be0e!important}.w3-text-white,.w3-hover-text-white:hover{color:#fff!important}.w3-text-black,.w3-hover-text-black:hover{color:#000!important}.w3-text-grey,.w3-hover-text-grey:hover,.w3-text-gray,.w3-hover-text-gray:hover{color:#757575!important}.w3-text-light-grey,.w3-hover-text-light-grey:hover,.w3-text-light-gray,.w3-hover-text-light-gray:hover{color:#f1f1f1!important}.w3-text-dark-grey,.w3-hover-text-dark-grey:hover,.w3-text-dark-gray,.w3-hover-text-dark-gray:hover{color:#3a3a3a!important}.w3-border-amber,.w3-hover-border-amber:hover{border-color:#ffc107!important}.w3-border-aqua,.w3-hover-border-aqua:hover{border-color:#00ffff!important}.w3-border-blue,.w3-hover-border-blue:hover{border-color:#2196F3!important}.w3-border-light-blue,.w3-hover-border-light-blue:hover{border-color:#87CEEB!important}.w3-border-brown,.w3-hover-border-brown:hover{border-color:#795548!important}.w3-border-cyan,.w3-hover-border-cyan:hover{border-color:#00bcd4!important}.w3-border-blue-grey,.w3-hover-border-blue-grey:hover,.w3-border-blue-gray,.w3-hover-border-blue-gray:hover{border-color:#607d8b!important}.w3-border-green,.w3-hover-border-green:hover{border-color:#4CAF50!important}.w3-border-light-green,.w3-hover-border-light-green:hover{border-color:#8bc34a!important}.w3-border-indigo,.w3-hover-border-indigo:hover{border-color:#3f51b5!important}.w3-border-khaki,.w3-hover-border-khaki:hover{border-color:#f0e68c!important}.w3-border-lime,.w3-hover-border-lime:hover{border-color:#cddc39!important}.w3-border-orange,.w3-hover-border-orange:hover{border-color:#ff9800!important}.w3-border-deep-orange,.w3-hover-border-deep-orange:hover{border-color:#ff5722!important}.w3-border-pink,.w3-hover-border-pink:hover{border-color:#e91e63!important}.w3-border-purple,.w3-hover-border-purple:hover{border-color:#9c27b0!important}.w3-border-deep-purple,.w3-hover-border-deep-purple:hover{border-color:#673ab7!important}.w3-border-red,.w3-hover-border-red:hover{border-color:#f44336!important}.w3-border-sand,.w3-hover-border-sand:hover{border-color:#fdf5e6!important}.w3-border-teal,.w3-hover-border-teal:hover{border-color:#009688!important}.w3-border-yellow,.w3-hover-border-yellow:hover{border-color:#ffeb3b!important}.w3-border-white,.w3-hover-border-white:hover{border-color:#fff!important}.w3-border-black,.w3-hover-border-black:hover{border-color:#000!important}.w3-border-grey,.w3-hover-border-grey:hover,.w3-border-gray,.w3-hover-border-gray:hover{border-color:#9e9e9e!important}.w3-border-light-grey,.w3-hover-border-light-grey:hover,.w3-border-light-gray,.w3-hover-border-light-gray:hover{border-color:#f1f1f1!important}.w3-border-dark-grey,.w3-hover-border-dark-grey:hover,.w3-border-dark-gray,.w3-hover-border-dark-gray:hover{border-color:#616161!important}.w3-border-pale-red,.w3-hover-border-pale-red:hover{border-color:#ffe7e7!important}.w3-border-pale-green,.w3-hover-border-pale-green:hover{border-color:#e7ffe7!important}.w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}</style>
 
-        <!-- katex -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js" data-external="1"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/contrib/auto-render.min.js" data-external="1"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-      renderMathInElement(document.body);
-      });
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css" data-external="1" />
-    
     <!-- CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" data-external="1">
-            <!-- highllighting CSS -->
-    <style type="text/css">
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
-      @media screen {
-      div.sourceCode { overflow: auto; }
-      }
-      @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
-        }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {  background-color: #f8f8f8; }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-      }
-      code span.al { color: #ef2929; } /* Alert */
-      code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #c4a000; } /* Attribute */
-      code span.bn { color: #0000cf; } /* BaseN */
-      code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4e9a06; } /* Char */
-      code span.cn { color: #000000; } /* Constant */
-      code span.co { color: #8f5902; font-style: italic; } /* Comment */
-      code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-      code span.dt { color: #204a87; } /* DataType */
-      code span.dv { color: #0000cf; } /* DecVal */
-      code span.er { color: #a40000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #0000cf; } /* Float */
-      code span.fu { color: #000000; } /* Function */
-      code span.im { } /* Import */
-      code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-      code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-      code span.ot { color: #8f5902; } /* Other */
-      code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-      code span.sc { color: #000000; } /* SpecialChar */
-      code span.ss { color: #4e9a06; } /* SpecialString */
-      code span.st { color: #4e9a06; } /* String */
-      code span.va { color: #000000; } /* Variable */
-      code span.vs { color: #4e9a06; } /* VerbatimString */
-      code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-    </style>
-    
-    <!-- local CSS -->
-        <link rel="stylesheet" href="data:text/css,body%7B%7Dpre%7Bmargin%3A1em%200%3Bpadding%3A0%7Dcode%7Bpadding%3A2px%204px%3Bfont%2Dsize%3A90%25%3Bcolor%3A%23c7254e%3Bbackground%2Dcolor%3A%23f9f2f4%3Bborder%2Dradius%3A4px%7Dcode%2EsourceCode%7Bpadding%3A5px%3Bdisplay%3Ablock%3Bborder%2Dradius%3A8px%3Bbackground%2Dcolor%3Ainitial%3Bcolor%3A%23333%7Ddiv%2EsourceCode%7Bborder%2Dradius%3A8px%3Bbox%2Dshadow%3A0%202px%204px%20rgba%280%2C0%2C0%2C%2E16%29%2C0%202px%2010px%20rgba%280%2C0%2C0%2C%2E12%29%21important%7Dblockquote%7Bborder%2Dleft%3A4px%20solid%20%23ddd%3Bpadding%3A0%205px%3Bfont%2Dstyle%3Aitalic%3Bfont%2Dsize%3A95%25%7Dul%7Blist%2Dstyle%2Dtype%3A%22%2D%20%22%7D%2Erdate%7Bfloat%3Aright%3Bfont%2Dsize%3A80%25%3Btext%2Djustify%3Aright%3Bfont%2Dstyle%3Aitalic%7Da%7Bcolor%3A%233f51b5%3Btext%2Ddecoration%3Anone%7Da%3Ahover%7Bborder%2Dbottom%3A1px%20solid%20%23ccc%7Dh2%7Bborder%2Dbottom%3A3px%20solid%20%23ccc%7D%2Epage%2Dheader%7Bmargin%2Dbottom%3A3em%7D%2Epage%2Dfooter%7Bbackground%3A%23fafafa%3Bpadding%3A5px%200%200%2010px%3Bposition%3Afixed%3Bmargin%3A0%3Bbottom%3A0%3Bleft%3A0%3Bwidth%3A100%25%7Dtable%7Bborder%2Dcollapse%3Acollapse%7Dth%7Bbackground%3A%23ddd%3Bpadding%3A0%201em%7Dtd%7Bpadding%3A0%201em%7Dtable%2Ctd%2Cth%7Bborder%3A1px%20solid%20%23000%7D%2Emain%2Dcontent%7Bmin%2Dwidth%3A20em%3Bmax%2Dwidth%3A60em%3Bpadding%3A0%205em%3Bmargin%3Aauto%7D%2Emain%2Dcontent%20h2%7Bmargin%2Dleft%3A%2D1em%7D%2Ecenter%7Btext%2Dalign%3Acenter%3Bmargin%3A0%20auto%7D%2Esc%7Bfont%2Dvariant%3Asmall%2Dcaps%7D%2Enews%2Dmain%7B%7D%2Enews%2Dmain%20h2%7Bborder%2Dbottom%3A1px%20dashed%20%23204875%3Bcolor%3A%23204875%3Bfont%2Dsize%3A110%25%7D%40page%7Bsize%3AA4%3B%40bottom%2Dcenter%7Bcontent%3A%20counter%28page%29%20%22%2F%22%20counter%28pages%29%3B%0Afont%2Dstyle%3A%20italic%0A%7D%7D%40media%20print%7Bbody%7Bfont%2Dfamily%3Aserif%2Cpalatino%20linotype%2Cbook%20antiqua%2CPalatino%2Cserif%3Bfont%2Dsize%3A1em%3Bmargin%3A0%3Bfont%2Dsize%3A9pt%3Bbackground%2Dcolor%3A%23fff%21important%3Bcolor%3A%23000%21important%7Dh1%2Ch2%2Ch3%2Ch4%7Bpage%2Dbreak%2Dafter%3Aavoid%7Dcode%7Bpage%2Dbreak%2Dinside%3Aavoid%7Dp%2Cli%7Borphans%3A2%3Bwidows%3A2%7Dheader%2Cfooter%2C%2Enoprint%7Bdisplay%3Anone%7D%2Eprint%7Bwidth%3A100%25%7D%7D">
-        <link rel="stylesheet" href="data:text/css,%2Ew3%2Dtheme%2Dl5%7Bcolor%3A%23000%21important%3Bbackground%2Dcolor%3A%23eef4fa%21important%7D%2Ew3%2Dtheme%2Dl4%7Bcolor%3A%23000%21important%3Bbackground%2Dcolor%3A%23c6d9ef%21important%7D%2Ew3%2Dtheme%2Dl3%7Bcolor%3A%23000%21important%3Bbackground%2Dcolor%3A%238db4e0%21important%7D%2Ew3%2Dtheme%2Dl2%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%23548ed0%21important%7D%2Ew3%2Dtheme%2Dl1%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%232f6aad%21important%7D%2Ew3%2Dtheme%2Dd1%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%231d4068%21important%7D%2Ew3%2Dtheme%2Dd2%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%2319395d%21important%7D%2Ew3%2Dtheme%2Dd3%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%23163251%21important%7D%2Ew3%2Dtheme%2Dd4%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%23132b46%21important%7D%2Ew3%2Dtheme%2Dd5%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%2310243a%21important%7D%2Ew3%2Dtheme%2Dlight%7Bcolor%3A%23000%21important%3Bbackground%2Dcolor%3A%23eef4fa%21important%7D%2Ew3%2Dtheme%2Ddark%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%2310243a%21important%7D%2Ew3%2Dtheme%2Daction%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%2310243a%21important%7D%2Ew3%2Dtheme%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%23204875%21important%7D%2Ew3%2Dtext%2Dtheme%7Bcolor%3A%23204875%21important%7D%2Ew3%2Dborder%2Dtheme%7Bborder%2Dcolor%3A%23204875%21important%7D%2Ew3%2Dhover%2Dtheme%3Ahover%7Bcolor%3A%23fff%21important%3Bbackground%2Dcolor%3A%23204875%21important%7D%2Ew3%2Dhover%2Dtext%2Dtheme%3Ahover%7Bcolor%3A%23204875%21important%7D%2Ew3%2Dhover%2Dborder%2Dtheme%3Ahover%7Bborder%2Dcolor%3A%23204875%21important%7D">
-    
-    <!--[if lt IE 9]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-    <![endif]-->
+    <link rel='stylesheet' href='css/w3.min.css'>
+<link rel='stylesheet' href='css/theme.min.css'>
+<link rel='stylesheet' href='css/hl-zenburn.min.css'>
+<link rel='stylesheet' href='css/local.min.css'>
+
 
     <title>STklos Changelog</title>
   </head>
   <body class="w3-theme-l5">
-    <!-- Page Title -->
-    <div class="w3-container w3-bar w3-theme">
-      <img src="data:image/png;base64,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">
-      <span class="pull-right" style="font-size: 240%; margin-top: 25px">STklos Changelog  </span>
-    </div>
-    
-    <!-- top navpar -->
     <header>
-      <div class="w3-container w3-bar w3-theme-d4 page-header w3-card-4" style="font-size: 110%">
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./index.html">
-            Home
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./allnews.html">
-            Changelog
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./srfi.html">
-            SRFIs
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./scmpkg.html">
-            ScmPkg
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./documentation.html">
-            Documentation
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./screenshots.html">
-            Screenshots / GUI
-          </a>
-                  <a class="w3-bar-item w3-button w3-hover-indigo" href="./download.html">
-            Download
-          </a>
-              </div>
-    </header>
+      <!-- Title -->
+      <div class="w3-container w3-bar w3-theme">
+        <img class="w3-bar-item" src="img/stklos-logo.png" alt="Logo">
+        <span class="w3-bar-item w3-right" style="font-size: 240%; margin-top: 24px">
+          STklos Home Page
+         </span>
+      </div>
 
-    <!-- main content  -->
-    <div class="print main-content">
-      <h2 id="version-1.70-released-2021-11-25">Version “1.70” released <span class="rdate">2021-11-25</span></h2>
-<p>This version further improves compliance with R7RS and brings some new SRFIs</p>
+      <!-- Navigation bar -->
+      <nav class="w3-bar w3-theme-d4 w3-container">
+        <a href='index.html' class='w3-bar-item w3-button w3-mobile w3-hover-indigo '>Home</a><a href='allnews.html' class='w3-bar-item w3-button w3-mobile w3-hover-indigo w3-theme'>Changelog</a><a href='srfi.html' class='w3-bar-item w3-button w3-mobile w3-hover-indigo '>SRFIs</a><a href='documentation.html' class='w3-bar-item w3-button w3-mobile w3-hover-indigo '>Documentation</a><a href='download.html' class='w3-bar-item w3-button w3-mobile w3-hover-indigo '>Download</a>
+      </nav>
+    </header>
+  <article class="main-content print">
+
+
+<!-- Local Variables: mode: "html" End: -->
+<h2 id="version-2.00-released-2023-08-30">Version “2.00 released <span
+class="rdate">2023-08-30</span></h2>
+<p>This is a major version of <strong><em>STklos</em></strong>, bringing
+it from R<sup>5</sup>RS to R<sup>7</sup>RS. It is the fruit of nearly
+two years of development with the help of the following persons (in
+alphabetical order):</p>
+<ul>
+<li>Amirouche Boubekki (<a href="https://github.com"><span
+class="citation" data-cites="amirouche">@amirouche</span></a>)</li>
+<li>Lassi Kortela (<a href="https://github.com/lassik"><span
+class="citation" data-cites="lassik">@lassik</span></a>)</li>
+<li>Ivan Maidanski (<a href="https://github.com/ivmai"><span
+class="citation" data-cites="ivmai">@ivmai</span></a>)</li>
+<li>Tom Niget (<a href="https://github.com/zdimension"><span
+class="citation" data-cites="zdimension">@zdimension</span></a>)</li>
+<li>Jeronimo Pellegrini (<a href="https://github.com/jpellegrini"><span
+class="citation" data-cites="jpellegrini">@jpellegrini</span></a>)</li>
+<li>Ryan Schmidt (<a href="https://github.com/ryandesign"><span
+class="citation" data-cites="ryandesign">@ryandesign</span></a>)</li>
+<li>Ben Taca (<a href="https://github.com/bentaca"><span
+class="citation" data-cites="bentaca">@bentaca</span></a>)</li>
+<li>Robby Zambito (<a href="https://github.com/Zambito1"><span
+class="citation" data-cites="Zambito1">@Zambito1</span></a>)</li>
+</ul>
+<p>The main changes in this version are:</p>
+<ul>
+<li>Support for R⁷RS libraries</li>
+<li>Macro system hash been rewritten</li>
+<li>Support for ScmPkg packages has been suppressed</li>
+<li>New options for the commands <em>stklos(1)</em> and
+<em>stklos-compile(1)</em></li>
+<li>Optimizations on numerical operations</li>
+<li>Documentation is rewritten in <code>asciidoctor</code> and has been
+greatly enhanced</li>
+<li>Updated the Docker build files</li>
+<li>New instructions in the VM</li>
+<li>Fixed some issues in the compilation/installation procedure</li>
+<li>New extension: <code>curl</code> to access the <em>multiprotocol
+file transfer library</em></li>
+<li>Better support for macOS</li>
+<li><code>describe</code> has been enhanced for some type of
+objects</li>
+<li>REPL has now tab completiongg</li>
+<li>Bash and zsh completions for <code>stklos</code> and
+<code>stklos-compile</code> commands</li>
+<li>Better <code>SLIB</code> support</li>
+<li>Use PCRE2 library instead of legacy PCRE</li>
+<li>New-command <code>stklos-pp(1)</code></li>
+<li>Better error messages</li>
+<li>New SRFIS supported
+<ul>
+<li>SRFI-19: Time Data Types and Procedures</li>
+<li>SRFI 43: Vector Library</li>
+<li>SRFI-95: Sorting and Merging</li>
+<li>SRFI 116: Immutable List Library</li>
+<li>SRFI 125: Intermediate hash tables</li>
+<li>SRFI-138: Compiling Scheme programs to executables</li>
+<li>SRFI 152: String Library (reduced)</li>
+<li>SRFI-162: Comparators sublibrary</li>
+<li>SRFI 154: First-class dynamic extents</li>
+<li>SRFI-215: Central Log Exchange</li>
+<li>SRFI 217: Integer Sets</li>
+<li>SRFI 222: Compound objects</li>
+<li>SRFI 224: Integer Mappings - Scheme Requests for Implementation</li>
+<li>SRFI-227: Optional Arguments</li>
+<li>SRFI 228: Composing Comparators</li>
+<li>SRFI-229: Tagged Procedures</li>
+<li>SRFI-230: Atomic Operations</li>
+<li>SRFI 235: Combinators</li>
+<li>SRFI 236: Evaluating expressions in an unspecified order</li>
+<li>SRFI-238: Codesets</li>
+<li>SRFI 244: Multiple-value Definitions</li>
+</ul></li>
+<li>Added support for some R7RS-large libraries
+<ul>
+<li>supported libraries of the <em>Red edition</em> are
+<ul>
+<li><code>(scheme bytevector)</code></li>
+<li><code>(scheme box)</code></li>
+<li><code>(scheme charset)</code></li>
+<li><code>(scheme comparator)</code></li>
+<li><code>(scheme generator)</code></li>
+<li><code>(scheme hash-table)</code></li>
+<li><code>(scheme ideque)</code></li>
+<li><code>(scheme ilist)</code></li>
+<li><code>(scheme list)</code></li>
+<li><code>(scheme list-queue)</code></li>
+<li><code>(scheme lseq)</code></li>
+<li><code>(scheme set)</code></li>
+<li><code>(scheme sort)</code></li>
+<li><code>(scheme stream)</code></li>
+<li><code>(scheme text)</code></li>
+<li><code>(scheme vector)</code></li>
+</ul></li>
+<li>supported libraries of the <em>Tangerine edition</em> are
+<ul>
+<li><code>(scheme bitwise)</code></li>
+<li><code>(scheme bytevector)</code></li>
+<li><code>(scheme division)</code></li>
+<li><code>(scheme fixnum)</code></li>
+<li><code>(scheme flonum)</code></li>
+<li><code>(scheme generator)</code></li>
+<li><code>(scheme vector @)</code></li>
+</ul></li>
+</ul></li>
+<li>New primitives
+<ul>
+<li><code>library-name</code></li>
+<li><code>library-list</code></li>
+<li><code>module-list</code></li>
+<li><code>module-lock!</code></li>
+<li><code>module-locked?</code></li>
+<li><code>symbol-mutable?</code></li>
+<li><code>define-constant</code></li>
+<li><code>cpointer-null?</code></li>
+<li><code>syntax-error</code></li>
+<li><code>hash-table-clear!</code></li>
+<li><code>environement</code></li>
+<li><code>send-signal</code></li>
+<li><code>set-signal-handler!</code></li>
+<li><code>get-signal-handler</code></li>
+<li><code>void?</code></li>
+<li><code>procedure-source</code></li>
+<li><code>procedure-formals</code></li>
+<li><code>short-version</code></li>
+<li><code>radians-&gt;degrees</code></li>
+<li><code>degrees-&gt;radians</code></li>
+<li><code>sinh</code>, <code>cosh</code>, …</li>
+</ul></li>
+<li>New compiler options (also parameter objects):
+<ul>
+<li><code>compiler:gen-line-number</code></li>
+<li><code>compiler:show-assembly-code</code></li>
+<li><code>compiler:time-display</code></li>
+<li><code>compiler:keep-formals</code></li>
+<li><code>compiler-keep-source</code></li>
+<li><code>compiler:inline-common-functions</code></li>
+<li><code>compiler:unroll-iterations</code></li>
+<li><code>repl-show-startup-message</code></li>
+</ul></li>
+<li>New predefined classes
+<ul>
+<li><code>&lt;uvector&gt;</code></li>
+<li><code>&lt;bytevector&gt;</code></li>
+<li><code>&lt;hash-table&gt;</code></li>
+<li><code>&lt;port&gt;</code></li>
+<li><code>&lt;input-port&gt;</code></li>
+<li><code>&lt;output-port&gt;</code></li>
+</ul></li>
+<li>Code cleaning an optimizations</li>
+<li>Added tests</li>
+<li>Bug fixes</li>
+</ul>
+<h2 id="version-1.70-released-2021-11-25">Version “1.70” released <span
+class="rdate">2021-11-25</span></h2>
+<p>This version further improves compliance with R7RS and brings some
+new SRFIs</p>
 <p>The main changes in this version are:</p>
 <ul>
 <li>Added the some comma-commands to the REPL (,pwd ,cd and ,shell)</li>
 <li>Use system Posix glob instead of the provided gnu-glob</li>
-<li>Improved reader (<code>|.|</code> is wow valid symbol as well as numbers with bars)</li>
+<li>Improved reader (<code>|.|</code> is wow valid symbol as well as
+numbers with bars)</li>
 <li>New primitive/syntaxes
 <ul>
 <li><code>tagbody</code></li>
 <li><code>repeat</code></li>
-<li><code>keyword-colon-position</code> is a parameter object specifying the places where the colon can be used in keyword.</li>
+<li><code>keyword-colon-position</code> is a parameter object specifying
+the places where the colon can be used in keyword.</li>
 </ul></li>
-<li>Suppressed the calls to insecure C function (such as <code>strcpy</code> or <code>strcat</code>)</li>
+<li>Suppressed the calls to insecure C function (such as
+<code>strcpy</code> or <code>strcat</code>)</li>
 <li>List reading is tail recursive now</li>
 <li>Added an extension directory, which contains for now:
 <ul>
-<li><strong>GTKlos</strong> which gives access to the GTK+ toolkit using the OO layer available in STklos. This version uses the GTK+3 toolkit. It also defines a canvas widget. if the to have the <em>goocanvas</em> library is installed.</li>
-<li>an extension which permits to make a file system in Scheme, using <em>FUSE</em> (Filesystem in Userspace).</li>
+<li><strong>GTKlos</strong> which gives access to the GTK+ toolkit using
+the OO layer available in STklos. This version uses the GTK+3 toolkit.
+It also defines a canvas widget. if the to have the <em>goocanvas</em>
+library is installed.</li>
+<li>an extension which permits to make a file system in Scheme, using
+<em>FUSE</em> (Filesystem in Userspace).</li>
 </ul></li>
-<li>Use gmp-mini (which is provided) if gmp is not available, instead of our version which was based on old unmaintained version of mpi.</li>
+<li>Use gmp-mini (which is provided) if gmp is not available, instead of
+our version which was based on old unmaintained version of mpi.</li>
 <li>Support of new SRFIs:
 <ul>
 <li>SRFI-25: Multi-dimensional Arrays</li>
@@ -177,8 +243,13 @@
 <li>Added tests</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.60-released-2021-02-15">Version “1.60” released <span class="rdate">2021-02-15</span></h2>
-<p>As the previous version, R7RS compliance is enhanced and a bunch of new SRFIS has been implemented (thanks again to <a href="https://github.com/jpellegrini">Jeronimo Pellegrini — <strong><span class="citation">@jpellegrini</span></strong></a>).</p>
+<h2 id="version-1.60-released-2021-02-15">Version “1.60” released <span
+class="rdate">2021-02-15</span></h2>
+<p>As the previous version, R7RS compliance is enhanced and a bunch of
+new SRFIS has been implemented (thanks again to <a
+href="https://github.com/jpellegrini">Jeronimo Pellegrini —
+<strong><span class="citation"
+data-cites="jpellegrini">@jpellegrini</span></strong></a>).</p>
 <p>Changes in this version are:</p>
 <ul>
 <li>Added option -I and -A to prepend and append to the loadpath</li>
@@ -187,10 +258,12 @@
 <li><code>require-feature</code></li>
 <li><code>define-values</code></li>
 </ul></li>
-<li>Added makefile targets to install only subparts of STklos on constrained environments</li>
+<li>Added makefile targets to install only subparts of STklos on
+constrained environments</li>
 <li>Reader accepts now <code>#i</code> for rationals</li>
 <li>Changed the version of LALR-SCM to version 2.5.0</li>
-<li>Added scripts and documentation in the <code>exemples</code> directory</li>
+<li>Added scripts and documentation in the <code>exemples</code>
+directory</li>
 <li>Definition of a new framework for implementing SRFIs
 <ul>
 <li>Documentation of SRFI is now automatically built</li>
@@ -199,7 +272,8 @@
 </ul></li>
 <li>Support of new SRFIs
 <ul>
-<li>SRFI-5: A compatible let form with signatures and rest arguments</li>
+<li>SRFI-5: A compatible let form with signatures and rest
+arguments</li>
 <li>SRFI-41: Streams</li>
 <li>SRFI-61: A more general COND clause</li>
 <li>SRFI-113: Sets and Bags</li>
@@ -220,12 +294,17 @@
 <li>Added tests</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.50-released-2020-08-17">Version “1.50” released <span class="rdate">2020-08-17</span></h2>
-<p>This version enhances R7RS compliance and a lot of new SRFIs (thanks to the awesome work of <a href="https://github.com/jpellegrini">Jeronimo Pellegrini — <strong><span class="citation">@jpellegrini</span></strong></a>)</p>
+<h2 id="version-1.50-released-2020-08-17">Version “1.50” released <span
+class="rdate">2020-08-17</span></h2>
+<p>This version enhances R7RS compliance and a lot of new SRFIs (thanks
+to the awesome work of <a href="https://github.com/jpellegrini">Jeronimo
+Pellegrini — <strong><span class="citation"
+data-cites="jpellegrini">@jpellegrini</span></strong></a>)</p>
 <p>Changes in this version are:</p>
 <ul>
 <li>Exceptions behavior is now R7RS compliant</li>
-<li><code>current{input,ouput,error}-port</code> are now parameters as required by R7RS.</li>
+<li><code>current{input,ouput,error}-port</code> are now parameters as
+required by R7RS.</li>
 <li>Socket ports are now both binary and textual.</li>
 <li>Added support for Android.</li>
 <li>Better support of 32 bits big-endian architectures</li>
@@ -240,7 +319,8 @@
 <li>Windows 10 (on WSL)</li>
 <li>Android on ARM 64</li>
 </ul></li>
-<li>Support of new SRFIs (most of them were implemented by <span class="citation">@jpellegrini</span>):
+<li>Support of new SRFIs (most of them were implemented by <span
+class="citation" data-cites="jpellegrini">@jpellegrini</span>):
 <ul>
 <li>SRFI-37: args-fold: a program argument processor</li>
 <li>SRFI-51: Handling rest list</li>
@@ -266,7 +346,9 @@
 <li>SRFI-189: Maybe and Either: optional container types</li>
 <li>SRFI-190: Coroutines Generators</li>
 </ul></li>
-<li>Better documentation (thanks to <strong><span class="citation">@jpellegrini</span></strong> again! — need to be completed)
+<li>Better documentation (thanks to <strong><span class="citation"
+data-cites="jpellegrini">@jpellegrini</span></strong> again! — need to
+be completed)
 <ul>
 <li>description of the internals of STklos</li>
 <li>description of the VM instructions</li>
@@ -275,30 +357,42 @@
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.40-released-2020-06-05">Version “1.40” released <span class="rdate">2020-06-05</span></h2>
+<h2 id="version-1.40-released-2020-06-05">Version “1.40” released <span
+class="rdate">2020-06-05</span></h2>
 <p>Changes in this version are:</p>
 <ul>
 <li>Updated the build tools</li>
-<li>Now STklos is case sensitive by default as required by R7RS<br />
-the R5RS case insensitivity can be enable with the <code>--case-insensitive</code> option</li>
-<li>New parameter: <code>repl-theme</code> permits to customize REPL prompt colors.</li>
+<li>Now STklos is case sensitive by default as required by R7RS the R5RS
+case insensitivity can be enable with the
+<code>--case-insensitive</code> option</li>
+<li>New parameter: <code>repl-theme</code> permits to customize REPL
+prompt colors.</li>
 <li>Added more tests</li>
-<li>Added the <code>#:xxx</code> syntax for keywords for compatibility with other implementations</li>
-<li>Added the R7RS syntaxes letrec<em>, let-values &amp; let</em>-values</li>
+<li>Added the <code>#:xxx</code> syntax for keywords for compatibility
+with other implementations</li>
+<li>Added the R7RS syntaxes letrec<em>, let-values &amp;
+let</em>-values</li>
 <li>Various bug fixes</li>
 </ul>
-<h2 id="version-1.31-released-2019-07-13">Version “1.31” released <span class="rdate">2019-07-13</span></h2>
+<h2 id="version-1.31-released-2019-07-13">Version “1.31” released <span
+class="rdate">2019-07-13</span></h2>
 <p>Bug fix version.</p>
 <p>Changes in this version are:</p>
 <ul>
-<li>Updated the version of the libraries included in the distribution</li>
+<li>Updated the version of the libraries included in the
+distribution</li>
 <li>Bug fix of various problems when installing STklos</li>
 <li>Bug fix for MacOs UTF8 detection</li>
 <li>Added SRFI-112</li>
 <li>Updated documentation</li>
 </ul>
-<h2 id="version-1.30-released-2019-07-04">Version “1.30” released <span class="rdate">2019-07-04</span></h2>
-<p>The goal of this version consists to be more R7RS compliant. All the R5RS functions which have been extended in R7RS are now conform to R7RS (for instance <code>assoc</code> and <code>member</code> accept now an optional parameter which is a compare function, vector-&gt;list accepts the <code>start</code> and <code>end</code> parameters, …)</p>
+<h2 id="version-1.30-released-2019-07-04">Version “1.30” released <span
+class="rdate">2019-07-04</span></h2>
+<p>The goal of this version consists to be more R7RS compliant. All the
+R5RS functions which have been extended in R7RS are now conform to R7RS
+(for instance <code>assoc</code> and <code>member</code> accept now an
+optional parameter which is a compare function, vector-&gt;list accepts
+the <code>start</code> and <code>end</code> parameters, …)</p>
 <p>Changes in this version are:</p>
 <ul>
 <li>Implementations R7RS I/O
@@ -309,7 +403,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li><code>write-string</code></li>
 <li><code>wite-shared</code> &amp; <code>write-simple</code></li>
 <li>functions to input and output bytevectors</li>
-<li><code>read-u8</code> <code>peek-u8</code> and <code>u8-ready?</code></li>
+<li><code>read-u8</code> <code>peek-u8</code> and
+<code>u8-ready?</code></li>
 <li><code>call-with-port</code></li>
 <li><code>textual-port?</code></li>
 <li><code>binary-port?</code></li>
@@ -325,25 +420,34 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>Added R7RS system functions</li>
 <li>Upgraded the libraries embedded in STklos source tree</li>
 <li>Optimization of circular structure reading &amp; writing</li>
-<li>New primitives - <code>display-simple</code> &amp; <code>display-shared</code> - R7RS <code>symbol=?</code> - R7RS <code>boolean=?</code></li>
+<li>New primitives - <code>display-simple</code> &amp;
+<code>display-shared</code> - R7RS <code>symbol=?</code> - R7RS
+<code>boolean=?</code></li>
 <li>Updated documentation</li>
 <li>Added SRFI-111</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.20-released-2018-06-04">Version “1.20” released <span class="rdate">2018-06-04</span></h2>
-<p>Even if previous version was released more than seven years ago, STklos is not completely dead.</p>
-<p>Now the developement tree of STklos is available on <a href="https://gitlab.com/Gallesio/STklos">Gitlab</a> and <a href="https://github.com/egallesio/STklos">Github</a>.</p>
+<h2 id="version-1.20-released-2018-06-04">Version “1.20” released <span
+class="rdate">2018-06-04</span></h2>
+<p>Even if previous version was released more than seven years ago,
+STklos is not completely dead.</p>
+<p>Now the developement tree of STklos is available on <a
+href="https://gitlab.com/Gallesio/STklos">Gitlab</a> and <a
+href="https://github.com/egallesio/STklos">Github</a>.</p>
 <p>Changes in this version are:</p>
 <ul>
 <li>Corrected some problems on UTF8 encoding</li>
 <li>Bug fix of a long standing bug on <code>call/cc</code>.</li>
 <li>Function can now be created with the UTF8 symbol <code>λ</code></li>
-<li>Added the <code>#!fold-case</code> and <code>#!no-fold-case</code> special notations of R7RS</li>
+<li>Added the <code>#!fold-case</code> and <code>#!no-fold-case</code>
+special notations of R7RS</li>
 <li>Updated documentation</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.10-released-2011-12-31">Version “1.10” released <span class="rdate">2011-12-31</span></h2>
-<p>This version brings the support of UTF-8 encoding and begins to support some (future) R7RS traits:</p>
+<h2 id="version-1.10-released-2011-12-31">Version “1.10” released <span
+class="rdate">2011-12-31</span></h2>
+<p>This version brings the support of UTF-8 encoding and begins to
+support some (future) R7RS traits:</p>
 <ul>
 <li>Added full support for UTF-8 strings and symbols</li>
 <li>Added support for Win32 support under Cygwin</li>
@@ -365,10 +469,13 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 </ul></li>
 <li>Added support for MacOs X Lion</li>
-<li>Added back support for Win32 using Cygwin (this support has still rough edges. See the file PORTING-NOTES in the distribution directory for details)</li>
+<li>Added back support for Win32 using Cygwin (this support has still
+rough edges. See the file PORTING-NOTES in the distribution directory
+for details)</li>
 <li>Bug Fixes</li>
 </ul>
-<h2 id="version-1.01-released-2010-12-30">Version “1.01” released <span class="rdate">2010-12-30</span></h2>
+<h2 id="version-1.01-released-2010-12-30">Version “1.01” released <span
+class="rdate">2010-12-30</span></h2>
 <p>This is mainly a maintenance version.</p>
 <ul>
 <li>Documentation update</li>
@@ -377,13 +484,22 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>Better x86_64 support</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-1.00-released-2010-08-11">Version “1.00” released <span class="rdate">2010-08-11</span></h2>
-<p><strong>The version 1.00 is finally here</strong> (work on STklos started 10 years before …). The main difference with this version and the pre-1.0 ones is that it does not integrate GTK+ 1.x support. In fact, GTK+ support is now available through several <a href="scmpkg">ScmPkg</a> packages. Otherwise:</p>
+<h2 id="version-1.00-released-2010-08-11">Version “1.00” released <span
+class="rdate">2010-08-11</span></h2>
+<p><strong>The version 1.00 is finally here</strong> (work on STklos
+started 10 years before …). The main difference with this version and
+the pre-1.0 ones is that it does not integrate GTK+ 1.x support. In
+fact, GTK+ support is now available through several <a
+href="scmpkg">ScmPkg</a> packages. Otherwise:</p>
 <ul>
-<li>Complete rewriting of GMP-lite, the provided gmp compatible package for system which does not provide it</li>
-<li>Remove the old extension intsallation mechanism (stklos-install). Use the ScmPkg mechanism for extending STklos now</li>
-<li>functions, generic functions and methods cans now have documentation strings</li>
-<li>Added GNU readline support in REPL if the readline lib can be loaded dynamically</li>
+<li>Complete rewriting of GMP-lite, the provided gmp compatible package
+for system which does not provide it</li>
+<li>Remove the old extension intsallation mechanism (stklos-install).
+Use the ScmPkg mechanism for extending STklos now</li>
+<li>functions, generic functions and methods cans now have documentation
+strings</li>
+<li>Added GNU readline support in REPL if the readline lib can be loaded
+dynamically</li>
 <li>Configuration files location can now be changed</li>
 <li>Added an interactive help system</li>
 <li>libffi uptated to version 3.0.9</li>
@@ -391,7 +507,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <ul>
 <li><strong>SRFI-74</strong> (Octet-Addressed Binary Blocks)</li>
 <li><strong>SRFI-96</strong> (SLIB Prerequisites )</li>
-<li><strong>SRFI-98</strong> (Interface to access environment variables)</li>
+<li><strong>SRFI-98</strong> (Interface to access environment
+variables)</li>
 <li><strong>SRFI-100</strong> (define-lambda-object)</li>
 </ul></li>
 <li>New primitives
@@ -403,49 +520,89 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.98-released-2008-05-18">Version “0.98” released <span class="rdate">2008-05-18</span></h2>
+<h2 id="version-0.98-released-2008-05-18">Version “0.98” released <span
+class="rdate">2008-05-18</span></h2>
 <ul>
-<li>Replaced the C/invoke FFI library by libffi: Now GTk2 <span class="smallcaps">*ScmPkg**</span> packages work on MacOs</li>
-<li>Added option –build-sync-file to ease personal ScmPkg repository maintenance</li>
+<li>Replaced the C/invoke FFI library by libffi: Now GTk2 <span
+class="smallcaps">*ScmPkg**</span> packages work on MacOs</li>
+<li>Added option –build-sync-file to ease personal ScmPkg repository
+maintenance</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="support-for-gtk2-initial-release-2008-04-15">Support for GTK2 — initial release <span class="rdate">2008-04-15</span></h2>
-<p>Two new packages have been released. They permit to use GTK2 for making GUIs.</p>
+<h2 id="support-for-gtk2-initial-release-2008-04-15">Support for GTK2 —
+initial release <span class="rdate">2008-04-15</span></h2>
+<p>Two new packages have been released. They permit to use GTK2 for
+making GUIs.</p>
 <ul>
-<li>the package <code>stklos-gtk-base</code> is a wrapper which permits access the GTK toolkit.</li>
-<li>the package <code>stklos-gtk-glade</code> permits to use interface built with the <a href="http://glade.gnome.org" class="http">Glade</a> interface builder</li>
+<li>the package <code>stklos-gtk-base</code> is a wrapper which permits
+access the GTK toolkit.</li>
+<li>the package <code>stklos-gtk-glade</code> permits to use interface
+built with the <a href="http://glade.gnome.org" class="http">Glade</a>
+interface builder</li>
 </ul>
-<p>The packages are provided as <span class="smallcaps">*ScmPkg**</span> packages. They have been tested only on Linux</p>
-<h2 id="version-0.97-released-2007-12-16">Version “0.97” released <span class="rdate">2007-12-16</span></h2>
+<p>The packages are provided as <span class="smallcaps">*ScmPkg**</span>
+packages. They have been tested only on Linux</p>
+<h2 id="version-0.97-released-2007-12-16">Version “0.97” released <span
+class="rdate">2007-12-16</span></h2>
 <ul>
 <li>Fixed support for recent versions of SLIB</li>
-<li>Added boxes: they were used by the system but unavailable to the user.</li>
+<li>Added boxes: they were used by the system but unavailable to the
+user.</li>
 <li>Improved the stklos-pkg command</li>
 <li>Fixed several mutexes bugs</li>
 <li>Minor improvements of the FFI</li>
 <li>Updated PCRE to version 7.4</li>
 <li>New implemented SRFIs
 <ul>
-<li><strong>SRFI-45</strong> (Optional positional and named parameters)</li>
+<li><strong>SRFI-45</strong> (Optional positional and named
+parameters)</li>
 <li><strong>SRFI-59</strong> (Vicinity)</li>
 <li><strong>SRFI-88</strong> (Keyword Objects)</li>
-<li><strong>SRFI-89</strong> (Optional Positional and Named Parameters)</li>
+<li><strong>SRFI-89</strong> (Optional Positional and Named
+Parameters)</li>
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="development-tree-access-2007-09-27">Development tree access <span class="rdate">2007-09-27</span></h2>
-<p>The STklos development tree is now available at the following URL <a href="http://www.stklos.net/hgweb.cgi" class="uri">http://www.stklos.net/hgweb.cgi</a>. The development tree is managed by <a href="http://www.selenic.com/mercurial/wiki/" class="http">Mercurial</a> Source Control Management system. Having Mercurial on your box may help, but is not necessary if you don’t plan to modify STklos distribution. In effect, the Web interface to Mercurial tree gives easy access to developement versions in common archive formats.</p>
-<h2 id="stklos-ssax-package-release-2007-07-17">STklos-ssax package release <span class="rdate">2007-07-17</span></h2>
-<p>A port of SSAX, the Oleg Kiselyov’s XML parser, is available as a <span class="smallcaps">*ScmPkg**</span> package. SSAX defines itself as a <em>full-featured, algorithmically optimal, pure-functional parser, which can act as a stream processor. SSAX is an efficient SAX parser that is easy to use.</em></p>
-<p><a href="http://ssax.sourceforge.net" class="http">More information on SSAX …</a></p>
-<h2 id="stklos-fuse-package-release-2007-07-12">STklos-fuse package release <span class="rdate">2007-07-12</span></h2>
-<p>A new release of the <code>stklos-fuse</code> package is available through <span class="smallcaps">*ScmPkg**</span>. This new release can be installed with the <code>stklos-pkg</code> command. This package permits to implement a fully functional filesystem in a Scheme program thanks to the <a href="fuse.sourceforge.net">FUSE</a> package. Two exemples of Scheme file systems are provided with the distribution:</p>
+<h2 id="development-tree-access-2007-09-27">Development tree access
+<span class="rdate">2007-09-27</span></h2>
+<p>The STklos development tree is now available at the following URL <a
+href="http://www.stklos.net/hgweb.cgi"
+class="uri">http://www.stklos.net/hgweb.cgi</a>. The development tree is
+managed by <a href="http://www.selenic.com/mercurial/wiki/"
+class="http">Mercurial</a> Source Control Management system. Having
+Mercurial on your box may help, but is not necessary if you don’t plan
+to modify STklos distribution. In effect, the Web interface to Mercurial
+tree gives easy access to developement versions in common archive
+formats.</p>
+<h2 id="stklos-ssax-package-release-2007-07-17">STklos-ssax package
+release <span class="rdate">2007-07-17</span></h2>
+<p>A port of SSAX, the Oleg Kiselyov’s XML parser, is available as a
+<span class="smallcaps">*ScmPkg**</span> package. SSAX defines itself as
+a <em>full-featured, algorithmically optimal, pure-functional parser,
+which can act as a stream processor. SSAX is an efficient SAX parser
+that is easy to use.</em></p>
+<p><a href="http://ssax.sourceforge.net" class="http">More information
+on SSAX …</a></p>
+<h2 id="stklos-fuse-package-release-2007-07-12">STklos-fuse package
+release <span class="rdate">2007-07-12</span></h2>
+<p>A new release of the <code>stklos-fuse</code> package is available
+through <span class="smallcaps">*ScmPkg**</span>. This new release can
+be installed with the <code>stklos-pkg</code> command. This package
+permits to implement a fully functional filesystem in a Scheme program
+thanks to the <a href="fuse.sourceforge.net">FUSE</a> package. Two
+exemples of Scheme file systems are provided with the distribution:</p>
 <ul>
-<li>a simple filesystem which only contain one file named “hello”, and whose content is of course “Hello, world!”</li>
-<li>a more realistic filesystem, where all the files are stored in Scheme hash tables (a directory being a hash-table whose entries are the files of this directory. The program which implements this filesystem is about 250 lines long).</li>
+<li>a simple filesystem which only contain one file named “hello”, and
+whose content is of course “Hello, world!”</li>
+<li>a more realistic filesystem, where all the files are stored in
+Scheme hash tables (a directory being a hash-table whose entries are the
+files of this directory. The program which implements this filesystem is
+about 250 lines long).</li>
 </ul>
-<p>Since the support of <span class="smallcaps">*ScmPkg**</span> is new, a simple session showing how to install this package is given below:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> mkdir /tmp/X           <span class="co"># create a temporary dir</span></span>
+<p>Since the support of <span class="smallcaps">*ScmPkg**</span> is new,
+a simple session showing how to install this package is given below:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> mkdir /tmp/X           <span class="co"># create a temporary dir</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> cd /tmp/X</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> stklos-pkg <span class="at">--sync</span>     <span class="co"># Sync with servers</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
@@ -456,7 +613,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install</span> done</span></code></pre></div>
 <p>Let’s use now the package</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> cd stklos-fuse/examples</span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> cd stklos-fuse/examples</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> mkdir /tmp/HASH   <span class="co"># create mountpoint for the hashfs</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> hashfs /tmp/HASH  <span class="co"># mount it</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> cd /tmp/HASH      <span class="co"># An now manipulate files in our filesystem</span></span>
@@ -474,15 +632,20 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-rw-r--r--</span> 1 eg stklos 6 Jul 12 17:53 foo</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">%</span> cat bar/foo</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Hello</span></span></code></pre></div>
-<h2 id="version-0.96-released-2007-06-30">Version “0.96” released <span class="rdate">2007-06-30</span></h2>
-<p>This release introduces a simple FFI (Foreign Function Interface).</p>
+<h2 id="version-0.96-released-2007-06-30">Version “0.96” released <span
+class="rdate">2007-06-30</span></h2>
+<p>This release introduces a simple FFI (Foreign Function
+Interface).</p>
 <ul>
 <li>Better support for FreeBSD</li>
 <li>Fixed a bug when using the -j option of make during bootstrap</li>
 <li>Fixed several problems with ScmPkg packages installation</li>
 </ul>
-<h2 id="version-0.95-released-2007-06-08">Version “0.95” released <span class="rdate">2007-06-08</span></h2>
-<p>This is a major version introducing support for the <a href="http://hop.inria.fr/hop/scmpkg" class="http"><span class="smallcaps">*ScmPkg**</span></a> source packaging system.</p>
+<h2 id="version-0.95-released-2007-06-08">Version “0.95” released <span
+class="rdate">2007-06-08</span></h2>
+<p>This is a major version introducing support for the <a
+href="http://hop.inria.fr/hop/scmpkg" class="http"><span
+class="smallcaps">*ScmPkg**</span></a> source packaging system.</p>
 <ul>
 <li>Better support for lexical analyzer generation</li>
 <li>Added some support for fixnum operations</li>
@@ -492,7 +655,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>Added some peephole optimizations</li>
 <li>Added new options to the compiler</li>
 <li>Added support for reading the tar files</li>
-<li>void and eof objects are now printed back as #void and #eof and can be read back</li>
+<li>void and eof objects are now printed back as #void and #eof and can
+be read back</li>
 <li>New primitives
 <ul>
 <li><code>signal-error</code></li>
@@ -504,12 +668,16 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="posix-version-0.60-2007-04-12">Posix version 0.60 <span class="rdate">2007-04-12</span></h2>
-<p>Bug fix version: this version <strong>must</strong> be used with versions of STklos 0.80.</p>
-<h2 id="version-0.82-released-2006-12-19">Version “0.82” released <span class="rdate">2006-12-19</span></h2>
+<h2 id="posix-version-0.60-2007-04-12">Posix version 0.60 <span
+class="rdate">2007-04-12</span></h2>
+<p>Bug fix version: this version <strong>must</strong> be used with
+versions of STklos 0.80.</p>
+<h2 id="version-0.82-released-2006-12-19">Version “0.82” released <span
+class="rdate">2006-12-19</span></h2>
 <ul>
 <li>Added the –debug option to the interpreter</li>
-<li>Better error messages when in debug mode and more correct line numbers</li>
+<li>Better error messages when in debug mode and more correct line
+numbers</li>
 <li>Updated Dominique Boucher lalr parser to the latest version</li>
 <li>Better error messages for POSIX functions</li>
 <li>Internal macro definition are allowed now</li>
@@ -525,14 +693,26 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.81-released-2006-11-06">Version “0.81” released <span class="rdate">2006-11-06</span></h2>
-<p>This is a bug-fix version. Previous release had a bug which prevent to compile it on some architectures/systems.</p>
+<h2 id="version-0.81-released-2006-11-06">Version “0.81” released <span
+class="rdate">2006-11-06</span></h2>
+<p>This is a bug-fix version. Previous release had a bug which prevent
+to compile it on some architectures/systems.</p>
 <ul>
 <li>Corrected a deadlock when compiling the system</li>
 <li>Corrected bugs in SRFI-0 and SRFI-13</li>
 </ul>
-<h2 id="version-0.80-released-2006-10-27">Version “0.80” released <span class="rdate">2006-10-27</span></h2>
-<p>This is a version with important changes to support multi-threading. This version provides two kinds of threads: LURC threads and Posix threads (aka pthreads). LURC threads are implemented using the LURC library, the Light ULM/Reactive library for C developed at INRIA. LURC supports the creation of synchronous cooperative threads, synchronizing and communicating with each other using signals in a deterministic scheduler (see &lt;<a href="http://www-sop.inria.fr/mimosa/Stephane.Epardaud/lurcfor" class="uri">http://www-sop.inria.fr/mimosa/Stephane.Epardaud/lurcfor</a> details).</p>
+<h2 id="version-0.80-released-2006-10-27">Version “0.80” released <span
+class="rdate">2006-10-27</span></h2>
+<p>This is a version with important changes to support multi-threading.
+This version provides two kinds of threads: LURC threads and Posix
+threads (aka pthreads). LURC threads are implemented using the LURC
+library, the Light ULM/Reactive library for C developed at INRIA. LURC
+supports the creation of synchronous cooperative threads, synchronizing
+and communicating with each other using signals in a deterministic
+scheduler (see &lt;<a
+href="http://www-sop.inria.fr/mimosa/Stephane.Epardaud/lurcfor"
+class="uri">http://www-sop.inria.fr/mimosa/Stephane.Epardaud/lurcfor</a>
+details).</p>
 <ul>
 <li>Thread support</li>
 <li>Better error messages</li>
@@ -554,27 +734,44 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="htmlprag-extension-2006-05-27">HtmlPrag Extension <span class="rdate">2006-05-27</span></h2>
-<p>This extension packages Neil Van Dykes <a href="http://www.neilvandyke.org/htmlprag/" class="http">HtmlPrag parser</a> in a STklos extension.</p>
-<p>HtmlPrag provides permissive HTML parsing and emitting capability to Scheme programs. The parser is useful for software agent extraction of information from Web pages, for programmatically transforming HTML files, and for implementing interactive Web browsers.</p>
+<h2 id="htmlprag-extension-2006-05-27">HtmlPrag Extension <span
+class="rdate">2006-05-27</span></h2>
+<p>This extension packages Neil Van Dykes <a
+href="http://www.neilvandyke.org/htmlprag/" class="http">HtmlPrag
+parser</a> in a STklos extension.</p>
+<p>HtmlPrag provides permissive HTML parsing and emitting capability to
+Scheme programs. The parser is useful for software agent extraction of
+information from Web pages, for programmatically transforming HTML
+files, and for implementing interactive Web browsers.</p>
 <ul>
 <li><a href="extensions.html">The extensions page</a></li>
-<li><a href="Doc/extensions/htmlprag/htmlprag.html">HtmlPrag extension documentation</a></li>
+<li><a href="Doc/extensions/htmlprag/htmlprag.html">HtmlPrag extension
+documentation</a></li>
 </ul>
-<h2 id="fuse-0.50-extension-release-2006-01-15">Fuse 0.50 Extension Release <span class="rdate">2006-01-15</span></h2>
+<h2 id="fuse-0.50-extension-release-2006-01-15">Fuse 0.50 Extension
+Release <span class="rdate">2006-01-15</span></h2>
 <p>Ever dreamt to write your own file system in Scheme?</p>
-<p>The fuse STklos extension, thanks to the FUSE package <a href="fuse.sourecforge.net">FUSE</a> permits to make user lambdas being called by the kernel when performing I/O on a user Scheme file system. This extension indeed permits you to write your own file system in a bunch of Scheme lines. Two exemples of Scheme file systems are provided with the distribution.</p>
+<p>The fuse STklos extension, thanks to the FUSE package <a
+href="fuse.sourecforge.net">FUSE</a> permits to make user lambdas being
+called by the kernel when performing I/O on a user Scheme file system.
+This extension indeed permits you to write your own file system in a
+bunch of Scheme lines. Two exemples of Scheme file systems are provided
+with the distribution.</p>
 <ul>
 <li><a href="extensions.html">The extensions page</a></li>
-<li><a href="Doc/extensions/fuse/fuse.html">Fuse extension documentation</a></li>
+<li><a href="Doc/extensions/fuse/fuse.html">Fuse extension
+documentation</a></li>
 </ul>
-<h2 id="posix-0.50-extension-release-2006-01-06">Posix 0.50 Extension Release <span class="rdate">2006-01-06</span></h2>
+<h2 id="posix-0.50-extension-release-2006-01-06">Posix 0.50 Extension
+Release <span class="rdate">2006-01-06</span></h2>
 <p>This new extension provides access to POSIX system calls.</p>
 <ul>
 <li><a href="extensions.html">The extensions page</a></li>
-<li><a href="Doc/extensions/posix/posix.html">Posix extension documentation</a></li>
+<li><a href="Doc/extensions/posix/posix.html">Posix extension
+documentation</a></li>
 </ul>
-<h2 id="version-0.72-released-2006-01-04">Version “0.72” released <span class="rdate">2006-01-04</span></h2>
+<h2 id="version-0.72-released-2006-01-04">Version “0.72” released <span
+class="rdate">2006-01-04</span></h2>
 <p>This is a minor version</p>
 <ul>
 <li>New primitives
@@ -589,13 +786,19 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.71-released-2005-11-03">Version “0.71” released <span class="rdate">2005-11-03</span></h2>
+<h2 id="version-0.71-released-2005-11-03">Version “0.71” released <span
+class="rdate">2005-11-03</span></h2>
 <ul>
 <li>Added virtual ports (ports defined by user functions)</li>
-<li>The reader accepts now <code>#eof</code> to denote the eend of file object</li>
+<li>The reader accepts now <code>#eof</code> to denote the eend of file
+object</li>
 <li>Fix problems with SunOS support</li>
 <li>Fix problems with gcc4 compilation</li>
-<li>Hash tables are now compliant to <strong><a href="http://srfi.schemers.org/srfi-69/srfi-69.html" class="http">SRFI-69</a></strong> (<em>Basic Hash Tables</em>). This implies some (compatible) changes in the hash-tables function names.</li>
+<li>Hash tables are now compliant to <strong><a
+href="http://srfi.schemers.org/srfi-69/srfi-69.html"
+class="http">SRFI-69</a></strong> (<em>Basic Hash Tables</em>). This
+implies some (compatible) changes in the hash-tables function
+names.</li>
 <li>New primitives
 <ul>
 <li><code>finite?</code></li>
@@ -611,27 +814,46 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="extensions-2005-09-09">Extensions <span class="rdate">2005-09-09</span></h2>
+<h2 id="extensions-2005-09-09">Extensions <span
+class="rdate">2005-09-09</span></h2>
 <p>Two extensions to STklos:</p>
 <ul>
 <li><strong>imap</strong> to access an IMAP mail server</li>
-<li><strong>ssl</strong> to extend <strong><em>STklos</em></strong> sockets and accepts SSL connections</li>
+<li><strong>ssl</strong> to extend <strong><em>STklos</em></strong>
+sockets and accepts SSL connections</li>
 </ul>
-<p>For more informations on the extension mechanism, look at the <a href="extensions.html">extensions page</a>.</p>
-<h2 id="common-music-in-stklos-0.70-2005-05-28">Common Music in STklos 0.70 <span class="rdate">2005-05-28</span></h2>
-<p>Rick Taube has ported <a href="http://pinhead.music.uiuc.edu/~hkt/cm/doc/cm.html" class="http">Common Music</a>, an object-oridented music composition system, to STklos 0.70. The version of CM that runs in STklos is in the cvs head branch. See Common Music home page for CVS installation instructions.</p>
+<p>For more informations on the extension mechanism, look at the <a
+href="extensions.html">extensions page</a>.</p>
+<h2 id="common-music-in-stklos-0.70-2005-05-28">Common Music in STklos
+0.70 <span class="rdate">2005-05-28</span></h2>
+<p>Rick Taube has ported <a
+href="http://pinhead.music.uiuc.edu/~hkt/cm/doc/cm.html"
+class="http">Common Music</a>, an object-oridented music composition
+system, to STklos 0.70. The version of CM that runs in STklos is in the
+cvs head branch. See Common Music home page for CVS installation
+instructions.</p>
 <p>To start up CM in STklos you can do:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cm/bin/cm.sh</span> <span class="at">-l</span> stklos</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cm/bin/cm.sh</span> <span class="at">-l</span> stklos</span></code></pre></div>
 <p>or to start it running under xemacs do:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cm/bin/cm.sh</span> <span class="at">-l</span> stklos <span class="at">-e</span> xemacs</span></code></pre></div>
-<p>The file <code>cm/etc/intro.cm</code> is a good place to start. The distribution also contains <code>loop.scm</code>, an (almost) complete implementation of the common lisp LOOP macro. You should be able to load loop.scm into STklos without needing anything else from CM.</p>
-<h2 id="version-0.70-released-2005-05-27">Version “0.70” released <span class="rdate">2005-05-27</span></h2>
-<p>The main changes in this release are: a new back-trace system, a conform <code>call/cc</code>/<code>dynamic-wind</code> implementation and some performance enhancements.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">cm/bin/cm.sh</span> <span class="at">-l</span> stklos <span class="at">-e</span> xemacs</span></code></pre></div>
+<p>The file <code>cm/etc/intro.cm</code> is a good place to start. The
+distribution also contains <code>loop.scm</code>, an (almost) complete
+implementation of the common lisp LOOP macro. You should be able to load
+loop.scm into STklos without needing anything else from CM.</p>
+<h2 id="version-0.70-released-2005-05-27">Version “0.70” released <span
+class="rdate">2005-05-27</span></h2>
+<p>The main changes in this release are: a new back-trace system, a
+conform <code>call/cc</code>/<code>dynamic-wind</code> implementation
+and some performance enhancements.</p>
 <ul>
 <li>Added a way to have a back-trace when an error occurs</li>
-<li><code>call/cc</code> has been completely implemented. Its interaction with <code>dynamic-wind</code> is now conform to R5RS.</li>
+<li><code>call/cc</code> has been completely implemented. Its
+interaction with <code>dynamic-wind</code> is now conform to R5RS.</li>
 <li>Performance improvements</li>
-<li>Added some infrastructure for auto-testing a newly built system.</li>
+<li>Added some infrastructure for auto-testing a newly built
+system.</li>
 <li>New primitives
 <ul>
 <li><code>port-rewind</code></li>
@@ -642,27 +864,42 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li><code>write/ss</code></li>
 <li><code>repl</code></li>
 </ul></li>
-<li>Multiple EOF can be seen now on an input file to allow staged REPLs</li>
-<li>Added the configure options <code>--with-provided-gc</code> and <code>--with-provided-regexp</code> to force the usage of our GC and PCRE versions, even if there are some version already installed on the system</li>
-<li>The boot file is now integrated in the VM instead of being read from a file. This enhances the loading time of the interpreter a bit.</li>
-<li><code>Describe</code> shows more information for structures types and conditions.</li>
-<li>The object system takes now into account conditions and conditions types</li>
+<li>Multiple EOF can be seen now on an input file to allow staged
+REPLs</li>
+<li>Added the configure options <code>--with-provided-gc</code> and
+<code>--with-provided-regexp</code> to force the usage of our GC and
+PCRE versions, even if there are some version already installed on the
+system</li>
+<li>The boot file is now integrated in the VM instead of being read from
+a file. This enhances the loading time of the interpreter a bit.</li>
+<li><code>Describe</code> shows more information for structures types
+and conditions.</li>
+<li>The object system takes now into account conditions and conditions
+types</li>
 <li>Documention updated</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.61-released-2005-04-05">Version “0.61” released <span class="rdate">2005-04-05</span></h2>
+<h2 id="version-0.61-released-2005-04-05">Version “0.61” released <span
+class="rdate">2005-04-05</span></h2>
 <ul>
 <li>Documentation updated</li>
 <li>Distribution uses now PCRE 5.0 for regexp</li>
 <li>Build process has changed</li>
 <li>Performance improvement thanks to VM and I/O optimizations</li>
 <li>Added a way to download and install STklos extensions</li>
-<li>Better error signaling on undefined variables when compiling files</li>
+<li>Better error signaling on undefined variables when compiling
+files</li>
 <li>Minor enhancements:
 <ul>
 <li>Some corrections in the reader</li>
-<li>Parameter objects <strong><a href="http://srfi.schemers.org/srfi-39/srfi-39.html" class="http">SRFI-39</a></strong> (<em>Parameters objects</em>) can be used now in generalized set! <strong><a href="http://srfi.schemers.org/srfi-17/srfi-17.html" class="http">SRFI-17</a></strong> (<em>Generalized set!</em>)</li>
-<li>Reader can be case-sensitive now (the system can be bootstraped using case sensitive read)</li>
+<li>Parameter objects <strong><a
+href="http://srfi.schemers.org/srfi-39/srfi-39.html"
+class="http">SRFI-39</a></strong> (<em>Parameters objects</em>) can be
+used now in generalized set! <strong><a
+href="http://srfi.schemers.org/srfi-17/srfi-17.html"
+class="http">SRFI-17</a></strong> (<em>Generalized set!</em>)</li>
+<li>Reader can be case-sensitive now (the system can be bootstraped
+using case sensitive read)</li>
 <li>…</li>
 </ul></li>
 <li>New primitives
@@ -677,19 +914,30 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>Implementation of <strong>SRFI-60</strong> (Integers as bits)</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.60-released-2004-11-29">Version “0.60” released <span class="rdate">2004-11-29</span></h2>
-<p>This version is mostly a correcting version which fixes a serious bug on file loading introduced in release 0.59. Very minor changes since previous release</p>
+<h2 id="version-0.60-released-2004-11-29">Version “0.60” released <span
+class="rdate">2004-11-29</span></h2>
+<p>This version is mostly a correcting version which fixes a serious bug
+on file loading introduced in release 0.59. Very minor changes since
+previous release</p>
 <ul>
 <li>SRFIs can also have symbolic names</li>
-<li>Minor modifications to allow the compilation of <a href="http://www-sop.inria.fr/mimosa/fp/Skribe" class="http">Skribe</a> with STklos on Win32</li>
+<li>Minor modifications to allow the compilation of <a
+href="http://www-sop.inria.fr/mimosa/fp/Skribe" class="http">Skribe</a>
+with STklos on Win32</li>
 <li>Added a bunch of functions on dates</li>
 <li>Implementation of <strong>SRFI-55</strong> (Require-extension)</li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.59-released-2004-11-04">Version “0.59” released <span class="rdate">2004-11-04</span></h2>
+<h2 id="version-0.59-released-2004-11-04">Version “0.59” released <span
+class="rdate">2004-11-04</span></h2>
 <ul>
-<li>Documentation has been rewritten in <a href="http://www-sop.inria.fr/mimosa/fp/Skribe" class="http">Skribe</a></li>
-<li>Added Dominique Boucher <a href="http://www.iro.umontreal.ca/~boucherd/Lalr/documentation/lalr.html" class="http">LALR(1) parser generator</a>. Thanks to Dominique for allowing me to do so</li>
+<li>Documentation has been rewritten in <a
+href="http://www-sop.inria.fr/mimosa/fp/Skribe"
+class="http">Skribe</a></li>
+<li>Added Dominique Boucher <a
+href="http://www.iro.umontreal.ca/~boucherd/Lalr/documentation/lalr.html"
+class="http">LALR(1) parser generator</a>. Thanks to Dominique for
+allowing me to do so</li>
 <li>Added the future R6RS comment syntax #;</li>
 <li>New primitives
 <ul>
@@ -707,15 +955,18 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.58-released-2004-07-17">Version “0.58” released <span class="rdate">2004-07-17</span></h2>
+<h2 id="version-0.58-released-2004-07-17">Version “0.58” released <span
+class="rdate">2004-07-17</span></h2>
 <ul>
 <li>Better Win32 port (was no more fully functional since 0.55)</li>
-<li>Added a way to configure the system with our version of GMP even if GMP is installed</li>
+<li>Added a way to configure the system with our version of GMP even if
+GMP is installed</li>
 <li>Added structure types</li>
 <li>Stack size can be changed when the VM is launched</li>
 <li>New port on Octane/SGI Irix (by Joshua Boyd) and Itanium</li>
 <li>Added the <code>--interactive</code> option for embedded VM</li>
-<li>Compiler can add line information to the generated code to ease debugging</li>
+<li>Compiler can add line information to the generated code to ease
+debugging</li>
 <li>error locations are more accurate now</li>
 <li>New primitives
 <ul>
@@ -734,10 +985,15 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug fixes</li>
 </ul>
-<h2 id="version-0.57-released-2004-01-14">Version “0.57” released <span class="rdate">2004-01-14</span></h2>
+<h2 id="version-0.57-released-2004-01-14">Version “0.57” released <span
+class="rdate">2004-01-14</span></h2>
 <ul>
 <li>Added support for non Finked Mac-OS X</li>
-<li>Added the Danny Dub頬(ref :url “<a href="http://www.iro.umontreal.ca/~dube/" class="uri">http://www.iro.umontreal.ca/~dube/</a>” :text “SIlex”) lexical analyser generator to the distribution. Thanks to Danny for allowing me to do so</li>
+<li>Added the Danny Dub頬(ref :url “<a
+href="http://www.iro.umontreal.ca/~dube/"
+class="uri">http://www.iro.umontreal.ca/~dube/</a>” :text “SIlex”)
+lexical analyser generator to the distribution. Thanks to Danny for
+allowing me to do so</li>
 <li>New primitives
 <ul>
 <li><code>fork</code></li>
@@ -748,18 +1004,29 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>New implemented SRFIs
 <ul>
-<li><strong>SRFI-16</strong> (Syntax for procedures of variable arity)</li>
-<li><strong>SRFI-26</strong> (Notation for Specializing Parameters without Currying)</li>
+<li><strong>SRFI-16</strong> (Syntax for procedures of variable
+arity)</li>
+<li><strong>SRFI-26</strong> (Notation for Specializing Parameters
+without Currying)</li>
 </ul></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="new-web-site-2003-11-14">New web site <span class="rdate">2003-11-14</span></h2>
-<p>The new web site is online now. It is written in <a href="https://www.stklos.net/~eg/Publis/JFP05/article.html" class="http">Skribe</a> and compiled using version 0.56 of <strong><em>STklos</em></strong></p>
-<h2 id="version-0.56-released-2003-11-06">Version “0.56” released <span class="rdate">2003-11-06</span></h2>
+<h2 id="new-web-site-2003-11-14">New web site <span
+class="rdate">2003-11-14</span></h2>
+<p>The new web site is online now. It is written in <a
+href="https://www.stklos.net/~eg/Publis/JFP05/article.html"
+class="http">Skribe</a> and compiled using version 0.56 of
+<strong><em>STklos</em></strong></p>
+<h2 id="version-0.56-released-2003-11-06">Version “0.56” released <span
+class="rdate">2003-11-06</span></h2>
 <ul>
-<li>The reader recognizes now the DSSL keywords <em>#!rest</em>, <em>#!optional</em> and <em>#!key</em>.</li>
-<li>Added the definition of feature <code>stklos</code> for <strong>SRFI-0</strong> (Feature-based conditional expansion construct)</li>
-<li>New parameter object: <code>real-precision</code> used to change the precision used when displaying a real number</li>
+<li>The reader recognizes now the DSSL keywords <em>#!rest</em>,
+<em>#!optional</em> and <em>#!key</em>.</li>
+<li>Added the definition of feature <code>stklos</code> for
+<strong>SRFI-0</strong> (Feature-based conditional expansion
+construct)</li>
+<li>New parameter object: <code>real-precision</code> used to change the
+precision used when displaying a real number</li>
 <li>New primitives
 <ul>
 <li><code>hostname</code></li>
@@ -779,16 +1046,21 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>New implemented SRFIs
 <ul>
 <li><strong>SRFI-27</strong> (Source of random bits)</li>
-<li><strong>SRFI-38</strong> (External representation of shared structures)</li>
+<li><strong>SRFI-38</strong> (External representation of shared
+structures)</li>
 <li><strong>SRFI-39</strong> (Parameters objects)</li>
 </ul></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="version-0.55-released-2003-06-25">Version “0.55” released <span class="rdate">2003-06-25</span></h2>
-<p>This version of <strong><em>STklos</em></strong> is a maintenance release which corrects some bugs. No new feature.</p>
-<h2 id="version-0.54-released-2003-02-14">Version “0.54” released <span class="rdate">2003-02-14</span></h2>
+<h2 id="version-0.55-released-2003-06-25">Version “0.55” released <span
+class="rdate">2003-06-25</span></h2>
+<p>This version of <strong><em>STklos</em></strong> is a maintenance
+release which corrects some bugs. No new feature.</p>
+<h2 id="version-0.54-released-2003-02-14">Version “0.54” released <span
+class="rdate">2003-02-14</span></h2>
 <ul>
-<li>Evaluation of parameters is now from left to right rather than the opposite.</li>
+<li>Evaluation of parameters is now from left to right rather than the
+opposite.</li>
 <li>Addded Sockets support</li>
 <li>Changed the Boehm GC version to 6.1</li>
 <li>Code cleaning (again) to be accepted by gcc-3.x</li>
@@ -809,11 +1081,13 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <ul>
 <li><strong>SRFI-23</strong> (Error reporting mechanism)</li>
 <li><strong>SRFI-30</strong> (Nested Multi-line Comments)</li>
-<li><strong>SRFI-31</strong> (A special form for recursive evaluation)</li>
+<li><strong>SRFI-31</strong> (A special form for recursive
+evaluation)</li>
 </ul></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="version-0.53-released-2002-08-06">Version “0.53” released <span class="rdate">2002-08-06</span></h2>
+<h2 id="version-0.53-released-2002-08-06">Version “0.53” released <span
+class="rdate">2002-08-06</span></h2>
 <ul>
 <li>Changed the Boehm GC version to 6.1 alpha5</li>
 <li>Code cleaning to be accepted by gcc-3.x</li>
@@ -832,7 +1106,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>New implemented SRFIs
 <ul>
-<li><strong>SRFI-7</strong> (Feature-based program configuration language )</li>
+<li><strong>SRFI-7</strong> (Feature-based program configuration
+language )</li>
 <li><strong>SRFI-11</strong> (Syntax for receiving multiple values)</li>
 <li><strong>SRFI-14</strong> (Character-Set Library)</li>
 <li><strong>SRFI-28</strong> (Basic Format Strings)</li>
@@ -840,11 +1115,15 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 <li>New syntax: <code>in-module</code></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="version-0.52-released-2002-04-10">Version “0.52” released <span class="rdate">2002-04-10</span></h2>
+<h2 id="version-0.52-released-2002-04-10">Version “0.52” released <span
+class="rdate">2002-04-10</span></h2>
 <ul>
-<li>Compiler has been rewritten and deliver code which is more efficient</li>
-<li>New command <code>compile-file</code> to compile a <strong><em>STklos</em></strong> file to byte-codes</li>
-<li>Complete rewriting of <em>GTklos</em> (support of GTK+ in <strong><em>STklos</em></strong>)
+<li>Compiler has been rewritten and deliver code which is more
+efficient</li>
+<li>New command <code>compile-file</code> to compile a
+<strong><em>STklos</em></strong> file to byte-codes</li>
+<li>Complete rewriting of <em>GTklos</em> (support of GTK+ in
+<strong><em>STklos</em></strong>)
 <ul>
 <li>the rewriting is still incomplete and needs some work</li>
 <li>support of the <em>Canvas</em> widget needs some work</li>
@@ -852,20 +1131,24 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>All the demos have been rewritten</li>
 <li>Better error reporting</li>
-<li>Errors can now be browsed with Emacs <code>next-error</code> and <code>previous-error</code></li>
+<li>Errors can now be browsed with Emacs <code>next-error</code> and
+<code>previous-error</code></li>
 <li>Virtual slots can now have an initial value</li>
 <li>new option: <code>--no-init-file</code></li>
 <li>Added bitwise operations on integers (and bignums)</li>
-<li>New form <code>parse-arguments</code> to simplify command line arguments parsing</li>
+<li>New form <code>parse-arguments</code> to simplify command line
+arguments parsing</li>
 <li>Better support of dynamic loading</li>
 <li>Minimal LDAP support</li>
-<li>Support of active-slots (as in old <span class="smallcaps">*STk**</span>)</li>
+<li>Support of active-slots (as in old <span
+class="smallcaps">*STk**</span>)</li>
 <li><strong>PCRE</strong> package version used is now 3.7</li>
 <li><strong>GC</strong> package used is now 6.0</li>
 <li>More documentation</li>
 <li>There are now man pages for stklos and utilities</li>
 <li>Many small improvements</li>
-<li>Added the Bigloo <code>match-case</code> and <code>match-lambda</code></li>
+<li>Added the Bigloo <code>match-case</code> and
+<code>match-lambda</code></li>
 <li>New primitives
 <ul>
 <li><code>key-delete!</code></li>
@@ -877,7 +1160,8 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>New implemented SRFIs
 <ul>
-<li><strong>SRFI-2</strong> (AND-LET<em>: an AND with local bindings, a guarded LET</em> special form)</li>
+<li><strong>SRFI-2</strong> (AND-LET<em>: an AND with local bindings, a
+guarded LET</em> special form)</li>
 <li><strong>SRFI-4</strong> (Homogeneous numeric vector datatypes)</li>
 <li><strong>SRFI-8</strong> (Receive: Binding to multiple values)</li>
 <li><strong>SRFI-9</strong> (Defining Record Types)</li>
@@ -885,15 +1169,20 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="version-0.51-released-2001-03-12">Version “0.51” released <span class="rdate">2001-03-12</span></h2>
+<h2 id="version-0.51-released-2001-03-12">Version “0.51” released <span
+class="rdate">2001-03-12</span></h2>
 <ul>
 <li>Added R5RS hygienic macros</li>
-<li>Added compatibility with the Aubrey Jaffer’s <a href="http://swissnet.ai.mit.edu/~jaffer/SLIB" class="http">SLIB</a></li>
+<li>Added compatibility with the Aubrey Jaffer’s <a
+href="http://swissnet.ai.mit.edu/~jaffer/SLIB"
+class="http">SLIB</a></li>
 <li>New port on Alpha/Linux</li>
-<li>Some parts of the VM have been rewritten to integrate full <code>call/cc</code> (not yet finished)</li>
+<li>Some parts of the VM have been rewritten to integrate full
+<code>call/cc</code> (not yet finished)</li>
 <li>New implemented SRFIs
 <ul>
-<li><strong>SRFI-0</strong> (Feature-based conditional expansion construct)</li>
+<li><strong>SRFI-0</strong> (Feature-based conditional expansion
+construct)</li>
 <li><strong>SRFI-1</strong> (List Library)</li>
 </ul></li>
 <li>Exact reals can be read now (e.g <code>#e3.14 =157/50</code>)</li>
@@ -911,20 +1200,17 @@ the R5RS case insensitivity can be enable with the <code>--case-insensitive</cod
 </ul></li>
 <li>Bug corrections</li>
 </ul>
-<h2 id="version-0.50-released-2001-01-17">Version “0.50” released <span class="rdate">2001-01-17</span></h2>
+<h2 id="version-0.50-released-2001-01-17">Version “0.50” released <span
+class="rdate">2001-01-17</span></h2>
 <p><strong>First public release</strong></p>
-    </div>
-
-    <!-- bottom footer -->
-    <footer>
-      <div class="w3-container">  </div>
-      <div class="page-footer">
-        <small>
-          <b>STklos</b>
-          <span class="pull-right"><i>Updated:</i> 24-Nov-2021 18:17 (eg)  </span>
-        </small>
-      </div>
+     </article>
+    <footer class="foot w3-container w3-tab w3-small w3-light-grey">
+      <span class="w3-bar-item"><b>STklos</b></span>
+      <span class="w3-bar-item w3-right"><i>Updated:</i> 29-Aug-2023 18:37&nbsp;&nbsp;</span>
     </footer>
-
   </body>
 </html>
+
+<!-- Local Variables: -->
+<!-- mode: html -->
+<!-- End: -->
