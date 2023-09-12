@@ -176,28 +176,31 @@ execution</a> for faster builds. For instance, you can enter
 to run some internal tests</p></li>
 <li><p>To install the version just compiled in the place you have chosen
 previously, type <code>make install</code> for a full install. The size
-of a full installation is approximately 6.5Mb (on a x86 64 bits
+of a full installation is approximately 18Mb (on a GNU/Linux x86 64 bits
 architecture). On machines with a more limited space, you can use the
 following Makefile installation targets:</p>
 <ul>
-<li><code>install-base</code> to install only the VM and all the
-compiled Scheme files (size is ~2.0Mb). The installation is fully
-functional (except the <code>help</code> function which will yield an
-error).</li>
-<li><code>install-base-no-strip</code> is identical to
-<code>install-base</code>, except that the <code>stklos</code> binary is
-not stripped (this could be useful when cross compiling
-<strong>STklos</strong> or when generating packages with debug
-symbols).</li>
+<li><code>install-base</code> (or <code>install-base-no-strip)</code>
+permits to install the VM and all the compiled Scheme files. The
+installation is fully functional (except the <code>help</code> function
+which will yield an error, since the documentation is not installed).
+Size used is approximately 5Mb.</li>
+<li><code>install-base-strip</code> is identical to
+<code>install-base</code>, except that the symbols of the
+<code>stklos</code> binary stripped to save some disk space. Note that
+stripping the <code>stklos</code> executable could be a problem with
+dynamic loading on macOS, when cross compiling <strong>STklos</strong>
+or when generating packages with debug symbols). Approximate size of
+installation is nearly 4Mb.</li>
 <li><code>install-sources</code> to install the Scheme source files used
-whence building the system (adds ~1.5Mb to the installation)</li>
+whence building the system (adds ~3Mb to the installation)</li>
 <li><code>install-doc</code> to install the documentation (for the help
 command, manual pages, and reference manual in HTML and PDF formats).
-This adds ~3.0Mb) to the installation).</li>
+This adds ~11Mb to the installation.</li>
 </ul></li>
 </ol>
 <p><strong>Note</strong>: <code>make install</code> is equivalent to
-<code>make install-base install-sources install-docs</code></p>
+<code>make install-base install-sources install-docs</code>.</p>
 <h2 id="running-stklos">Running STklos</h2>
 <p>You can run STklos in a terminal from the command line. If you have
 the GNU library <a
@@ -228,7 +231,7 @@ available on <a href="https://melpa.org">MELPA repository</a>.</p></li>
      </article>
     <footer class="foot w3-container w3-tab w3-small w3-light-grey">
       <span class="w3-bar-item"><b>STklos</b></span>
-      <span class="w3-bar-item w3-right"><i>Updated:</i> 29-Aug-2023 21:34&nbsp;&nbsp;</span>
+      <span class="w3-bar-item w3-right"><i>Updated:</i> 10-Sep-2023 21:07&nbsp;&nbsp;</span>
     </footer>
   </body>
 </html>
