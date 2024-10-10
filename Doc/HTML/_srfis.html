@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.00)</title>
+<title>STklos Reference Manual : (version 2.10)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -471,7 +472,10 @@ pre.rouge .gd {
   background-color: #493131;
 }
 pre.rouge .ge {
-  color: #000000;
+  font-style: italic;
+}
+pre.rouge .ges {
+  font-weight: bold;
   font-style: italic;
 }
 pre.rouge .gr {
@@ -650,81 +654,10 @@ pre.rouge {
   background-color: #49483e;
 }
 </style>
-<!-- Generate a nice TOC -->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
-<!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
-.tocify-header {
-    font-style: italic;
-}
-
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
-
-.tocify ul {
-    margin: 0;
- }
-
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tocify-focus > a {
-    color: #7a2518;
-}
+  /* Customize default CSS */
+  .sidebarblock { margin-top: -1em; }
 </style>
-
-<script type="text/javascript">
-    $(function () {
-        // Add a new container for the tocify toc into the existing toc so we can re-use its
-        // styling
-        $("#toc").append("<div id='generated-toc'></div>");
-        $("#generated-toc").tocify({
-            extendPage: true,
-            context: "#content",
-            highlightOnScroll: true,
-            hideEffect: "slideUp",
-            // Use the IDs that asciidoc already provides so that TOC links and intra-document
-            // links are the same. Anything else might confuse users when they create bookmarks.
-            hashGenerator: function(text, element) {
-                return $(element).attr("id");
-            },
-            // Smooth scrolling doesn't work properly if we use the asciidoc IDs
-            smoothScroll: false,
-            // Set to 'none' to use the tocify classes
-            theme: "none",
-            // Handle book (may contain h1) and article (only h2 deeper)
-            selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
-            ignoreSelector: ".discrete"
-        });
-
-        // Switch between static asciidoc toc and dynamic tocify toc based on browser size
-        // This is set to match the media selectors in the asciidoc CSS
-        // Without this, we keep the dynamic toc even if it is moved from the side to preamble
-        // position which will cause odd scrolling behavior
-        var handleTocOnResize = function() {
-            if ($(document).width() < 768) {
-                $("#generated-toc").hide();
-                $(".sectlevel0").show();
-                $(".sectlevel1").show();
-            }
-            else {
-                $("#generated-toc").show();
-                $(".sectlevel0").hide();
-                $(".sectlevel1").hide();
-            }
-        }
-
-        $(window).resize(handleTocOnResize);
-        handleTocOnResize();
-    });
-</script>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
@@ -732,14 +665,14 @@ pre.rouge {
 </head>
 <body id="_srfis" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.00)</h1>
+<h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
 <li><a href="_preface.html">Preface</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -809,7 +742,7 @@ SRFI <a href="http://srfi.schemers.org">site</a>.</p>
 <div class="sect2">
 <h3 id="_supported_srfis">13.1. Supported SRFIs</h3>
 <div class="paragraph">
-<p><strong><em>STklos</em></strong> supports <strong>122</strong> finalized SRFIS.
+<p><strong><em>STklos</em></strong> supports <strong>125</strong> finalized SRFIS.
 Some of these SRFIS are <em>embedded</em> and some are <em>external</em>.</p>
 </div>
 <div class="paragraph">
@@ -881,6 +814,7 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-111/srfi-111.html">SRFI-111</a></strong>&#8201;&#8212;&#8201;<em>Boxes</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-112/srfi-112.html">SRFI-112</a></strong>&#8201;&#8212;&#8201;<em>Environment Inquiry</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-113/srfi-113.html">SRFI-113</a></strong>&#8201;&#8212;&#8201;<em>Sets and Bags</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-115/srfi-115.html">SRFI-115</a></strong>&#8201;&#8212;&#8201;<em>Scheme Regular Expressions</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-116/srfi-116.html">SRFI-116</a></strong>&#8201;&#8212;&#8201;<em>Immutable List Library</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-117/srfi-117.html">SRFI-117</a></strong>&#8201;&#8212;&#8201;<em>Queues based on lists</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-118/srfi-118.html">SRFI-118</a></strong>&#8201;&#8212;&#8201;<em>Simple adjustable-size strings</em><br>
@@ -914,6 +848,7 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-174/srfi-174.html">SRFI-174</a></strong>&#8201;&#8212;&#8201;<em>POSIX Timespecs</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-175/srfi-175.html">SRFI-175</a></strong>&#8201;&#8212;&#8201;<em>ASCII character library</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-176/srfi-176.html">SRFI-176</a></strong>&#8201;&#8212;&#8201;<em>Version flag</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-178/srfi-178.html">SRFI-178</a></strong>&#8201;&#8212;&#8201;<em>Bitvector library</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-180/srfi-180.html">SRFI-180</a></strong>&#8201;&#8212;&#8201;<em>JSON</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-185/srfi-185.html">SRFI-185</a></strong>&#8201;&#8212;&#8201;<em>Linear adjustable-length strings</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-189/srfi-189.html">SRFI-189</a></strong>&#8201;&#8212;&#8201;<em>Maybe and Either: optional container types</em><br>
@@ -937,6 +872,7 @@ whereas an <em>external</em> needs to be loaded before use.</p>
 -  <strong><a href="http://srfi.schemers.org/srfi-228/srfi-228.html">SRFI-228</a></strong>&#8201;&#8212;&#8201;<em>A further comparator library</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-229/srfi-229.html">SRFI-229</a></strong>&#8201;&#8212;&#8201;<em>Tagged Procedures</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-230/srfi-230.html">SRFI-230</a></strong>&#8201;&#8212;&#8201;<em>Atomic Operations</em><br>
+-  <strong><a href="http://srfi.schemers.org/srfi-232/srfi-232.html">SRFI-232</a></strong>&#8201;&#8212;&#8201;<em>Flexible Curried Procedures</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-233/srfi-233.html">SRFI-233</a></strong>&#8201;&#8212;&#8201;<em>INI files</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-235/srfi-235.html">SRFI-235</a></strong>&#8201;&#8212;&#8201;<em>Combinators</em><br>
 -  <strong><a href="http://srfi.schemers.org/srfi-236/srfi-236.html">SRFI-236</a></strong>&#8201;&#8212;&#8201;<em>Evaluating expressions in an unspecified order</em><br>
@@ -1007,7 +943,7 @@ with <strong>require</strong> or <strong>require-feature</strong>. As with embed
 </div>
 <div class="paragraph">
 <p><strong>List of external SRFIs:</strong>
-<code>srfi-1</code> <code>srfi-2</code> <code>srfi-4</code> <code>srfi-5</code> <code>srfi-7</code> <code>srfi-9</code> <code>srfi-13</code> <code>srfi-14</code> <code>srfi-17</code> <code>srfi-19</code> <code>srfi-25</code> <code>srfi-26</code> <code>srfi-27</code> <code>srfi-29</code> <code>srfi-35</code> <code>srfi-36</code> <code>srfi-37</code> <code>srfi-41</code> <code>srfi-43</code> <code>srfi-48</code> <code>srfi-51</code> <code>srfi-54</code> <code>srfi-59</code> <code>srfi-60</code> <code>srfi-61</code> <code>srfi-64</code> <code>srfi-66</code> <code>srfi-69</code> <code>srfi-74</code> <code>srfi-89</code> <code>srfi-94</code> <code>srfi-95</code> <code>srfi-96</code> <code>srfi-100</code> <code>srfi-113</code> <code>srfi-116</code> <code>srfi-117</code> <code>srfi-125</code> <code>srfi-127</code> <code>srfi-128</code> <code>srfi-129</code> <code>srfi-130</code> <code>srfi-132</code> <code>srfi-133</code> <code>srfi-134</code> <code>srfi-135</code> <code>srfi-137</code> <code>srfi-141</code> <code>srfi-144</code> <code>srfi-151</code> <code>srfi-152</code> <code>srfi-154</code> <code>srfi-156</code> <code>srfi-158</code> <code>srfi-160</code> <code>srfi-161</code> <code>srfi-162</code> <code>srfi-170</code> <code>srfi-171</code> <code>srfi-173</code> <code>srfi-174</code> <code>srfi-175</code> <code>srfi-180</code> <code>srfi-185</code> <code>srfi-189</code> <code>srfi-190</code> <code>srfi-196</code> <code>srfi-207</code> <code>srfi-214</code> <code>srfi-215</code> <code>srfi-216</code> <code>srfi-217</code> <code>srfi-221</code> <code>srfi-222</code> <code>srfi-223</code> <code>srfi-224</code> <code>srfi-227</code> <code>srfi-228</code> <code>srfi-229</code> <code>srfi-230</code> <code>srfi-233</code> <code>srfi-235</code> <code>srfi-236</code> <code>srfi-238</code></p>
+<code>srfi-1</code> <code>srfi-2</code> <code>srfi-4</code> <code>srfi-5</code> <code>srfi-7</code> <code>srfi-9</code> <code>srfi-13</code> <code>srfi-14</code> <code>srfi-17</code> <code>srfi-19</code> <code>srfi-25</code> <code>srfi-26</code> <code>srfi-27</code> <code>srfi-29</code> <code>srfi-35</code> <code>srfi-36</code> <code>srfi-37</code> <code>srfi-41</code> <code>srfi-43</code> <code>srfi-48</code> <code>srfi-51</code> <code>srfi-54</code> <code>srfi-59</code> <code>srfi-60</code> <code>srfi-61</code> <code>srfi-64</code> <code>srfi-66</code> <code>srfi-69</code> <code>srfi-74</code> <code>srfi-89</code> <code>srfi-94</code> <code>srfi-95</code> <code>srfi-96</code> <code>srfi-100</code> <code>srfi-113</code> <code>srfi-115</code> <code>srfi-116</code> <code>srfi-117</code> <code>srfi-125</code> <code>srfi-127</code> <code>srfi-128</code> <code>srfi-129</code> <code>srfi-130</code> <code>srfi-132</code> <code>srfi-133</code> <code>srfi-134</code> <code>srfi-135</code> <code>srfi-137</code> <code>srfi-141</code> <code>srfi-144</code> <code>srfi-151</code> <code>srfi-152</code> <code>srfi-154</code> <code>srfi-156</code> <code>srfi-158</code> <code>srfi-160</code> <code>srfi-161</code> <code>srfi-162</code> <code>srfi-170</code> <code>srfi-171</code> <code>srfi-173</code> <code>srfi-174</code> <code>srfi-175</code> <code>srfi-178</code> <code>srfi-180</code> <code>srfi-185</code> <code>srfi-189</code> <code>srfi-190</code> <code>srfi-196</code> <code>srfi-207</code> <code>srfi-214</code> <code>srfi-215</code> <code>srfi-216</code> <code>srfi-217</code> <code>srfi-221</code> <code>srfi-222</code> <code>srfi-223</code> <code>srfi-224</code> <code>srfi-227</code> <code>srfi-228</code> <code>srfi-229</code> <code>srfi-230</code> <code>srfi-232</code> <code>srfi-233</code> <code>srfi-235</code> <code>srfi-236</code> <code>srfi-238</code></p>
 </div>
 </div>
 <div class="sect3">
@@ -1230,6 +1166,7 @@ running on.</p>
 
 <strong><a href="http://srfi.schemers.org/srfi-4/srfi-4.html">SRFI-4</a></strong> is fully supported and is extended to provide the
 additional <strong>c64vector</strong> and <strong>c128vector</strong> types of <strong><a href="http://srfi.schemers.org/srfi-160/srfi-160.html">SRFI-160</a></strong> (<em>Homogeneous numeric vector libraries</em>).
+<a id='P_uvector-tag'></a><a id='P_uvector->list'></a><a id='P_uvector-set!'></a><a id='P_uvector-ref'></a><a id='P_uvector-length'></a><a id='P_uvector?'></a>
 
 
 
@@ -1237,18 +1174,18 @@ additional <strong>c64vector</strong> and <strong>c128vector</strong> types of <
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(uvector? uv)</code></strong><br>
-<strong><code>(uvector-length uv)</code></strong><br>
-<strong><code>(uvector-ref uv k)</code></strong><br>
-<strong><code>(uvector-set! uv k val)</code></strong><br>
-<strong><code>(uvector&#8594;list uv)</code></strong><br>
-<strong><code>(uvector-tag uv)</code></strong><br></p>
+<p><code><strong>(uvector? uv) </strong></code><br>
+<code><strong>(uvector-length uv) </strong></code><br>
+<code><strong>(uvector-ref uv k) </strong></code><br>
+<code><strong>(uvector-set! uv k val) </strong></code><br>
+<code><strong>(uvector&#8594;list uv) </strong></code><br>
+<code><strong>(uvector-tag uv) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1312,16 +1249,17 @@ irrelevant, so "2000 Nov 12 03:30:10 GMT-2" will be taken as equal to
 "2000 Nov 12 02:30:10 GMT-1".</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_time-difference'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(time-difference time1 time2)</code></strong><br>
-<strong><code>(time-difference! time1 time2)</code></strong><br></p>
+<p><code><strong>(time-difference time1 time2) </strong></code><br>
+<code><strong>(time-difference! time1 time2) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1343,23 +1281,24 @@ create the resulting object.
 </table>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_time>?'></a><a id='P_time>=?'></a><a id='P_time=?'></a><a id='P_time<?'></a><a id='P_time<=?'></a>
+
 
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(time&#8656;? time1 time2)</code></strong><br>
-<strong><code>(time&lt;? time1 time2)</code></strong><br>
-<strong><code>(time=? time1 time2)</code></strong><br>
-<strong><code>(time&gt;=? time1 time2)</code></strong><br>
-<strong><code>(time&gt;? time1 time2)</code></strong><br></p>
+<p><code><strong>(time&#8656;? time1 time2) </strong></code><br>
+<code><strong>(time&lt;? time1 time2) </strong></code><br>
+<code><strong>(time=? time1 time2) </strong></code><br>
+<code><strong>(time&gt;=? time1 time2) </strong></code><br>
+<code><strong>(time&gt;? time1 time2) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1391,15 +1330,16 @@ create the resulting object.
 <p>An attempt to compare times of different type will raise an error.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_time-resolution'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(time-resolution [time-type])</code></strong><br></p>
+<p><code><strong>(time-resolution [time-type]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1480,15 +1420,16 @@ forms defined in the SRFI are implemented in <strong><em>STklos</em></strong>, b
 functions, not present in the SRFI, are documented here.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_shape?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(shape? obj)</code></strong><br></p>
+<p><code><strong>(shape? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1500,15 +1441,16 @@ So, any array of shape <code>(0 r 0 2</code> is a shape, for any non-negative
 integer <code>r</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_shared-array?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(shared-array? array)</code></strong><br></p>
+<p><code><strong>(shared-array? array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1517,15 +1459,16 @@ integer <code>r</code>.</p>
 arrays, and <code>#f</code> otherwise.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_shape-for-each'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(shape-for-each shape proc [index-object])</code></strong><br></p>
+<p><code><strong>(shape-for-each shape proc [index-object]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1583,15 +1526,16 @@ avoid pushing and popping too many values when calling <code>proc</code>).
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_share-nths'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(share-nths a d n)</code></strong><br></p>
+<p><code><strong>(share-nths a d n) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1617,15 +1561,16 @@ This preserves the origin.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_share-column'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(share-column arr k)</code></strong><br></p>
+<p><code><strong>(share-column arr k) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1641,15 +1586,16 @@ This preserves the origin.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_share-row'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(share-row arr k)</code></strong><br></p>
+<p><code><strong>(share-row arr k) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1665,16 +1611,17 @@ This preserves the origin.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_share-array/origin'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(share-array/origin arr k &#8230;&#8203;)</code></strong><br>
-<strong><code>(share-array/origin arr index)</code></strong><br></p>
+<p><code><strong>(share-array/origin arr k &#8230;&#8203;) </strong></code><br>
+<code><strong>(share-array/origin arr index) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1690,15 +1637,16 @@ one-dimensional array that contains k &#8230;&#8203;</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-copy+share'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-copy+share array)</code></strong><br></p>
+<p><code><strong>(array-copy+share array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1709,15 +1657,16 @@ share-array, then the new array will be similar&#8201;&#8212;&#8201;it will be a
 array, sharing the elements in the same way.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-size'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-size array)</code></strong><br></p>
+<p><code><strong>(array-size array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1725,15 +1674,16 @@ array, sharing the elements in the same way.</p>
 <p>Returns the number of elements in <code>array</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-shape'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-shape array)</code></strong><br></p>
+<p><code><strong>(array-shape array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1741,15 +1691,16 @@ array, sharing the elements in the same way.</p>
 <p>Returns the shape of <code>array</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array->list'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array&#8594;list array)</code></strong><br></p>
+<p><code><strong>(array&#8594;list array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1759,15 +1710,16 @@ in row-major order.
 This is not recursive, and will not flatten the array.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array->vector'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array&#8594;vector array)</code></strong><br></p>
+<p><code><strong>(array&#8594;vector array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1778,15 +1730,16 @@ the original array (it is a fresh copy).
 This is not recursive, and will not flatten the array.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-length'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-length array dim)</code></strong><br></p>
+<p><code><strong>(array-length array dim) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1794,15 +1747,16 @@ This is not recursive, and will not flatten the array.</p>
 <p>Returns the length of dimension <code>dim</code> in array <code>array</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-map'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-map [shape] proc arr<sub>0</sub> arr<sub>1</sub> &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(array-map [shape] proc arr<sub>0</sub> arr<sub>1</sub> &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1820,15 +1774,16 @@ the equivalent position of a newly created array.</p>
 (or <code>arr<sub>0</sub></code>'s shape, if <code>shape</code> was not specified).</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-map!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-map! array [shape] proc arr<sub>0</sub> arr<sub>1</sub> &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(array-map! array [shape] proc arr<sub>0</sub> arr<sub>1</sub> &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1842,15 +1797,16 @@ place in <code>array</code> to the result.</p>
 <code>array</code>, and only that section will be mapped.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-append'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-append dim arr<sub>1</sub> arr<sub>2</sub> &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(array-append dim arr<sub>1</sub> arr<sub>2</sub> &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1875,15 +1831,16 @@ equally long.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-share-count'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-share-count array)</code></strong><br></p>
+<p><code><strong>(array-share-count array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1897,15 +1854,16 @@ collection pass by calling <code>(gc)</code>, but even that does not guarantee t
 a specific object will be collected.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-copy'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-copy array)</code></strong><br></p>
+<p><code><strong>(array-copy array) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1915,15 +1873,16 @@ The new copy will have no data shared with any other array, even if the
 argument <code>array</code> did.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-for-each-index'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-for-each-index arr proc [index-object])</code></strong><br></p>
+<p><code><strong>(array-for-each-index arr proc [index-object]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1947,16 +1906,17 @@ pushing and popping too many values when calling proc).
 on <code>index-object</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_tabulate-array'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(tabulate-array shape proc)</code></strong><br>
-<strong><code>(tabulate-array shape proc idx)</code></strong><br></p>
+<p><code><strong>(tabulate-array shape proc) </strong></code><br>
+<code><strong>(tabulate-array shape proc idx) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1971,15 +1931,16 @@ it may be either a vector or an array. If it is not present, or
 if it is <code>#f</code>, then an index vector will be created internally.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_array-retabulate!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(array-retabulate! arr shp proc [index-object])</code></strong><br></p>
+<p><code><strong>(array-retabulate! arr shp proc [index-object]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1996,15 +1957,16 @@ index, using <code>index-object</code> if provided. This is similar to
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_transpose'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(transpose arr k &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(transpose arr k &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2153,15 +2115,16 @@ To obtain the symbol <code>:</code> in <strong><em>STklos</em></strong>, you mus
 <strong><em>STklos</em></strong> implements the arrays of <strong><a href="http://srfi.schemers.org/srfi-116/srfi-116.html">SRFI-116</a></strong>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair a d)</code></strong><br></p>
+<p><code><strong>(ipair a d) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2171,15 +2134,16 @@ The ipair is guaranteed to be different (in the sense of <code>eqv?</code>)
 from every existing object.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilist'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilist obj &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ilist obj &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2196,15 +2160,16 @@ from every existing object.</p>
 <p>Being an ilist, its CAR, CDR and all sublists are immutable.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_xipair'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(xipair d a)</code></strong><br></p>
+<p><code><strong>(xipair d a) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2224,15 +2189,16 @@ higher-order procedures.</p>
 <p>The name stands for "eXchanged Immutable PAIR."</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair*'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair</strong> obj &#8230;&#8203;)</code>*<br></p>
+<p><code><strong>(ipair* obj &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2248,15 +2214,16 @@ used as the ,(emph "cdr") of the last pair constructed.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_make-ilist'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-ilist n [fill])</code></strong><br></p>
+<p><code><strong>(make-ilist n [fill]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2271,15 +2238,16 @@ ilist may be arbitrary values.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilist-tabulate'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilist-tabulate n init-proc)</code></strong><br></p>
+<p><code><strong>(ilist-tabulate n init-proc) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2295,15 +2263,16 @@ No guarantee is made about the dynamic order in which
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilist-copy'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilist-copy lst)</code></strong><br></p>
+<p><code><strong>(ilist-copy lst) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2311,15 +2280,16 @@ No guarantee is made about the dynamic order in which
 <p>Copies the spine of the argument, including the ilist tail.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iiota'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iiota count [ start step ]</code></strong><br></p>
+<p><code><strong>(iiota count [ start step ] </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2341,17 +2311,18 @@ primitive.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_icdr'></a><a id='P_icar'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(icar ipair)</code></strong><br>
-<strong><code>(icdr ipair)</code></strong><br></p>
+<p><code><strong>(icar ipair) </strong></code><br>
+<code><strong>(icdr ipair) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2369,15 +2340,16 @@ error to apply them to the empty ilist.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair? obj)</code></strong><br></p>
+<p><code><strong>(ipair? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2386,17 +2358,18 @@ error to apply them to the empty ilist.</p>
 a ()-terminated ilist.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_ilist?'></a><a id='P_proper-ilist?'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(proper-ilist? x)</code></strong><br>
-<strong><code>(ilist? x)</code></strong><br></p>
+<p><code><strong>(proper-ilist? x) </strong></code><br>
+<code><strong>(ilist? x) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2413,15 +2386,16 @@ else is a dotted ilist. This includes non-ipair, non-() values
 be dotted ilists of length 0.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_dotted-ilist?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(dotted-ilist? x)</code></strong><br></p>
+<p><code><strong>(dotted-ilist? x) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2437,15 +2411,16 @@ which are considered to be dotted ilists of length 0.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_not-ipair?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(not-ipair? x)</code></strong><br></p>
+<p><code><strong>(not-ipair? x) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2458,15 +2433,16 @@ condition for ilist-processing procedures that wish to handle
 all ilists, both proper and dotted.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_null-ilist?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(null-ilist? lst)</code></strong><br></p>
+<p><code><strong>(null-ilist? lst) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2478,15 +2454,16 @@ recommended as the termination condition for ilist-processing
 procedures that are not defined on dotted ilists.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilist='></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilist= elt= ilist1 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ilist= elt= ilist1 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2537,17 +2514,18 @@ element-by-element comparisons.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_list-immutable!'></a><a id='P_list-immutable+!'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(list-immutable+! lst)</code></strong><br>
-<strong><code>(list-immutable! lst)</code></strong><br></p>
+<p><code><strong>(list-immutable+! lst) </strong></code><br>
+<code><strong>(list-immutable! lst) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2557,7 +2535,8 @@ argument so it will become an immutable list.
 <code>List-immutable+!</code> returns the list, while <code>list-immutable!</code> returns <code>#void</code>.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_itenth'></a><a id='P_ininth'></a><a id='P_ieighth'></a><a id='P_iseventh'></a><a id='P_isixth'></a><a id='P_ififth'></a><a id='P_ifourth'></a><a id='P_ithird'></a><a id='P_isecond'></a><a id='P_ifirst'></a>
+
 
 
 
@@ -2568,22 +2547,22 @@ argument so it will become an immutable list.
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifirst   ipair)</code></strong><br>
-<strong><code>(isecond  ipair)</code></strong><br>
-<strong><code>(ithird   ipair)</code></strong><br>
-<strong><code>(ifourth  ipair)</code></strong><br>
-<strong><code>(ififth   ipair)</code></strong><br>
-<strong><code>(isixth   ipair)</code></strong><br>
-<strong><code>(iseventh ipair)</code></strong><br>
-<strong><code>(ieighth  ipair)</code></strong><br>
-<strong><code>(ininth   ipair)</code></strong><br>
-<strong><code>(itenth   ipair)</code></strong><br></p>
+<p><code><strong>(ifirst   ipair) </strong></code><br>
+<code><strong>(isecond  ipair) </strong></code><br>
+<code><strong>(ithird   ipair) </strong></code><br>
+<code><strong>(ifourth  ipair) </strong></code><br>
+<code><strong>(ififth   ipair) </strong></code><br>
+<code><strong>(isixth   ipair) </strong></code><br>
+<code><strong>(iseventh ipair) </strong></code><br>
+<code><strong>(ieighth  ipair) </strong></code><br>
+<code><strong>(ininth   ipair) </strong></code><br>
+<code><strong>(itenth   ipair) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2596,15 +2575,16 @@ argument so it will become an immutable list.
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_icar+icdr'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(icar+icdr ip)</code></strong><br></p>
+<p><code><strong>(icar+icdr ip) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2613,19 +2593,20 @@ argument so it will become an immutable list.
 the icar and the icdrif <code>ip</code>.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_ilist-tail'></a><a id='P_idrop'></a><a id='P_itake'></a>
+
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(itake x i)</code></strong><br>
-<strong><code>(idrop x i)</code></strong><br>
-<strong><code>(ilist-tail x i)</code></strong><br></p>
+<p><code><strong>(itake x i) </strong></code><br>
+<code><strong>(idrop x i) </strong></code><br>
+<code><strong>(ilist-tail x i) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2666,17 +2647,18 @@ which can be inverted with iappend:</p>
 the returned value shares a common tail with <code>x</code>.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_idrop-right'></a><a id='P_itake-right'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(itake-right dilist i)</code></strong><br>
-<strong><code>(idrop-right dilist i)</code></strong><br></p>
+<p><code><strong>(itake-right dilist i) </strong></code><br>
+<code><strong>(idrop-right dilist i) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2718,15 +2700,16 @@ in a manner which can be inverted with <code>iappend</code>:</p>
 with <code>dilist</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_isplit-at'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(isplit-at  x i)</code></strong><br></p>
+<p><code><strong>(isplit-at  x i) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2741,17 +2724,18 @@ equivalent to</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_last-ipair'></a><a id='P_ilast'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilast ipair)</code></strong><br>
-<strong><code>(last-ipair ipair)</code></strong><br></p>
+<p><code><strong>(ilast ipair) </strong></code><br>
+<code><strong>(last-ipair ipair) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2767,15 +2751,16 @@ dotted, ilist ipair.
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilength'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilength  ilist)</code></strong><br></p>
+<p><code><strong>(ilength  ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2788,15 +2773,16 @@ to <code>ilength</code> which is not a proper ilist (()-terminated).</p>
 <code>icdr</code> applied n times to the ilist produces the empty list.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iappend'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iappend ilist1 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(iappend ilist1 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2825,15 +2811,16 @@ proper ilist. All other arguments must be proper ilists.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iconcatenate'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iconcatenate  ilist-of-ilists)</code></strong><br></p>
+<p><code><strong>(iconcatenate  ilist-of-ilists) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2859,15 +2846,16 @@ returns the same as</p>
 value at all.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ireverse'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ireverse  ilist)</code></strong><br></p>
+<p><code><strong>(ireverse  ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2882,15 +2870,16 @@ in reverse order.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iappend-reverse'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iappend-reverse  rev-head tail)</code></strong><br></p>
+<p><code><strong>(iappend-reverse  rev-head tail) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2908,15 +2897,16 @@ which is typically a win for reasons of cache locality and eager
 storage reclamation.)</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_izip'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(izip ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(izip ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2939,23 +2929,24 @@ the corresponding elements from the parameter ilists.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iunzip5'></a><a id='P_iunzip4'></a><a id='P_iunzip3'></a><a id='P_iunzip2'></a><a id='P_iunzip1'></a>
+
 
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iunzip1 ilist)</code></strong><br>
-<strong><code>(iunzip2 ilist)</code></strong><br>
-<strong><code>(iunzip3 ilist)</code></strong><br>
-<strong><code>(iunzip4 ilist)</code></strong><br>
-<strong><code>(iunzip5 ilist)</code></strong><br></p>
+<p><code><strong>(iunzip1 ilist) </strong></code><br>
+<code><strong>(iunzip2 ilist) </strong></code><br>
+<code><strong>(iunzip3 ilist) </strong></code><br>
+<code><strong>(iunzip4 ilist) </strong></code><br>
+<code><strong>(iunzip5 ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2977,15 +2968,16 @@ the ilists, and so forth.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_icount'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(icount pred ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(icount pred ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3005,15 +2997,16 @@ expires.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_imap'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(imap proc ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(imap proc ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3042,15 +3035,16 @@ the ilists is unspecified.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifor-each'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifor-each proc ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ifor-each proc ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3071,15 +3065,16 @@ and the value returned by <code>ifor-each</code> is unspecified.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifold'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifold kons knil ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ifold kons knil ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3139,15 +3134,16 @@ shortest ilist runs out of values:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iunfold'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iunfold p f g seed [tail-gen])</code></strong><br></p>
+<p><code><strong>(iunfold p f g seed [tail-gen]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3237,15 +3233,16 @@ iunfold are in some sense inverses. That is, given operations <code>knull?</code
 tail-gen procedure is supplied, it is called an "apomorphism."</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair-fold'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair-fold kons knil ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ipair-fold kons knil ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3270,15 +3267,16 @@ the ipairs making up the lists, giving this (tail) recursion:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ireduce'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ireduce f ridentity ilist)</code></strong><br></p>
+<p><code><strong>(ireduce f ridentity ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3325,15 +3323,16 @@ may not be performed with ireduce).</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifold-right'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifold-right kons knil ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ifold-right kons knil ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3377,15 +3376,16 @@ shortest ilist runs out of values:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iunfold-right'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iunfold-right p f g seed [tail])</code></strong><br></p>
+<p><code><strong>(iunfold-right p f g seed [tail]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3473,15 +3473,16 @@ used in a number of ways:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair-fold-right'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair-fold-right kons knil ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ipair-fold-right kons knil ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3505,15 +3506,16 @@ holds with <code>ifold</code>. Obeys the recursion</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ireduce-right'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ireduce-right f ridentity ilist)</code></strong><br></p>
+<p><code><strong>(ireduce-right f ridentity ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3540,15 +3542,16 @@ following definition:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iappend-map'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iappend-map  f ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(iappend-map  f ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3587,15 +3590,16 @@ not specified.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipair-for-each'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipair-for-each f ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ipair-for-each f ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3614,15 +3618,16 @@ left-to-right order.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifilter-map'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifilter-map f ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ifilter-map f ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3640,15 +3645,16 @@ left-to-right order.</p>
 not specified.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_imap-in-order'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(imap-in-order f ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(imap-in-order f ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3659,15 +3665,16 @@ useful for mapping procedures that both have side effects and return
 useful values.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifilter'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifilter pred ilist )</code></strong><br></p>
+<p><code><strong>(ifilter pred ilist ) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3685,15 +3692,16 @@ not specified.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ipartition'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ipartition pred ilist)</code></strong><br></p>
+<p><code><strong>(ipartition pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3714,15 +3722,16 @@ ilist.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iremove'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iremove pred ilist)</code></strong><br></p>
+<p><code><strong>(iremove pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3748,19 +3757,20 @@ not specified.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_imemv'></a><a id='P_imemq'></a><a id='P_imember'></a>
+
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(imember x ilist [=])</code></strong><br>
-<strong><code>(imemq x ilist)</code></strong><br>
-<strong><code>(imemv x ilist)</code></strong><br></p>
+<p><code><strong>(imember x ilist [=]) </strong></code><br>
+<code><strong>(imemq x ilist) </strong></code><br>
+<code><strong>(imemv x ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3808,15 +3818,16 @@ element of ilist that is greater than five with <code>(imember 5 ilist &lt;)</co
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifind'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifind pred ilist)</code></strong><br></p>
+<p><code><strong>(ifind pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3846,15 +3857,16 @@ since <code>ifind-tail</code> has no such ambiguity:</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ifind-tail'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ifind-tail pred ilist)</code></strong><br></p>
+<p><code><strong>(ifind-tail pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3885,15 +3897,16 @@ satisfying the predicate; <code>idrop-while</code> searches until it finds an
 element that doesn&#8217;t satisfy the predicate.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iany'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iany pred ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(iany pred ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3933,15 +3946,16 @@ but a general value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ievery'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ievery pred ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ievery pred ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -3972,15 +3986,16 @@ to indicate that it does not return a simple boolean (true or false), but a
 general value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ilist-index'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ilist-index pred ilist1 ilist2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(ilist-index pred ilist1 ilist2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4011,15 +4026,16 @@ case, <code>ilist-index</code> returns false.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_itake-while'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(itake-while  pred ilist)</code></strong><br></p>
+<p><code><strong>(itake-while  pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4033,15 +4049,16 @@ satisfy the predicate <code>pred</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_idrop-while'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(idrop-while pred ilist)</code></strong><br></p>
+<p><code><strong>(idrop-while pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4055,17 +4072,18 @@ satisfy the predicate <code>pred</code>, and returns the rest of the ilist.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_ibreak'></a><a id='P_ispan'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ispan   pred ilist)</code></strong><br>
-<strong><code>(ibreak  pred ilist)</code></strong><br></p>
+<p><code><strong>(ispan   pred ilist) </strong></code><br>
+<code><strong>(ibreak  pred ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4098,15 +4116,16 @@ satisfying <code>pred</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_idelete'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(idelete  x ilist [=])</code></strong><br></p>
+<p><code><strong>(idelete  x ilist [=]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4140,15 +4159,16 @@ various ei is not specified. Thus, one can reliably remove all the
 numbers greater than five from an ilist with <code>(idelete 5 ilist &lt;)</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ialist-cons'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ialist-cons key datum ialist)</code></strong><br></p>
+<p><code><strong>(ialist-cons key datum ialist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4162,15 +4182,16 @@ This is the same as</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_idelete-duplicates'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(idelete-duplicates  ilist [=])</code></strong><br></p>
+<p><code><strong>(idelete-duplicates  ilist [=]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4206,19 +4227,20 @@ expected time.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iassv'></a><a id='P_iassq'></a><a id='P_iassoc'></a>
+
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iassoc key ialist [=] &#8594; ipair or #f</code></strong><br>
-<strong><code>(iassq key ialist &#8594; ipair or #f</code></strong><br>
-<strong><code>(iassv key ialist &#8594; ipair or #f</code></strong><br></p>
+<p><code><strong>(iassoc key ialist [=] &#8594; ipair or #f </strong></code><br>
+<code><strong>(iassq key ialist &#8594; ipair or #f </strong></code><br>
+<code><strong>(iassv key ialist &#8594; ipair or #f </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4268,15 +4290,16 @@ ifind-tail and ifind procedures, e.g.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_ialist-delete'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(ialist-delete  key ialist [=])</code></strong><br></p>
+<p><code><strong>(ialist-delete  key ialist [=]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4298,17 +4321,18 @@ one can reliably remove all entries of ialist whose key is greater
 than five with <code>(ialist-delete 5 ialist &lt;)</code></p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_replace-icdr'></a><a id='P_replace-icar'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(replace-icar ipair object)</code></strong><br>
-<strong><code>(replace-icdr ipair object)</code></strong><br></p>
+<p><code><strong>(replace-icar ipair object) </strong></code><br>
+<code><strong>(replace-icdr ipair object) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4321,17 +4345,18 @@ the icdr of ipair in the icdr field.</p>
 the icar of ipair in the icar field.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_ilist->list'></a><a id='P_list->ilist'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(list&#8594;ilist lst)</code></strong><br>
-<strong><code>(ilist&#8594;list lst)</code></strong><br></p>
+<p><code><strong>(list&#8594;ilist lst) </strong></code><br>
+<code><strong>(ilist&#8594;list lst) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4346,17 +4371,18 @@ list is converted to itself.</p>
 <p>It is an error to apply list&#8594;ilist to a circular list.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_ipair->pair'></a><a id='P_pair->ipair'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(pair&#8594;ipair pair)</code></strong><br>
-<strong><code>(ipair&#8594;pair ipair)</code></strong><br></p>
+<p><code><strong>(pair&#8594;ipair pair) </strong></code><br>
+<code><strong>(ipair&#8594;pair ipair) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4366,17 +4392,18 @@ a pair respectively that have the same (i)car and (i)cdr
 fields as the argument.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_itree->tree'></a><a id='P_tree->itree'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(tree&#8594;itree object)</code></strong><br>
-<strong><code>(itree&#8594;tree object)</code></strong><br></p>
+<p><code><strong>(tree&#8594;itree object) </strong></code><br>
+<code><strong>(itree&#8594;tree object) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4394,17 +4421,18 @@ ipairs, which if converted by <code>itree&#8594;tree</code> would produce a pair
 pairs.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_gtree->tree'></a><a id='P_gtree->itree'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(gtree&#8594;itree object)</code></strong><br>
-<strong><code>(gtree&#8594;tree object)</code></strong><br></p>
+<p><code><strong>(gtree&#8594;itree object) </strong></code><br>
+<code><strong>(gtree&#8594;tree object) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4416,15 +4444,16 @@ respectively. The result may share structure with the argument.
 If the argument is neither a pair nor an ipair, it is returned.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iapply'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iapply procedure object &#8230;&#8203; ilist)</code></strong><br></p>
+<p><code><strong>(iapply procedure object &#8230;&#8203; ilist) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4485,6 +4514,17 @@ use it with one of the previous libraries.</p>
 </div>
 </div>
 <div class="sect3">
+<h4 id="_srfi_230atomic_operations">srfi-230&#8201;&#8212;&#8201;Atomic Operations</h4>
+<div class="paragraph">
+<p></p>
+</div>
+<div class="paragraph">
+<p><strong><a href="http://srfi.schemers.org/srfi-238/srfi-238.html">SRFI-238</a></strong> is fully supported if <strong><em>STklos</em></strong> was compiled
+with Posix threads. If <strong><em>STklos</em></strong> was compiled without thread support,
+the module <code>(srfi 230)</code> is defined, but it exports nothing.</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_srfi_238codesets">srfi-238&#8201;&#8212;&#8201;Codesets</h4>
 <div class="paragraph">
 <p></p>
@@ -4494,15 +4534,16 @@ use it with one of the previous libraries.</p>
 adds the functions <code>codeset-list</code> and <code>make-codeset</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_codeset-list'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(codeset-list)</code></strong><br></p>
+<p><code><strong>(codeset-list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4515,15 +4556,16 @@ adds the functions <code>codeset-list</code> and <code>make-codeset</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_make-codeset'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-codeset name lst)</code></strong><br></p>
+<p><code><strong>(make-codeset name lst) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -4549,7 +4591,7 @@ is a list of triplets (code-number symbol message) where <code>symbol</code> and
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_using_the_slib_package.html">Using the SLIB package</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a> | Next: <a href="_bibliography.html">Bibliography</a> →</p>
+<p>← Previous: <a href="_using_the_slib_package.html">Using the SLIB package</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_bibliography.html">Bibliography</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -4574,11 +4616,6 @@ is a list of triplets (code-number symbol message) where <code>symbol</code> and
 </div>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-09-12 16:56:23 +0200
 </div>
 </div>
 </body>

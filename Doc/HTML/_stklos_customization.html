@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.00)</title>
+<title>STklos Reference Manual : (version 2.10)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -471,7 +472,10 @@ pre.rouge .gd {
   background-color: #493131;
 }
 pre.rouge .ge {
-  color: #000000;
+  font-style: italic;
+}
+pre.rouge .ges {
+  font-weight: bold;
   font-style: italic;
 }
 pre.rouge .gr {
@@ -650,81 +654,10 @@ pre.rouge {
   background-color: #49483e;
 }
 </style>
-<!-- Generate a nice TOC -->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
-<!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
-.tocify-header {
-    font-style: italic;
-}
-
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
-
-.tocify ul {
-    margin: 0;
- }
-
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tocify-focus > a {
-    color: #7a2518;
-}
+  /* Customize default CSS */
+  .sidebarblock { margin-top: -1em; }
 </style>
-
-<script type="text/javascript">
-    $(function () {
-        // Add a new container for the tocify toc into the existing toc so we can re-use its
-        // styling
-        $("#toc").append("<div id='generated-toc'></div>");
-        $("#generated-toc").tocify({
-            extendPage: true,
-            context: "#content",
-            highlightOnScroll: true,
-            hideEffect: "slideUp",
-            // Use the IDs that asciidoc already provides so that TOC links and intra-document
-            // links are the same. Anything else might confuse users when they create bookmarks.
-            hashGenerator: function(text, element) {
-                return $(element).attr("id");
-            },
-            // Smooth scrolling doesn't work properly if we use the asciidoc IDs
-            smoothScroll: false,
-            // Set to 'none' to use the tocify classes
-            theme: "none",
-            // Handle book (may contain h1) and article (only h2 deeper)
-            selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
-            ignoreSelector: ".discrete"
-        });
-
-        // Switch between static asciidoc toc and dynamic tocify toc based on browser size
-        // This is set to match the media selectors in the asciidoc CSS
-        // Without this, we keep the dynamic toc even if it is moved from the side to preamble
-        // position which will cause odd scrolling behavior
-        var handleTocOnResize = function() {
-            if ($(document).width() < 768) {
-                $("#generated-toc").hide();
-                $(".sectlevel0").show();
-                $(".sectlevel1").show();
-            }
-            else {
-                $("#generated-toc").show();
-                $(".sectlevel0").hide();
-                $(".sectlevel1").hide();
-            }
-        }
-
-        $(window).resize(handleTocOnResize);
-        handleTocOnResize();
-    });
-</script>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
@@ -732,14 +665,14 @@ pre.rouge {
 </head>
 <body id="_stklos_customization" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.00)</h1>
+<h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
 <li><a href="_preface.html">Preface</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -766,6 +699,8 @@ pre.rouge {
 </li>
 <li><a href="_stklos_customization.html#_environment_variables">10.2. Environment variables</a>
 </li>
+<li><a href="_stklos_customization.html#_repl">10.3. REPL</a>
+</li>
 </ul>
 </li>
 <li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
@@ -791,19 +726,20 @@ pre.rouge {
 <h3 id="_parameter_objects_2">10.1. Parameter Objects</h3>
 <div class="paragraph">
 <p><strong><em>STklos</em></strong> environement can be customized using Parameter Objects. These
-parmaters are listed below.</p>
+parameters are listed below.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_real-precision'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(real-precision)</code></strong><br>
-<strong><code>(real-precision value)</code></strong><br></p>
+<p><code><strong>(real-precision) </strong></code><br>
+<code><strong>(real-precision value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -870,16 +806,17 @@ after it.</p>
 </div>
 </div>
 <div id="srfi169" class="paragraph">
-<p></p>
+<p><a id='P_accept-srfi-169-numbers'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(accept-srfi-169-numbers)</code></strong><br>
-<strong><code>(accept-srfi-169-numbers value)</code></strong><br></p>
+<p><code><strong>(accept-srfi-169-numbers) </strong></code><br>
+<code><strong>(accept-srfi-169-numbers value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -900,33 +837,26 @@ underscores are accepted in numbers.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_read-case-sensitive'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(read-case-sensitive)</code></strong><br>
-<strong><code>(read-case-sensitive value)</code></strong><br></p>
+<p><code><strong>(read-case-sensitive) </strong></code><br>
+<code><strong>(read-case-sensitive value) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
 <p>This parameter object permits to change the default behaviour of
-the <code>read</code> primitive when reading a symbol. If this parameter has
-a true value a symbol is not converted to a default case when interned.
-Since R<sup>7</sup>RS requires that symbol are case insignificant, the default
-value  of this parameter is <code>#t</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">read-case-sensitive</span><span class="p">)</span>        <span class="nv">=&gt;</span> <span class="o">`</span><span class="no">#t</span><span class="o">`</span>
-<span class="p">(</span><span class="nf">read-from-string</span> <span class="s">"ABC"</span><span class="p">)</span>     <span class="nv">=&gt;</span> <span class="nv">ABC</span>
-<span class="p">(</span><span class="nf">read-case-sensitive</span> <span class="no">#f</span><span class="p">)</span>
-<span class="p">(</span><span class="nf">read-from-string</span> <span class="s">"ABC"</span><span class="p">)</span>     <span class="nv">=&gt;</span> <span class="nv">abc</span></code></pre>
-</div>
+the <code>read</code> primitive used on the current input port , when reading a symbol.
+If this parameter has a true value a symbol is not converted to a default
+case when interned. Since R<sup>7</sup>RS requires that symbol are case insignificant,
+the default value  of this parameter is <code>#t</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -938,8 +868,8 @@ value  of this parameter is <code>#t</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Default behaviour can be changed for a whole execution
-with the <code>--case-sensitive</code> or <code>case-insensitive</code> options.</p>
+<p>This parameter works on the current input port only and cannot change
+read beahviour&#8217;s globally.</p>
 </li>
 <li>
 <p>See also syntax for <em><a href="_standard_procedures.html#_symbols">special characters</a></em> in symbols.</p>
@@ -951,16 +881,17 @@ with the <code>--case-sensitive</code> or <code>case-insensitive</code> options.
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_write-pretty-quotes'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(write-pretty-quotes)</code></strong><br>
-<strong><code>(write-pretty-quotes value)</code></strong><br></p>
+<p><code><strong>(write-pretty-quotes) </strong></code><br>
+<code><strong>(write-pretty-quotes value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -985,16 +916,17 @@ By default, this parameter value is set to <code>#t</code>.</p>
 <p></p>
 </div>
 <div id="loadpath" class="paragraph">
-<p></p>
+<p><a id='P_load-path'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(load-path)</code></strong><br>
-<strong><code>(load-path value)</code></strong><br></p>
+<p><code><strong>(load-path) </strong></code><br>
+<code><strong>(load-path value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1017,16 +949,17 @@ current list of paths.</p>
 </div>
 <div class="paragraph">
 <p>
+<a id='P_load-suffixes'></a>
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(load-suffixes)</code></strong><br>
-<strong><code>(load-suffixes value)</code></strong><br></p>
+<p><code><strong>(load-suffixes) </strong></code><br>
+<code><strong>(load-suffixes value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1038,16 +971,17 @@ to a file name  is appended to a file name given to <code>load</code> or <code>t
 until the file can be loaded.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_load-verbose'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(load-verbose)</code></strong><br>
-<strong><code>(load-verbose value)</code></strong><br></p>
+<p><code><strong>(load-verbose) </strong></code><br>
+<code><strong>(load-verbose value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1058,16 +992,17 @@ the current error port, when set to a true value. If <code>load-verbose</code>
 is set to <code>#f</code>, no message is printed.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-handler-error-show'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-handler-error-show)</code></strong><br>
-<strong><code>(thread-handler-error-show value)</code></strong><br></p>
+<p><code><strong>(thread-handler-error-show) </strong></code><br>
+<code><strong>(thread-handler-error-show value) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1081,15 +1016,16 @@ This makes debugging easier. By default, this parameter is set to
 <code>#t</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_stklos-debug-level'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(stklos-debug-level)</code></strong><br></p>
+<p><code><strong>(stklos-debug-level) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1099,18 +1035,235 @@ debugging level. The default value of this parameter is 0 (meaning "no debug").
 Note that the debugging level can also be set by the <code>--debug</code> option of the
 <code>stklos(1)</code> command.</p>
 </div>
-<div class="paragraph">
-<p></p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="sect2">
+<h3 id="_environment_variables">10.2. Environment variables</h3>
+<div class="paragraph">
+<p>The following variables can be used to customize <strong><em>STklos</em></strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>STKLOS_LOAD_PATH</strong>: This is a colon-separated list
+of directories in which stklos looks for loading files. It is used by
+primitives such as <code><a href="_standard_procedures.html#load">load</a></code> or <code><a href="_standard_procedures.html#tryload">try-load</a></code>.  See also the
+<code><a href="_stklos_customization.html#loadpath">load-path</a></code> parameter.</p>
+</li>
+<li>
+<p><strong>STKLOS-FRAME</strong>: This variable must contains an integer
+which indicates the number of frames printed on an error. Use
+the value 0 for an unlimited backtrace.</p>
+</li>
+<li>
+<p><strong>STKLOS-CONFDIR</strong>: This variable can be used to
+designate the directory used by <strong><em>STklos</em></strong> to store its configuration or
+packages files. If not set, the default <strong><em>STklos</em></strong> configuration directory
+is by default <code>${XDG_CONFIG_HOME}/stklos</code> (or <code>~/.config/stklos</code> if the
+shell variable <code>XDG_CONFIG_HOME</code> is unset).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_repl">10.3. REPL</h3>
+<div class="paragraph">
+<p>By default, the <strong><em>STklos</em></strong> REPL try to find an installed
+<em>editing line library</em> to read input expressions. It tries to link with GNU readline
+<a href="_bibliography.html#Readline">[Readline]</a> or BSD libedit <a href="_bibliography.html#Libedit">[Libedit]</a> libraries. Line editing offers editing
+capabilities while the user is entering the line (navigation in the line, in
+the history and function or file completion).</p>
+</div>
+<div class="paragraph">
+<p><a id='P_repl'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(repl-theme)</code></strong><br>
-<strong><code>(repl-theme plist)</code></strong><br>
-<strong><code>(repl-theme name)</code></strong><br></p>
+<p><code><strong>(repl) </strong></code><br>
+<code><strong>(repl :in inport :out outport :err errport) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This procedure launches a new Read-Eval-Print-Loop. Calls to <code>repl</code> can be
+embedded. The ports used for input/output as well as the error port can
+be passed when <code>repl</code> is called. If not passed, they default to
+<code>current-input-port</code>, <code>current-output-port</code> and <code>current-error-port</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_repl_commands">10.3.1. REPL commands</h4>
+<div class="paragraph">
+<p>By default, <strong><em>STklos</em></strong> accepts some special commands. A command starts
+with a comma character, followed by the name of the command. The list
+of available commands is given below.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>,backtrace</strong> (or <strong>,bt</strong>): Show the stack when last error occurred</p>
+</li>
+<li>
+<p><strong>,cd</strong>: Change current directory</p>
+</li>
+<li>
+<p><strong>,quit</strong> (or <strong>,q</strong>): Exit STklos</p>
+</li>
+<li>
+<p><strong>,time</strong> (or <strong>,t</strong> ): Print the time used to run the next expression</p>
+</li>
+<li>
+<p><strong>,describe</strong> (or <strong>,d</strong>): Describe an object</p>
+</li>
+<li>
+<p><strong>,expand</strong> (or <strong>,e</strong>): Pretty print the macro expansion of a form</p>
+</li>
+<li>
+<p><strong>,import</strong> (or  <strong>,i</strong>): Import a library</p>
+</li>
+<li>
+<p><strong>,require-feature</strong> (or <strong>,r</strong>):  Require a feature</p>
+</li>
+<li>
+<p><strong>,open</strong> (or <strong>,o</strong>): Open file or URL</p>
+</li>
+<li>
+<p><strong>,browse</strong> (or <strong>,b</strong>): Browse file or URL with the default browser</p>
+</li>
+<li>
+<p><strong>,manual</strong> (or <strong>,m</strong>): Search reference manual</p>
+</li>
+<li>
+<p><strong>,apropos</strong> (or <strong>,a</strong>): Search symbols containing a given string</p>
+</li>
+<li>
+<p><strong>,version</strong> (or <strong>,v</strong>): Show version</p>
+</li>
+<li>
+<p><strong>,help</strong> (or <strong>,?</strong> or <strong>*,h</strong>): Show help on REPL command with
+parameter. With a parameter, display the help of this parameter</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Furthermore, the <strong>'!'</strong> character can also be used to execute an
+external command using <strong>sh(1)</strong>. For instance,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="nv">stklos&gt;</span> <span class="nv">!pwd</span>
+<span class="nv">/tmp/test</span>
+<span class="nv">stklos&gt;</span> <span class="nv">!emacs</span> <span class="nv">foo</span><span class="o">.</span><span class="nv">stk</span> <span class="nv">&amp;</span>   <span class="c1">;; to launch emacs on file foo.stk</span>
+<span class="nv">stklos&gt;</span> <span class="p">(</span><span class="k">define</span> <span class="nv">!pwd</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1">;; !pwd</span>
+<span class="nv">stklos&gt;</span> <span class="nv">!pwd</span>               <span class="c1">;; now !pwd overrides pwd(1)</span>
+<span class="mi">100</span>
+<span class="nv">stklos&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_repl-add-command'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(repl-add-command names doc func) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Add a new command to the REPL. The names of the command are given in the
+first parameter as a list (or a symbol if there is only one name).
+The documentation of the command is given as a string as the second parameter.
+Finally, the function given as the third parameter is called when the new command
+is executed by the user. The code hereafter, permits to add a command to call an
+editor, with the commands <code>,editor</code> or <code>,ed</code> followed (eventually) by a file name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">repl-add-command</span> <span class="o">'</span><span class="p">(</span><span class="nf">editor</span> <span class="nv">ed</span><span class="p">)</span>
+                 <span class="s">"Edit a file with $EDITOR (or emacs if unset)"</span>
+                 <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span>
+                   <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">cmd</span> <span class="p">(</span><span class="k">or</span> <span class="p">(</span><span class="nf">getenv</span> <span class="s">"EDITOR"</span><span class="p">)</span> <span class="s">"emacs"</span><span class="p">)))</span>
+                     <span class="p">(</span><span class="nf">system</span> <span class="p">(</span><span class="nb">string-append</span> <span class="nv">cmd</span> <span class="s">" "</span> <span class="p">(</span><span class="nf">read-line</span><span class="p">)</span> <span class="s">" 2&gt;/dev/null"</span><span class="p">)))))</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong><em>STklos</em></strong> has already a number of commands defined, but
+<code>repl-add-command</code> can be  useful to define your own commrand. A good place to add
+such a definition is in the <code>stklosrc</code> file.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repl_variables">10.3.2. REPL variables</h4>
+<div class="paragraph">
+<p>By default, <strong><em>STklos</em></strong> defines the following variables:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@1</code>, <code>@2</code>, <code>@3</code>, <code>@4</code> and <code>@5</code> contains five the last REPL&#8217;s
+computed values</p>
+</li>
+<li>
+<p><code>@</code> is an alias on <code>@1</code> (the last value computed by the REPL)</p>
+</li>
+<li>
+<p><code>@*</code> contains a list of <code>@1</code>, <code>@2</code>, <code>@3</code>, <code>@4</code> and <code>@5</code> values</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="nv">stklos&gt;</span> <span class="p">(</span><span class="nb">values</span> <span class="ss">'a</span> <span class="ss">'b</span> <span class="ss">'c</span> <span class="ss">'d</span> <span class="ss">'e</span><span class="p">)</span>
+<span class="nv">a</span>
+<span class="nv">b</span>
+<span class="nv">c</span>
+<span class="nv">d</span>
+<span class="nv">e</span>
+<span class="nv">stklos&gt;</span> <span class="nv">@*</span>
+<span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span>
+<span class="nv">stklos&gt;</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="nv">stklos&gt;</span> <span class="nv">@*</span>
+<span class="p">(</span><span class="nf">5</span> <span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span> <span class="nv">e</span><span class="p">)</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_repl_parameters">10.3.3. REPL parameters</h4>
+<div class="paragraph">
+<p>The following parameter objects can be used to customize the REPL:</p>
+</div>
+<div class="paragraph">
+<p><a id='P_repl-theme'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(repl-theme) </strong></code><br>
+<code><strong>(repl-theme plist) </strong></code><br>
+<code><strong>(repl-theme name) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1184,16 +1337,17 @@ A good place to change your theme is the <code>stklosrc</code> file.
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_repl-show-startup-message'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(repl-show-startup-message)</code></strong><br>
-<strong><code>(repl-show-startup-message val)</code></strong><br></p>
+<p><code><strong>(repl-show-startup-message) </strong></code><br>
+<code><strong>(repl-show-startup-message val) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1217,38 +1371,11 @@ the <strong><em>STklos</em></strong> command. Otherwise, a good place to set thi
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_environment_variables">10.2. Environment variables</h3>
-<div class="paragraph">
-<p>The following variables can be used to customize <strong><em>STklos</em></strong>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>STKLOS_LOAD_PATH</strong>: This is a colon-separated list
-of directories in which stklos looks for loading files. It is used by
-primitives such as <code><a href="_standard_procedures.html#load">load</a></code> or <code><a href="_standard_procedures.html#tryload">try-load</a></code>.  See also the
-<code><a href="_stklos_customization.html#loadpath">load-path</a></code> parameter.</p>
-</li>
-<li>
-<p><strong>STKLOS-FRAME</strong>: This variable must contains an integer
-which indicates the number of frames printed on an error. Use
-the value 0 for an unlimited backtrace.</p>
-</li>
-<li>
-<p><strong>STKLOS-CONFDIR</strong>: This variable can be used to
-designate the directory used by <strong><em>STklos</em></strong> to store its configuration or
-packages files. If not set, the default <strong><em>STklos</em></strong> configuration directory
-is by default <code>${XDG_CONFIG_HOME}/stklos</code> (or <code>~/.config/stklos</code> if the
-shell variable <code>XDG_CONFIG_HOME</code> is unset).</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a> | Next: <a href="_foreign_function_interface.html">Foreign Function Interface</a> →</p>
+<p>← Previous: <a href="_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_foreign_function_interface.html">Foreign Function Interface</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1273,11 +1400,6 @@ shell variable <code>XDG_CONFIG_HOME</code> is unset).</p>
 </div>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-09-12 16:56:23 +0200
 </div>
 </div>
 </body>

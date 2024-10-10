@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.00)</title>
+<title>STklos Reference Manual : (version 2.10)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -471,7 +472,10 @@ pre.rouge .gd {
   background-color: #493131;
 }
 pre.rouge .ge {
-  color: #000000;
+  font-style: italic;
+}
+pre.rouge .ges {
+  font-weight: bold;
   font-style: italic;
 }
 pre.rouge .gr {
@@ -650,81 +654,10 @@ pre.rouge {
   background-color: #49483e;
 }
 </style>
-<!-- Generate a nice TOC -->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
-<!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
-.tocify-header {
-    font-style: italic;
-}
-
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
-
-.tocify ul {
-    margin: 0;
- }
-
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tocify-focus > a {
-    color: #7a2518;
-}
+  /* Customize default CSS */
+  .sidebarblock { margin-top: -1em; }
 </style>
-
-<script type="text/javascript">
-    $(function () {
-        // Add a new container for the tocify toc into the existing toc so we can re-use its
-        // styling
-        $("#toc").append("<div id='generated-toc'></div>");
-        $("#generated-toc").tocify({
-            extendPage: true,
-            context: "#content",
-            highlightOnScroll: true,
-            hideEffect: "slideUp",
-            // Use the IDs that asciidoc already provides so that TOC links and intra-document
-            // links are the same. Anything else might confuse users when they create bookmarks.
-            hashGenerator: function(text, element) {
-                return $(element).attr("id");
-            },
-            // Smooth scrolling doesn't work properly if we use the asciidoc IDs
-            smoothScroll: false,
-            // Set to 'none' to use the tocify classes
-            theme: "none",
-            // Handle book (may contain h1) and article (only h2 deeper)
-            selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
-            ignoreSelector: ".discrete"
-        });
-
-        // Switch between static asciidoc toc and dynamic tocify toc based on browser size
-        // This is set to match the media selectors in the asciidoc CSS
-        // Without this, we keep the dynamic toc even if it is moved from the side to preamble
-        // position which will cause odd scrolling behavior
-        var handleTocOnResize = function() {
-            if ($(document).width() < 768) {
-                $("#generated-toc").hide();
-                $(".sectlevel0").show();
-                $(".sectlevel1").show();
-            }
-            else {
-                $("#generated-toc").show();
-                $(".sectlevel0").hide();
-                $(".sectlevel1").hide();
-            }
-        }
-
-        $(window).resize(handleTocOnResize);
-        handleTocOnResize();
-    });
-</script>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
@@ -732,14 +665,14 @@ pre.rouge {
 </head>
 <body id="_threads_mutexes_and_condition_variables" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.00)</h1>
+<h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
 <li><a href="_preface.html">Preface</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -801,12 +734,10 @@ The thread system provides the following data types:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Thread (a virtual processor which shares object
-space with all other threads)</p>
+<p>Thread (a virtual processor which shares object space with all other threads)</p>
 </li>
 <li>
-<p>Mutex (a mutual exclusion device,
-also known as a lock and binary semaphore)</p>
+<p>Mutex (a mutual exclusion device, also known as a lock and binary semaphore)</p>
 </li>
 <li>
 <p>Condition variable (a set of blocked threads)</p>
@@ -821,17 +752,18 @@ description</p>
 <div class="sect2">
 <h3 id="_threads">9.1. Threads</h3>
 <div id="make-thread" class="paragraph">
-<p></p>
+<p><a id='P_make-thread'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-thread thunk)</code></strong><br>
-<strong><code>(make-thread thunk name)</code></strong><br>
-<strong><code>(make-thread thunk name stack-size)</code></strong><br></p>
+<p><code><strong>(make-thread thunk) </strong></code><br>
+<code><strong>(make-thread thunk name) </strong></code><br>
+<code><strong>(make-thread thunk name stack-size) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -868,15 +800,16 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_current-thread'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(current-thread)</code></strong><br></p>
+<p><code><strong>(current-thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -889,15 +822,16 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-start!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-start! thread)</code></strong><br></p>
+<p><code><strong>(thread-start! thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -915,15 +849,16 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-yield!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-yield!)</code></strong><br></p>
+<p><code><strong>(thread-yield!) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -932,15 +867,16 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 expired. <code>Thread-yield!</code> returns an unspecified value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-terminate!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-terminate! thread)</code></strong><br></p>
+<p><code><strong>(thread-terminate! thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -982,15 +918,16 @@ current thread.  Trying to kill another thread produces an error.</p>
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-sleep!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-sleep! timeout)</code></strong><br></p>
+<p><code><strong>(thread-sleep! timeout) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1000,17 +937,18 @@ thread only if timeout represents a point in the future. It is an error
 for timeout to be <code>#f</code>. <code>Thread-sleep!</code> returns an unspecified value.</p>
 </div>
 <div id="thread-join" class="paragraph">
-<p></p>
+<p><a id='P_thread-join!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-join! thread)</code></strong><br>
-<strong><code>(thread-join! thread timeout)</code></strong><br>
-<strong><code>(thread-join! thread timeout timeout-val)</code></strong><br></p>
+<p><code><strong>(thread-join! thread) </strong></code><br>
+<code><strong>(thread-join! thread timeout) </strong></code><br>
+<code><strong>(thread-join! thread timeout timeout-val) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1032,15 +970,16 @@ is raised.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread? obj)</code></strong><br></p>
+<p><code><strong>(thread? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1054,15 +993,16 @@ is raised.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-name'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-name thread)</code></strong><br></p>
+<p><code><strong>(thread-name thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1075,15 +1015,16 @@ is raised.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-stack-size'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-stack-size thread)</code></strong><br></p>
+<p><code><strong>(thread-stack-size thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1099,15 +1040,16 @@ is raised.</p>
 <p>Note that this procedure is not present in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></strong>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-specific'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-specific thread)</code></strong><br></p>
+<p><code><strong>(thread-specific thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1115,15 +1057,16 @@ is raised.</p>
 <p>Returns the content of the `thread&#8217;s specific field.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_thread-specific-set!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(thread-specific-set! thread)</code></strong><br></p>
+<p><code><strong>(thread-specific-set! thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1143,16 +1086,17 @@ returns an unspecified value.</p>
 <div class="sect2">
 <h3 id="_mutexes">9.2. Mutexes</h3>
 <div class="paragraph">
-<p></p>
+<p><a id='P_make-mutex'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-mutex)</code></strong><br>
-<strong><code>(make-mutex name)</code></strong><br></p>
+<p><code><strong>(make-mutex) </strong></code><br>
+<code><strong>(make-mutex name) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1163,15 +1107,16 @@ is an arbitrary Scheme object which identifies the mutex
 The mutex&#8217;s specific field is set to an unspecified value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex? obj)</code></strong><br></p>
+<p><code><strong>(mutex? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1179,15 +1124,16 @@ The mutex&#8217;s specific field is set to an unspecified value.</p>
 <p>Returns <code>#t</code> if obj is a mutex, otherwise returns <code>#f</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-name'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-name mutex)</code></strong><br></p>
+<p><code><strong>(mutex-name mutex) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1200,15 +1146,16 @@ The mutex&#8217;s specific field is set to an unspecified value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-specific'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-specific mutex)</code></strong><br></p>
+<p><code><strong>(mutex-specific mutex) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1216,15 +1163,16 @@ The mutex&#8217;s specific field is set to an unspecified value.</p>
 <p>Returns the content of the `mutex&#8217;s specific field.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-specific-set!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-specific! mutex obj)</code></strong><br></p>
+<p><code><strong>(mutex-specific! mutex obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1253,15 +1201,16 @@ The mutex&#8217;s specific field is set to an unspecified value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-state'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-state mutex)</code></strong><br></p>
+<p><code><strong>(mutex-state mutex) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1302,17 +1251,18 @@ unlocked/not-abandoned state</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-lock!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-lock! mutex)</code></strong><br>
-<strong><code>(mutex-lock! mutex timeout)</code></strong><br>
-<strong><code>(mutex-lock! mutex timeout thread)</code></strong><br></p>
+<p><code><strong>(mutex-lock! mutex) </strong></code><br>
+<code><strong>(mutex-lock! mutex timeout) </strong></code><br>
+<code><strong>(mutex-lock! mutex timeout thread) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1358,17 +1308,18 @@ otherwise <code>mutex-lock!</code> returns <code>#t</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_mutex-unlock!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(mutex-unlock! mutex)</code></strong><br>
-<strong><code>(mutex-unlock! mutex condition-variable)</code></strong><br>
-<strong><code>(mutex-unlock! mutex condition-variable timeout)</code></strong><br></p>
+<p><code><strong>(mutex-unlock! mutex) </strong></code><br>
+<code><strong>(mutex-unlock! mutex condition-variable) </strong></code><br>
+<code><strong>(mutex-unlock! mutex condition-variable timeout) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1386,15 +1337,16 @@ and the thread is unblocked. <code>mutex-unlock!</code> returns <code>#f</code> 
 <code>timeout</code> is reached, otherwise it returns <code>#t</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_with-mutex'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(with-mutex mtx &lt;thunk&gt;)</code></strong><br></p>
+<p><code><strong>(with-mutex mtx &lt;thunk&gt;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1408,16 +1360,17 @@ also on entrance or departure of its dynamic context
 <div class="sect2">
 <h3 id="_condition_variables">9.3. Condition Variables</h3>
 <div class="paragraph">
-<p></p>
+<p><a id='P_make-condition-variable'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-conditon-variable)</code></strong><br>
-<strong><code>(make-conditon-variable name)</code></strong><br></p>
+<p><code><strong>(make-conditon-variable) </strong></code><br>
+<code><strong>(make-conditon-variable name) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1428,15 +1381,16 @@ it defaults to an unspecified value. The condition variable&#8217;s specific
 field is set to an unspecified value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(conditon-variable? obj)</code></strong><br></p>
+<p><code><strong>(conditon-variable? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1444,15 +1398,16 @@ field is set to an unspecified value.</p>
 <p>Returns <code>#t</code> if <code>obj</code> is a condition variable, otherwise returns <code>#f</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable-name'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(conditon-variable-name conditon-variable)</code></strong><br></p>
+<p><code><strong>(conditon-variable-name conditon-variable) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1460,15 +1415,16 @@ field is set to an unspecified value.</p>
 <p>Returns the name of the <code>condition-variable</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable-specific'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(conditon-variable-specific conditon-variable)</code></strong><br></p>
+<p><code><strong>(conditon-variable-specific conditon-variable) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1476,15 +1432,16 @@ field is set to an unspecified value.</p>
 <p>Returns the content of the `condition-variable&#8217;s specific field.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable-specific-set!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(conditon-variable-specific-set! conditon-variable obj)</code></strong><br></p>
+<p><code><strong>(conditon-variable-specific-set! conditon-variable obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1492,15 +1449,16 @@ field is set to an unspecified value.</p>
 <p>Stores <code>obj</code> into the `condition-variable&#8217;s specific field.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable-signal!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(condition-variable-signal! condition-variable)</code></strong><br></p>
+<p><code><strong>(condition-variable-signal! condition-variable) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1510,15 +1468,16 @@ selects a thread and unblocks it. <code>Condition-variable-signal!</code>  retur
 an unspecified value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_condition-variable-broadcast!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(condition-variable-broadcast! condition-variable)</code></strong><br></p>
+<p><code><strong>(condition-variable-broadcast! condition-variable) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1530,15 +1489,16 @@ an unspecified value.</p>
 <div class="sect2">
 <h3 id="_conditions_2">9.4. Conditions</h3>
 <div class="paragraph">
-<p></p>
+<p><a id='P_join-timeout-exception?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(join-timeout-exception? obj)</code></strong><br></p>
+<p><code><strong>(join-timeout-exception? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1551,15 +1511,16 @@ otherwise returns <code>#f</code>.</p>
 is reached and no timeout-val is supplied.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_abandoned-mutex-exception?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(abandoned-mutex-exception? obj)</code></strong><br></p>
+<p><code><strong>(abandoned-mutex-exception? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1572,15 +1533,16 @@ otherwise returns <code>#f</code>.</p>
 a mutex that was owned by a thread which terminated ,(see <code>mutex-lock!</code>).</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_terminated-thread-exception?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(terminated-thread-exception? obj)</code></strong><br></p>
+<p><code><strong>(terminated-thread-exception? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1594,15 +1556,16 @@ called and the target thread has terminated as a result of a call to
 <code>thread-terminate!</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_uncaught-exception?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(uncaught-exception? obj)</code></strong><br></p>
+<p><code><strong>(uncaught-exception? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1616,15 +1579,16 @@ target thread has terminated because it raised an exception that called
 the initial exception handler of that thread.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_uncaught-exception-reason'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(uncaught-exception-reason exc)</code></strong><br></p>
+<p><code><strong>(uncaught-exception-reason exc) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1636,7 +1600,7 @@ of that thread (<code>exc</code> must be an <em>uncaught exception</em> object).
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_stklos_object_system.html">STklos Object System</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a> | Next: <a href="_stklos_customization.html">STklos Customization</a> →</p>
+<p>← Previous: <a href="_stklos_object_system.html">STklos Object System</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_stklos_customization.html">STklos Customization</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1661,11 +1625,6 @@ of that thread (<code>exc</code> must be an <em>uncaught exception</em> object).
 </div>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-09-12 16:56:23 +0200
 </div>
 </div>
 </body>

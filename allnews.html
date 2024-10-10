@@ -36,6 +36,108 @@
 
 
 <!-- Local Variables: mode: "html" End: -->
+<h2 id="version-2.10-released-2024-10-10">Version “2.10” released <span
+class="rdate">2024-10-10</span></h2>
+<p>This version of <strong><em>STklos</em></strong> mostly enhances the
+2.00 version released a year ago. As usual, this version could not have
+be finalized without the help of Jeronimo Pellegrini (<a
+href="https://github.com/jpellegrini"><span class="citation"
+data-cites="jpellegrini">@jpellegrini</span></a>).</p>
+<p><strong>Contributors for this version</strong>:</p>
+<ul>
+<li>Akinori Hattori (<a href="https://github.com/hattya"><span
+class="citation" data-cites="hattya">@hattya</span></a>)</li>
+<li>Jeronimo Pellegrini (<a href="https://github.com/jpellegrini"><span
+class="citation" data-cites="jpellegrini">@jpellegrini</span></a>)</li>
+</ul>
+<p><strong>Enhancements:</strong></p>
+<ul>
+<li>Corrected the result of <code>stklos-config --compile</code></li>
+<li>Added the second (optional) parameter to R7RS <code>load</code> (and
+<code>try-load</code>)</li>
+<li>Enhanced various things about <strong><em>STklos</em></strong>
+compilation/installation</li>
+<li>Added information in the summary of configuration script</li>
+<li>Builds are now reproducible</li>
+<li>FFI support can be completely disabled, if needed.</li>
+<li>Updated GTklos, the GTK+ extension</li>
+<li>Optimize <code>expt</code> primitive.</li>
+<li>Avoid unneeded boxing of numbers in the <code>+</code>,
+<code>-</code>, <code>*</code> and <code>/</code> operations</li>
+<li>Added <code>!</code> as a shell escape under the REPL</li>
+<li>Added statistics to the VM</li>
+<li>Permit to build <strong><em>STklos</em></strong> with the
+<code>tcc</code> C compiler.</li>
+<li>Added an simple hybrid (C and Scheme) module in the examples
+directory</li>
+<li>Correct/enhance implementation of numerical functions in some corner
+cases (in particular with NaNs and infinities).</li>
+<li>Added an API to add expressions rewriting rules before their
+compilation.</li>
+<li>Location given in error message is more precise</li>
+<li>Error messages don’t loop anymore when displaying circular
+structures</li>
+<li>Added <code>list-set!</code> as the setter function of
+<code>list-ref</code></li>
+<li>Added the number of allocations and collections to the output of the
+<code>time</code> form</li>
+<li>Added special instructions in the VM for <code>member</code>,
+<code>memq</code> and <code>memv</code></li>
+<li>Added special instructions in the VM for <code>assoc</code>,
+<code>assq</code> and <code>assv</code></li>
+<li>Do constant folding before in-lining usual functions</li>
+<li>Better UTF-8 support and updated Unicode tables to version
+16.0.0</li>
+<li>Enhance the <code>apropos</code> primitive</li>
+<li>New REPL variables: <code>@*</code>, <code>@1</code>,
+<code>@2</code>, <code>@3</code>, <code>@4</code> and
+<code>@5</code></li>
+<li>New REPL commands: <code>time</code>, <code>describe</code>,
+<code>expand</code>, <code>import</code>, <code>require-feature</code>,
+<code>open</code>, <code>browse</code>, <code>manual</code>,
+<code>apropos</code></li>
+<li>Documentation of a function can be accessed directly into the HTML
+Reeference Manual</li>
+<li>Length of symbols is no more limited.</li>
+</ul>
+<p><strong>New primitives / parameters</strong>:</p>
+<ul>
+<li><code>read-ci</code></li>
+<li><code>eval-form-string-ci</code></li>
+<li><code>read-from-sring-ci</code></li>
+<li><code>compiler:source-rewrite</code></li>
+<li><code>compiler:peephole-optimizer</code></li>
+<li><code>1+</code> and <code>1-</code></li>
+<li><code>push!</code> and <code>pop</code></li>
+<li><code>inc!</code> and <code>dec!</code></li>
+<li><code>dolist</code></li>
+<li><code>apropos/alist</code></li>
+<li><code>apropos/pp</code></li>
+<li><code>default-browser</code></li>
+<li><code>open-in-browser</code></li>
+<li><code>manual</code></li>
+<li><code>install-path</code></li>
+<li><code>define-parameter</code></li>
+</ul>
+<p><strong>Updated embedded libraries</strong></p>
+<ul>
+<li><code>libgc</code> updated to version 8.2.8</li>
+<li><code>libffi</code> updated to version 3.4.6</li>
+<li><code>libpcre2</code> updated to version 10.44</li>
+</ul>
+<p><strong>New supported SRFI</strong></p>
+<ul>
+<li>SRFI-115: Scheme Regular Expressions</li>
+<li>SRFI-178: Bitvector library</li>
+<li>SRFI-232: Flexible curried procedures</li>
+</ul>
+<p><strong>Misc:</strong></p>
+<ul>
+<li>Updated documentation</li>
+<li>Added tests</li>
+<li>Code cleaning an optimizations</li>
+<li>Bug fixes</li>
+</ul>
 <h2 id="version-2.00-released-2023-09-12">Version “2.00” released <span
 class="rdate">2023-09-12</span></h2>
 <p>This is a major version of <strong><em>STklos</em></strong>, bringing
@@ -1206,7 +1308,7 @@ class="rdate">2001-01-17</span></h2>
      </article>
     <footer class="foot w3-container w3-tab w3-small w3-light-grey">
       <span class="w3-bar-item"><b>STklos</b></span>
-      <span class="w3-bar-item w3-right"><i>Updated:</i> 23-Oct-2023 19:25&nbsp;&nbsp;</span>
+      <span class="w3-bar-item w3-right"><i>Updated:</i> 10-Oct-2024 17:59&nbsp;&nbsp;</span>
     </footer>
   </body>
 </html>

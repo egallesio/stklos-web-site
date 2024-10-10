@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.00)</title>
+<title>STklos Reference Manual : (version 2.10)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -471,7 +472,10 @@ pre.rouge .gd {
   background-color: #493131;
 }
 pre.rouge .ge {
-  color: #000000;
+  font-style: italic;
+}
+pre.rouge .ges {
+  font-weight: bold;
   font-style: italic;
 }
 pre.rouge .gr {
@@ -650,81 +654,10 @@ pre.rouge {
   background-color: #49483e;
 }
 </style>
-<!-- Generate a nice TOC -->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
-<!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
-.tocify-header {
-    font-style: italic;
-}
-
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
-
-.tocify ul {
-    margin: 0;
- }
-
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tocify-focus > a {
-    color: #7a2518;
-}
+  /* Customize default CSS */
+  .sidebarblock { margin-top: -1em; }
 </style>
-
-<script type="text/javascript">
-    $(function () {
-        // Add a new container for the tocify toc into the existing toc so we can re-use its
-        // styling
-        $("#toc").append("<div id='generated-toc'></div>");
-        $("#generated-toc").tocify({
-            extendPage: true,
-            context: "#content",
-            highlightOnScroll: true,
-            hideEffect: "slideUp",
-            // Use the IDs that asciidoc already provides so that TOC links and intra-document
-            // links are the same. Anything else might confuse users when they create bookmarks.
-            hashGenerator: function(text, element) {
-                return $(element).attr("id");
-            },
-            // Smooth scrolling doesn't work properly if we use the asciidoc IDs
-            smoothScroll: false,
-            // Set to 'none' to use the tocify classes
-            theme: "none",
-            // Handle book (may contain h1) and article (only h2 deeper)
-            selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
-            ignoreSelector: ".discrete"
-        });
-
-        // Switch between static asciidoc toc and dynamic tocify toc based on browser size
-        // This is set to match the media selectors in the asciidoc CSS
-        // Without this, we keep the dynamic toc even if it is moved from the side to preamble
-        // position which will cause odd scrolling behavior
-        var handleTocOnResize = function() {
-            if ($(document).width() < 768) {
-                $("#generated-toc").hide();
-                $(".sectlevel0").show();
-                $(".sectlevel1").show();
-            }
-            else {
-                $("#generated-toc").show();
-                $(".sectlevel0").hide();
-                $(".sectlevel1").hide();
-            }
-        }
-
-        $(window).resize(handleTocOnResize);
-        handleTocOnResize();
-    });
-</script>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
@@ -732,14 +665,14 @@ pre.rouge {
 </head>
 <body id="_program_structure" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.00)</h1>
+<h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
 <li><a href="_preface.html">Preface</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -817,15 +750,16 @@ Consequently, <strong><em>STklos</em></strong> offers both systems: modules and 
 <div class="sect2">
 <h3 id="_modules">3.1. Modules</h3>
 <div class="paragraph">
-<p></p>
+<p><a id='P_define-module'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(define-module &lt;name&gt; &lt;expr1&gt; &lt;expr2&gt; &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(define-module &lt;name&gt; &lt;expr1&gt; &lt;expr2&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -887,16 +821,17 @@ name <code>(M2 m)</code> of <code>M2/m</code>.
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_find-module'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(find-module name)</code></strong><br>
-<strong><code>(find-module name default)</code></strong><br></p>
+<p><code><strong>(find-module name) </strong></code><br>
+<code><strong>(find-module name default) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -907,15 +842,16 @@ associated to <code>name</code>, an error is signaled if no <code>default</code>
 provided, otherwise <code>find-module</code> returns <code>default</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module? object)</code></strong><br></p>
+<p><code><strong>(module? object) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -930,15 +866,16 @@ provided, otherwise <code>find-module</code> returns <code>default</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-name'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-name module)</code></strong><br></p>
+<p><code><strong>(module-name module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -957,15 +894,16 @@ module name is always represented as a symbol, even if expressed as a list.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_current-module'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(current-module)</code></strong><br></p>
+<p><code><strong>(current-module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -981,15 +919,16 @@ module name is always represented as a symbol, even if expressed as a list.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_select-module'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(select-module &lt;name&gt;)</code></strong><br></p>
+<p><code><strong>(select-module &lt;name&gt;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1020,16 +959,17 @@ following transcript shows an usage of <code>select-module</code>.
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_symbol-value'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(symbol-value symbol module)</code></strong><br>
-<strong><code>(symbol-value symbol module default)</code></strong><br></p>
+<p><code><strong>(symbol-value symbol module) </strong></code><br>
+<code><strong>(symbol-value symbol module default) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1039,16 +979,17 @@ an error is signaled if no <code>default</code> is provided, otherwise <code>sym
 returns <code>default</code>. <code>Module</code> can be an object module or a module name.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_symbol-value*'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(symbol-value* symbol module)</code></strong><br>
-<strong><code>(symbol-value* symbol module default)</code></strong><br></p>
+<p><code><strong>(symbol-value* symbol module) </strong></code><br>
+<code><strong>(symbol-value* symbol module default) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1062,16 +1003,17 @@ returns <code>default</code>.</p>
 <strong>and</strong> in the STklos module if module is not a R<sup>7</sup>RS library.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_symbol-bound?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(symbol-bound? symb)</code></strong><br>
-<strong><code>(symbol-bound? symb module)</code></strong><br></p>
+<p><code><strong>(symbol-bound? symb) </strong></code><br>
+<code><strong>(symbol-bound? symb module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1080,15 +1022,16 @@ returns <code>default</code>.</p>
 omitted it defaults to the current module.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-symbols'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-symbols module)</code></strong><br></p>
+<p><code><strong>(module-symbols module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1097,15 +1040,16 @@ omitted it defaults to the current module.</p>
 can be an object module or a module name.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-symbols*'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-symbols* module)</code></strong><br></p>
+<p><code><strong>(module-symbols* module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1115,15 +1059,16 @@ defined in <code>module</code> and the one defined in the <code>STklos</code> mo
 is not a R<sup>7</sup>RS library.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_export'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(export &lt;export spec1&gt; &lt;export spec2&gt; &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(export &lt;export spec1&gt; &lt;export spec2&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1173,15 +1118,16 @@ clause in R<sup>7</sup>RS libraries.
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_import'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(import &lt;import set1&gt; &lt;import set2&gt; &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(import &lt;import set1&gt; &lt;import set2&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1334,15 +1280,16 @@ they are not yet defined (habitual rules on the load paths and the load
 suffixes applies to find  those files).</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-imports'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-imports module)</code></strong><br></p>
+<p><code><strong>(module-imports module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1351,15 +1298,16 @@ suffixes applies to find  those files).</p>
 it depends on).</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-exports'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-exports module)</code></strong><br></p>
+<p><code><strong>(module-exports module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1377,15 +1325,16 @@ some of these symbols can be not yet defined.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-immutable!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-immutable! mod)</code></strong><br></p>
+<p><code><strong>(module-immutable! mod) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1394,15 +1343,16 @@ some of these symbols can be not yet defined.</p>
 to define new symbols in it or change the value of already defined ones.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-mutable?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-mutable? mod)</code></strong><br></p>
+<p><code><strong>(module-mutable? mod) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1419,16 +1369,17 @@ time, is immutable. The parameter <code>mod</code> can be a module object or a m
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_in-module'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(in-module mod s)</code></strong><br>
-<strong><code>(in-module mod s default)</code></strong><br></p>
+<p><code><strong>(in-module mod s) </strong></code><br>
+<code><strong>(in-module mod s default) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1455,15 +1406,16 @@ is searched in <code>mod</code> and all the modules it imports.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_all-modules'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(all-modules)</code></strong><br></p>
+<p><code><strong>(all-modules) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1472,15 +1424,16 @@ is searched in <code>mod</code> and all the modules it imports.</p>
 <code>module-list</code> to obtain a list of modules without libraries.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_module-list'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(module-list)</code></strong><br></p>
+<p><code><strong>(module-list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1506,15 +1459,16 @@ is |lib/a/b| and the |STklos| module has been deleted from the import list.</p>
 
 
 
+<a id='P_define-library'></a>
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>7</sup>RS syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>7</sup>RS syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(define-library &lt;library name&gt; &lt;library declaration&gt; &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(define-library &lt;library name&gt; &lt;library declaration&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1569,15 +1523,16 @@ a library definition; <strong><em>STklos</em></strong> permits to use them (exce
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_library?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(library? object)</code></strong><br></p>
+<p><code><strong>(library? object) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1598,15 +1553,16 @@ also modules.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_library-name'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(library-name lib)</code></strong><br></p>
+<p><code><strong>(library-name lib) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1631,15 +1587,16 @@ as a list.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_library-list'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(library-list)</code></strong><br></p>
+<p><code><strong>(library-list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1652,17 +1609,18 @@ as a list.</p>
 <div class="sect2">
 <h3 id="_variables_and_constants">3.3. Variables and Constants</h3>
 <div class="paragraph">
-<p></p>
+<p><a id='P_define'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS syntax</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(define &lt;variable&gt; &lt;expresssion&gt;)</code></strong><br>
-<strong><code>(define (&lt;variable&gt; &lt;formals&gt;) &lt;body&gt;)</code></strong><br>
-<strong><code>(define (&lt;variable&gt; . &lt;formal&gt;) &lt;body&gt;)</code></strong><br></p>
+<p><code><strong>(define &lt;variable&gt; &lt;expresssion&gt;) </strong></code><br>
+<code><strong>(define (&lt;variable&gt; &lt;formals&gt;) &lt;body&gt;) </strong></code><br>
+<code><strong>(define (&lt;variable&gt; . &lt;formal&gt;) &lt;body&gt;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1705,17 +1663,18 @@ defined in <strong><a href="http://srfi.schemers.org/srfi-219/srfi-219.html">SRF
 </table>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_define-constant'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(define-constant &lt;variable&gt; &lt;expression&gt;)</code></strong><br>
-<strong><code>(define-constant (&lt;variable&gt; &lt;formals&gt;) body)</code></strong><br>
-<strong><code>(define-constant (&lt;variable&gt; . &lt;formal&gt;) body)</code></strong><br></p>
+<p><code><strong>(define-constant &lt;variable&gt; &lt;expression&gt;) </strong></code><br>
+<code><strong>(define-constant (&lt;variable&gt; &lt;formals&gt;) body) </strong></code><br>
+<code><strong>(define-constant (&lt;variable&gt; . &lt;formal&gt;) body) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1733,16 +1692,17 @@ is non mutable.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_symbol-immutable!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(symbol-immutable! symb)</code></strong><br>
-<strong><code>(symbol-immutable! symb mod)</code></strong><br></p>
+<p><code><strong>(symbol-immutable! symb) </strong></code><br>
+<code><strong>(symbol-immutable! symb mod) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1760,16 +1720,17 @@ the current module is used.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_symbol-mutable?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(symbol-mutable? symb)</code></strong><br>
-<strong><code>(symbol-mutable? symb module)</code></strong><br></p>
+<p><code><strong>(symbol-mutable? symb) </strong></code><br>
+<code><strong>(symbol-mutable? symb module) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1794,7 +1755,7 @@ always not mutable.</p>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_expressions.html">Expressions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a> | Next: <a href="_standard_procedures.html">Standard Procedures</a> →</p>
+<p>← Previous: <a href="_expressions.html">Expressions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_standard_procedures.html">Standard Procedures</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1807,11 +1768,6 @@ always not mutable.</p>
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. This transcript uses the default toplevel loop             which displays the name of the current module in the evaluator             prompt.
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-09-12 16:56:23 +0200
 </div>
 </div>
 </body>

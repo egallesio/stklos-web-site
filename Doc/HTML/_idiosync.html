@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Erick Gallesio">
-<title>STklos Reference Manual : (version 2.00)</title>
+<title>STklos Reference Manual : (version 2.10)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -471,7 +472,10 @@ pre.rouge .gd {
   background-color: #493131;
 }
 pre.rouge .ge {
-  color: #000000;
+  font-style: italic;
+}
+pre.rouge .ges {
+  font-weight: bold;
   font-style: italic;
 }
 pre.rouge .gr {
@@ -650,81 +654,10 @@ pre.rouge {
   background-color: #49483e;
 }
 </style>
-<!-- Generate a nice TOC -->
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
-<!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
-.tocify-header {
-    font-style: italic;
-}
-
-.tocify-subheader {
-    font-style: normal;
-    font-size: 90%;
-}
-
-.tocify ul {
-    margin: 0;
- }
-
-.tocify-focus {
-    color: #7a2518;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.tocify-focus > a {
-    color: #7a2518;
-}
+  /* Customize default CSS */
+  .sidebarblock { margin-top: -1em; }
 </style>
-
-<script type="text/javascript">
-    $(function () {
-        // Add a new container for the tocify toc into the existing toc so we can re-use its
-        // styling
-        $("#toc").append("<div id='generated-toc'></div>");
-        $("#generated-toc").tocify({
-            extendPage: true,
-            context: "#content",
-            highlightOnScroll: true,
-            hideEffect: "slideUp",
-            // Use the IDs that asciidoc already provides so that TOC links and intra-document
-            // links are the same. Anything else might confuse users when they create bookmarks.
-            hashGenerator: function(text, element) {
-                return $(element).attr("id");
-            },
-            // Smooth scrolling doesn't work properly if we use the asciidoc IDs
-            smoothScroll: false,
-            // Set to 'none' to use the tocify classes
-            theme: "none",
-            // Handle book (may contain h1) and article (only h2 deeper)
-            selectors: $( "#content" ).has( "h1" ).size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
-            ignoreSelector: ".discrete"
-        });
-
-        // Switch between static asciidoc toc and dynamic tocify toc based on browser size
-        // This is set to match the media selectors in the asciidoc CSS
-        // Without this, we keep the dynamic toc even if it is moved from the side to preamble
-        // position which will cause odd scrolling behavior
-        var handleTocOnResize = function() {
-            if ($(document).width() < 768) {
-                $("#generated-toc").hide();
-                $(".sectlevel0").show();
-                $(".sectlevel1").show();
-            }
-            else {
-                $("#generated-toc").show();
-                $(".sectlevel0").hide();
-                $(".sectlevel1").hide();
-            }
-        }
-
-        $(window).resize(handleTocOnResize);
-        handleTocOnResize();
-    });
-</script>
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
              .nav-footer{text-align: center; margin-top: auto;}
@@ -732,14 +665,14 @@ pre.rouge {
 </head>
 <body id="_idiosync" class="book toc2 toc-left">
 <div id="header">
-<h1>STklos Reference Manual : (version 2.00)</h1>
+<h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
 <span id="author" class="author">Erick Gallesio</span><br>
 <span id="email" class="email"><a href="mailto:eg@stklos.net">eg@stklos.net</a></span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a></span></p><ul class="sectlevel1">
+<p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
 <li><a href="_preface.html">Preface</a>
 </li>
 <li><a href="_introduction.html">1. Introduction</a>
@@ -951,15 +884,16 @@ pre.rouge {
 bytevector functions.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_bytevector-s8-ref'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(bytevector-s8-ref bytevector k)</code></strong><br></p>
+<p><code><strong>(bytevector-s8-ref bytevector k) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -980,15 +914,16 @@ bytevector functions.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_bytevector-s8-set!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(bytevector-s8-set! bytevector k byte)</code></strong><br></p>
+<p><code><strong>(bytevector-s8-set! bytevector k byte) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1012,15 +947,16 @@ This procedure return an unspecified value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_bytevector-fill!'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(bytevector-fill! bytevector fill )</code></strong><br></p>
+<p><code><strong>(bytevector-fill! bytevector fill ) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1031,15 +967,16 @@ element of bytevector and returns unspecified values. Analogous to
 <code>vector-fill!</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_bytevector=?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(bytevector=? bytevector1 bytevector2 )</code></strong><br></p>
+<p><code><strong>(bytevector=? bytevector1 bytevector2 ) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1049,21 +986,22 @@ is, if they have the same length and equal bytes at all valid
 indices. It returns false otherwise.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_bytevector-sint-set!'></a><a id='P_bytevector-uint-set!'></a><a id='P_bytevector-sint-ref'></a><a id='P_bytevector-uint-ref'></a>
+
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(bytevector-uint-ref bytevector k endianness size)</code></strong><br>
-<strong><code>(bytevector-sint-ref bytevector k endianness size)</code></strong><br>
-<strong><code>(bytevector-uint-set! bytevector k n endianness size)</code></strong><br>
-<strong><code>(bytevector-sint-set! bytevector k n endianness size)</code></strong><br></p>
+<p><code><strong>(bytevector-uint-ref bytevector k endianness size) </strong></code><br>
+<code><strong>(bytevector-sint-ref bytevector k endianness size) </strong></code><br>
+<code><strong>(bytevector-uint-set! bytevector k n endianness size) </strong></code><br>
+<code><strong>(bytevector-sint-set! bytevector k n endianness size) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1128,15 +1066,16 @@ into <code>bytevector</code> at indices <code>k , &#8230;&#8203; , k + size − 
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_endianness'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small">R<sup>5</sup>RS procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(endianness endianness-symbol)</code></strong><br></p>
+<p><code><strong>(endianness endianness-symbol) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1151,15 +1090,16 @@ be one of these symbols. It is a syntax violation for <code>endianness-symbol</c
 to be anything other than <code>little</code> or <code>big</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_native-endianness'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(native-endianness)</code></strong><br></p>
+<p><code><strong>(native-endianness) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1210,15 +1150,16 @@ Small description needed
 <p>The symbols exported by <code>(stklos itrie)</code> are described below:</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_alist->fxmapping'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(alist&#8594;fxmapping alist) → fxmapping</code></strong><br></p>
+<p><code><strong>(alist&#8594;fxmapping alist) → fxmapping </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1241,17 +1182,18 @@ for k is preferred.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_constant-fxmapping'></a><a id='P_fxmapping'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping k1 v1 k2 v2 &#8230;&#8203; kn vn)</code></strong><br>
-<strong><code>(constant-fxmapping k1 v1 k2 v2 &#8230;&#8203; kn vn)</code></strong><br></p>
+<p><code><strong>(fxmapping k1 v1 k2 v2 &#8230;&#8203; kn vn) </strong></code><br>
+<code><strong>(constant-fxmapping k1 v1 k2 v2 &#8230;&#8203; kn vn) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1264,17 +1206,18 @@ with respective associated values <code>v1</code>, <code>v2</code>, &#8230;&#820
 number of arguments is not even.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_constant-iset'></a><a id='P_iset'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset n1 n2 &#8230;&#8203; nk)</code></strong><br>
-<strong><code>(constant-iset n1 n2 &#8230;&#8203; nk)</code></strong><br></p>
+<p><code><strong>(iset n1 n2 &#8230;&#8203; nk) </strong></code><br>
+<code><strong>(constant-iset n1 n2 &#8230;&#8203; nk) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1285,15 +1228,16 @@ number of arguments is not even.</p>
 <p>It is an error if any of the keys is not an integer.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-adjoin'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-adjoin fxmap k1 obj1 k2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(fxmapping-adjoin fxmap k1 obj1 k2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1313,15 +1257,16 @@ associations are preserved.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-contains?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-contains? map element)</code></strong><br></p>
+<p><code><strong>(fxmapping-contains? map element) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1329,16 +1274,17 @@ associations are preserved.</p>
 <p>Returns true if <code>map</code> contains an association for <code>element</code>, and false otherwise.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_fxmapping-empty?'></a><a id='P_SRFI-224'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-empty? obj)</code></strong><br></p>
+<p><code><strong>(fxmapping-empty? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1348,15 +1294,16 @@ is an fxmapping containing at least one key.
 If <code>obj</code> is not an fxmapping object, an error is sginaled.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-height'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-height trie)</code></strong><br></p>
+<p><code><strong>(fxmapping-height trie) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1366,15 +1313,16 @@ expected running time of searches and insertions is
 proportional to this value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-keys'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-keys fxmap)</code></strong><br></p>
+<p><code><strong>(fxmapping-keys fxmap) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1388,15 +1336,16 @@ proportional to this value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-mutable?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-mutable? obj)</code></strong><br></p>
+<p><code><strong>(fxmapping-mutable? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1404,15 +1353,16 @@ proportional to this value.</p>
 <p>Returns <code>#t</code> is <code>obj</code> is a mutable fxmapping and <code>#f</code> otherwise.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-ref/default'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-ref/default map k obj)</code></strong><br></p>
+<p><code><strong>(fxmapping-ref/default map k obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1426,15 +1376,16 @@ proportional to this value.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-size'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-size trie)</code></strong><br></p>
+<p><code><strong>(fxmapping-size trie) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1442,15 +1393,16 @@ proportional to this value.</p>
 <p>Returns the number of key/value pairs in an fxmap.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_fxmapping-values'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-values fxmap)</code></strong><br></p>
+<p><code><strong>(fxmapping-values fxmap) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1467,21 +1419,22 @@ the list <code>(v1 &#8230;&#8203; vn)</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_fxmapping-xor'></a><a id='P_fxmapping-difference'></a><a id='P_fxmapping-intersection'></a><a id='P_fxmapping-union'></a>
+
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping-union fxmap1 fxmap2 fxmap3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(fxmapping-intersection fxmap1 fxmap2 fxmap3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(fxmapping-difference fxmap1 fxmap2 fxmap3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(fxmapping-xor fxmap1 fxmap2)</code></strong><br></p>
+<p><code><strong>(fxmapping-union fxmap1 fxmap2 fxmap3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(fxmapping-intersection fxmap1 fxmap2 fxmap3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(fxmapping-difference fxmap1 fxmap2 fxmap3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(fxmapping-xor fxmap1 fxmap2) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1516,16 +1469,17 @@ appear.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_fxmapping?'></a><a id='P_SRFI-224'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(fxmapping? obj)</code></strong><br></p>
+<p><code><strong>(fxmapping? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1533,23 +1487,24 @@ appear.</p>
 <p>Returns <code>#t</code> is <code>obj</code> is an fxmapping object and <code>#f</code> otherwise.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iet>=?'></a><a id='P_iset<=?'></a><a id='P_iset>?'></a><a id='P_iset<?'></a><a id='P_iset=?'></a>
+
 
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset=? iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset&lt;? iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset&gt;? iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset&#8656;? iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset&gt;=? iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(iset=? iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset&lt;? iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset&gt;? iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset&#8656;? iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset&gt;=? iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1567,15 +1522,16 @@ superset (<code>iset&gt;?</code>), a subset (<code>iset&#8656;?</code>) or a sup
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset->list'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset&#8594;list set)</code></strong><br></p>
+<p><code><strong>(iset&#8594;list set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1589,17 +1545,18 @@ superset (<code>iset&gt;?</code>), a subset (<code>iset&#8656;?</code>) or a sup
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-adjoin!'></a><a id='P_iset-adjoin'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-adjoin set element1 element2 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-adjoin! set element1 element2 &#8230;&#8203;)</code></strong><br></p>
+<p><code><strong>(iset-adjoin set element1 element2 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-adjoin! set element1 element2 &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1618,15 +1575,16 @@ already equal to one of the existing or newly added members.</p>
 <code>iset-adjoin</code>. In STklos, it is an alias to <code>iset-adjoin</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-any?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-any? pred? set)</code></strong><br></p>
+<p><code><strong>(iset-any? pred? set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1642,21 +1600,22 @@ it does not return an element of the iset.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-closed-open-interval'></a><a id='P_iset-open-closed-interval'></a><a id='P_iset-closed-interval'></a><a id='P_iset-open-interval'></a>
+
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-open-interval set low high)</code></strong><br>
-<strong><code>(iset-closed-interval set low high)</code></strong><br>
-<strong><code>(iset-open-closed-interval set low high)</code></strong><br>
-<strong><code>(iset-closed-open-interval set low high)</code></strong><br></p>
+<p><code><strong>(iset-open-interval set low high) </strong></code><br>
+<code><strong>(iset-closed-interval set low high) </strong></code><br>
+<code><strong>(iset-open-closed-interval set low high) </strong></code><br>
+<code><strong>(iset-closed-open-interval set low high) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1674,15 +1633,16 @@ above, or open above and closed below.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-contains?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-contains? set element)</code></strong><br></p>
+<p><code><strong>(iset-contains? set element) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1690,15 +1650,16 @@ above, or open above and closed below.</p>
 <p>Returns true if <code>set</code> contains <code>element</code>, and false otherwise.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-copy'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-copy set)</code></strong><br></p>
+<p><code><strong>(iset-copy set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1706,15 +1667,16 @@ above, or open above and closed below.</p>
 <p>Returns a newly allocated iset containing the elements of <code>set</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-count'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-count pred? set)</code></strong><br></p>
+<p><code><strong>(iset-count pred? set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1728,21 +1690,22 @@ above, or open above and closed below.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-delete-all!'></a><a id='P_iset-delete-all'></a><a id='P_iset-delete!'></a><a id='P_iset-delete'></a>
+
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-delete set element1 element2 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-delete! set element1 element2 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-delete-all set element-list)</code></strong><br>
-<strong><code>(iset-delete-all! set element-list)</code></strong><br></p>
+<p><code><strong>(iset-delete set element1 element2 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-delete! set element1 element2 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-delete-all set element-list) </strong></code><br>
+<code><strong>(iset-delete-all! set element-list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1770,21 +1733,22 @@ argument which is a list of elements to be deleted.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-delete-max!'></a><a id='P_iset-delete-max'></a><a id='P_iset-delete-min!'></a><a id='P_iset-delete-min'></a>
+
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-delete-min set)</code></strong><br>
-<strong><code>(iset-delete-min! set)</code></strong><br>
-<strong><code>(iset-delete-max set)</code></strong><br>
-<strong><code>(iset-delete-max! set)</code></strong><br></p>
+<p><code><strong>(iset-delete-min set) </strong></code><br>
+<code><strong>(iset-delete-min! set) </strong></code><br>
+<code><strong>(iset-delete-max set) </strong></code><br>
+<code><strong>(iset-delete-max! set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1810,15 +1774,16 @@ allocating a new iset. In STklos, they do not.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-disjoint?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-disjoint? iset1 iset2)</code></strong><br></p>
+<p><code><strong>(iset-disjoint? iset1 iset2) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1832,16 +1797,17 @@ allocating a new iset. In STklos, they do not.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-empty?'></a><a id='P_SRFI-217'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-empty? obj)</code></strong><br></p>
+<p><code><strong>(iset-empty? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1851,15 +1817,16 @@ is an iset containing at least one key.
 If <code>obj</code> is not an iset object, an error is sginaled.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-every?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-every? predicate iset)</code></strong><br></p>
+<p><code><strong>(iset-every? predicate iset) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1875,17 +1842,18 @@ does not return an element of the iset.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-filter!'></a><a id='P_iset-filter'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-filter predicate set)</code></strong><br>
-<strong><code>(iset-filter! predicate set)</code></strong><br></p>
+<p><code><strong>(iset-filter predicate set) </strong></code><br>
+<code><strong>(iset-filter! predicate set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1903,15 +1871,16 @@ of <code>set</code> that satisfy <code>predicate</code>.</p>
 <p><code>iset-filter!</code> is allowed to modify <code>set</code>, but in STklos it does not.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-find'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-find predicate set failure)</code></strong><br></p>
+<p><code><strong>(iset-find predicate set failure) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1926,17 +1895,18 @@ the result of invoking <code>failure</code> with no arguments if there is none.<
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-fold-right'></a><a id='P_iset-fold'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-fold proc nil set)</code></strong><br>
-<strong><code>(iset-fold-right proc nil set)</code></strong><br></p>
+<p><code><strong>(iset-fold proc nil set) </strong></code><br>
+<code><strong>(iset-fold-right proc nil set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1955,15 +1925,16 @@ was no invocation.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-for-each'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-for-each proc set)</code></strong><br></p>
+<p><code><strong>(iset-for-each proc set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1981,15 +1952,16 @@ returned values. Returns an unspecified result.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-height'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-height trie)</code></strong><br></p>
+<p><code><strong>(iset-height trie) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -1999,15 +1971,16 @@ expected running time of searches and insertions is
 proportional to this value.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-map'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-map proc set)</code></strong><br></p>
+<p><code><strong>(iset-map proc set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2027,17 +2000,18 @@ that is not an exact integer.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-max'></a><a id='P_iset-min'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-min set)</code></strong><br>
-<strong><code>(iset-max set)</code></strong><br></p>
+<p><code><strong>(iset-min set) </strong></code><br>
+<code><strong>(iset-max set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2052,15 +2026,16 @@ that is not an exact integer.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-member'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-member element set default)</code></strong><br></p>
+<p><code><strong>(iset-member element set default) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2069,15 +2044,16 @@ that is not an exact integer.</p>
 of <code>set</code>, then <code>default</code> is returned.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-mutable?'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-mutable? obj)</code></strong><br></p>
+<p><code><strong>(iset-mutable? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2085,17 +2061,18 @@ of <code>set</code>, then <code>default</code> is returned.</p>
 <p>Returns <code>#t</code> is <code>obj</code> is a mutable iset and <code>#f</code> otherwise.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-partition!'></a><a id='P_iset-partition'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-partition predicate set)</code></strong><br>
-<strong><code>(iset-partition! predicate set)</code></strong><br></p>
+<p><code><strong>(iset-partition predicate set) </strong></code><br>
+<code><strong>(iset-partition! predicate set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2114,17 +2091,18 @@ iset that contains just the elements of <code>set</code> that do not satisfy
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-remove!'></a><a id='P_iset-remove'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-remove predicate set)</code></strong><br>
-<strong><code>(iset-remove! predicate set)</code></strong><br></p>
+<p><code><strong>(iset-remove predicate set) </strong></code><br>
+<code><strong>(iset-remove! predicate set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2142,17 +2120,18 @@ that do not satisfy <code>predicate</code>.</p>
 <p><code>Iset-remove!</code> is allowed to modify <code>set</code>, but in STklos it does not.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-search!'></a><a id='P_iset-search'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-search set element failure success)</code></strong><br>
-<strong><code>(iset-search! iset element failure success)</code></strong><br></p>
+<p><code><strong>(iset-search set element failure success) </strong></code><br>
+<code><strong>(iset-search! iset element failure success) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2192,15 +2171,16 @@ is permitted to mutate and return the iset argument rather than
 allocating a new iset. In STklos, it does not.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-size'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-size set)</code></strong><br></p>
+<p><code><strong>(iset-size set) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2208,15 +2188,16 @@ allocating a new iset. In STklos, it does not.</p>
 <p>Returns the number of fixnums in <code>set</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_iset-unfold'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-unfold stop? mapper successor seed)</code></strong><br></p>
+<p><code><strong>(iset-unfold stop? mapper successor seed) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2238,7 +2219,8 @@ repeat this algorithm.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset-xor!'></a><a id='P_iset-difference!'></a><a id='P_iset-intersection!'></a><a id='P_iset-union!'></a><a id='P_iset-xor'></a><a id='P_iset-difference'></a><a id='P_iset-intersection'></a><a id='P_iset-union'></a>
+
 
 
 
@@ -2247,20 +2229,20 @@ repeat this algorithm.</p>
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset-union iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-intersection iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-difference iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-xor iset1 iset2)</code></strong><br>
-<strong><code>(iset-union! iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-intersection! iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-difference! iset1 iset2 iset3 &#8230;&#8203;)</code></strong><br>
-<strong><code>(iset-xor! iset1 iset2)</code></strong><br></p>
+<p><code><strong>(iset-union iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-intersection iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-difference iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-xor iset1 iset2) </strong></code><br>
+<code><strong>(iset-union! iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-intersection! iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-difference! iset1 iset2 iset3 &#8230;&#8203;) </strong></code><br>
+<code><strong>(iset-xor! iset1 iset2) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2288,16 +2270,17 @@ STklos they do not: in fact, they are aliases to the pure functional
 versions.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_iset?'></a><a id='P_SRFI-217'></a>
+
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(iset? obj)</code></strong><br></p>
+<p><code><strong>(iset? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2305,23 +2288,24 @@ versions.</p>
 <p>Returns <code>#t</code> is <code>obj</code> is an iset and <code>#f</code> otherwise.</p>
 </div>
 <div class="paragraph">
-<p>
+<p><a id='P_isubset>='></a><a id='P_isubset>'></a><a id='P_isubset<='></a><a id='P_isubset<'></a><a id='P_isubset='></a>
+
 
 
 
 </p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(isubset= set k)</code></strong><br>
-<strong><code>(isubset&lt; set k)</code></strong><br>
-<strong><code>(isubset&#8656; set k)</code></strong><br>
-<strong><code>(isubset&gt; set k)</code></strong><br>
-<strong><code>(isubset&gt;= set k)</code></strong><br></p>
+<p><code><strong>(isubset= set k) </strong></code><br>
+<code><strong>(isubset&lt; set k) </strong></code><br>
+<code><strong>(isubset&#8656; set k) </strong></code><br>
+<code><strong>(isubset&gt; set k) </strong></code><br>
+<code><strong>(isubset&gt;= set k) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2339,16 +2323,17 @@ at most one element.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_list->iset'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(list&#8594;iset list)</code></strong><br>
-<strong><code>(list&#8594;iset! set list)</code></strong><br></p>
+<p><code><strong>(list&#8594;iset list) </strong></code><br>
+<code><strong>(list&#8594;iset! set list) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2371,15 +2356,16 @@ but in STklos it does not.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_make-range-iset'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(make-range-iset start end [step])</code></strong><br></p>
+<p><code><strong>(make-range-iset start end [step]) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2438,16 +2424,17 @@ Please refer to its manpage for more information.</p>
 <code>compile-file</code> procedure.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compile-file'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compile-file input output)</code></strong><br>
-<strong><code>(compile-file input output :prepend cmds)</code></strong><br></p>
+<p><code><strong>(compile-file input output) </strong></code><br>
+<code><strong>(compile-file input output #:prepend cmds #:case-sensitive cs) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2457,10 +2444,22 @@ whose name is <code>output</code> (if <code>compile-file</code> fails, <code>out
 deleted).</p>
 </div>
 <div class="paragraph">
-<p>If the <code>:prepend</code> keyword argument is given, it must be a list of
-expressions, which will be compiled before the rest of the input
-file. This can be used to define variables that the compiled program
-will use (but it does not affect the compiler itself).</p>
+<p>This command accepts two optional keywords:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>#:prepend</code> :  it must be a list of  expressions, which will be
+compiled before the rest of the input  file. This can be used
+to define variables that the compiled program  will use (but it
+does not affect the compiler itself).</p>
+</li>
+<li>
+<p><code>#:case-sensitive</code> : it tells if the compiler reads symbols in
+case sensitive mode (as R<sup>7</sup>RS) or not not (as R<sup>5</sup>RS).
+By default the compiler is in case sensitive mode.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>This procedure will not set the executable bit on the generated file.</p>
@@ -2471,16 +2470,17 @@ will use (but it does not affect the compiler itself).</p>
 <p><strong><em>STklos</em></strong> compiler behaviour can be customized by several parameters. Those parameters are described below.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:time-display'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:time-display)</code></strong><br>
-<strong><code>(compiler:time-display bool)</code></strong><br></p>
+<p><code><strong>(compiler:time-display) </strong></code><br>
+<code><strong>(compiler:time-display bool) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2489,16 +2489,17 @@ will use (but it does not affect the compiler itself).</p>
 displayed or not. It defaults to <code>#t</code>.</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:gen-line-number'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:gen-line-number)</code></strong><br>
-<strong><code>(compiler:gen-line-number bool)</code></strong><br></p>
+<p><code><strong>(compiler:gen-line-number) </strong></code><br>
+<code><strong>(compiler:gen-line-number bool) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2510,44 +2511,47 @@ when debugging a program. This parameter defaults to <code>#f</code> (but is set
 <code>`#t</code> when <strong><em>STklos</em></strong> is launched in debug mode).</p>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:show-assembly-code'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><strong><code>(compiler:show-assembly-code)</code></strong><br>
-<strong><code>(compiler:show-assembly-code bool)</code></strong><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>This parameter controls if the object files produced by the <strong><em>STklos</em></strong> compiler
-code must embed a readable version of the code. The code is placed at the beginning
-of the produced file. This parameter defaults to <code>#f</code>.</p>
-</div>
-<div class="paragraph">
-<p></p>
-</div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:inline-common-functions)</code></strong><br>
-<strong><code>(compiler:inline-common-functions bool)</code></strong><br></p>
+<p><code><strong>(compiler:show-assembly-code) </strong></code><br>
+<code><strong>(compiler:show-assembly-code bool) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>This parameter controls if the compiler must try to inline the most common Scheme
-primitives (simple arithmetic, main list or vector functions, &#8230;&#8203;). Code produced
-when this parameter is set is more efficient. Note that the compiler can sometimes be
-misleaded if those functions are redefined, hence the existence of this parameter.
-<code>compiler:inline-common-functions</code> is set by default to <code>#t</code>.</p>
+<p>This parameter controls if the object files produced by the <strong><em>STklos</em></strong>
+compiler code must embed a readable version of the code. The code is placed
+at the beginning of the produced file. This parameter defaults to <code>#f</code>.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_compiler:inline-common-functions'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(compiler:inline-common-functions) </strong></code><br>
+<code><strong>(compiler:inline-common-functions bool) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter controls if the compiler must try to inline the most common
+Scheme primitives (simple arithmetic, main list or vector functions, &#8230;&#8203;).
+Code produced  when this parameter is set is more efficient. Note that the
+compiler can sometimes be misleaded if those functions are redefined, hence
+the existence of this parameter. <code>compiler:inline-common-functions</code> is set
+by default to <code>#t</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2587,16 +2591,53 @@ misleaded if those functions are redefined, hence the existence of this paramete
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:source-rewrite'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:keep-formals)</code></strong><br>
-<strong><code>(compiler:keep-formals bool)</code></strong><br></p>
+<p><code><strong>(compiler:source-rewrite) </strong></code><br>
+<code><strong>(compiler:source-rewrite bool) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter determines if compiler tries to rewrite some expressions in
+simpler ones. For instance, it permit to eliminate the unneeded expression
+in a <code>begin</code> form, or to evaluate some simple expression. For instance,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">begin</span> <span class="mi">100</span> <span class="nv">foo</span> <span class="p">(</span><span class="nb">display</span> <span class="s">"Hello"</span><span class="p">)</span> <span class="s">"Hi"</span> <span class="p">(</span><span class="nb">not</span> <span class="no">#f</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is rewritten in</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">begin</span> <span class="p">(</span><span class="nb">display</span> <span class="s">"Hello"</span><span class="p">)</span> <span class="no">#t</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter defaults to <code>#t</code>.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_compiler:keep-formals'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(compiler:keep-formals) </strong></code><br>
+<code><strong>(compiler:keep-formals bool) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2627,16 +2668,17 @@ Default value for <code>compiler:keep-formals</code> is <code>#f</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:keep-source'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:keep-source)</code></strong><br>
-<strong><code>(compiler:keep-source bool)</code></strong><br></p>
+<p><code><strong>(compiler:keep-source) </strong></code><br>
+<code><strong>(compiler:keep-source bool) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2660,16 +2702,17 @@ Default value for <code>compiler:keep-source</code> is <code>#f</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p></p>
+<p><a id='P_compiler:unroll-iterations'></a>
+</p>
 </div>
-<div class="paragraph text-right">
-<p><span class="rmargin small"><em>STklos</em> procedure</span></p>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><strong><code>(compiler:unroll-iterations)</code></strong><br>
-<strong><code>(compiler:unroll-iterations n)</code></strong><br></p>
+<p><code><strong>(compiler:unroll-iterations) </strong></code><br>
+<code><strong>(compiler:unroll-iterations n) </strong></code><br></p>
 </div>
 </div>
 </div>
@@ -2678,12 +2721,71 @@ Default value for <code>compiler:keep-source</code> is <code>#f</code>.</p>
 loops. Currently, only <code>repeat</code> loops are unrolled. The argument
 <code>n</code> must be a positive integer.</p>
 </div>
+<div class="paragraph">
+<p><a id='P_compiler:peephole-optimizer'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(compiler:peephole-optimizer) </strong></code><br>
+<code><strong>(compiler:peephole-optimizer bool) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This parameter determines if the peephole optimizer is used when compiling.
+The default value for this parameter is <code>#t</code>. The next example illustrates
+how it works.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">compiler:peephole-optimizer</span> <span class="no">#f</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">disassemble-expr</span> <span class="o">'</span><span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="no">#f</span><span class="p">)</span> <span class="no">#t</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will print</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="mi">000</span><span class="nv">:</span>  <span class="nv">GLOBAL-REF</span>           <span class="mi">0</span>
+<span class="mi">002</span><span class="nv">:</span>  <span class="nv">PUSH</span>
+<span class="mi">003</span><span class="nv">:</span>  <span class="nv">IM-FALSE</span>
+<span class="mi">004</span><span class="nv">:</span>  <span class="nv">IN-ADD2</span>
+<span class="mi">005</span><span class="nv">:</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, if we change the parameter,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">compiler:peephole-optimizer</span> <span class="no">#t</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">disassemble-expr</span> <span class="o">'</span><span class="p">(</span><span class="nb">+</span> <span class="nv">a</span> <span class="no">#f</span><span class="p">)</span> <span class="no">#t</span><span class="p">)</span>
+<span class="nv">then</span> <span class="nv">the</span> <span class="nv">result</span> <span class="nv">is</span>
+
+<span class="o">```</span><span class="nv">scheme</span>
+
+<span class="mi">000</span><span class="nv">:</span>  <span class="nv">GLOBAL-REF-PUSH</span>      <span class="mi">0</span>
+<span class="mi">002</span><span class="nv">:</span>  <span class="nv">IM-FALSE</span>
+<span class="mi">003</span><span class="nv">:</span>  <span class="nv">IN-ADD2</span>
+<span class="mi">004</span><span class="nv">:</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See that the <code>GLOBAL-REF</code> and <code>PUSH</code> were turned by the peephole optimizer
+into <code>GLOBAL-REF-PUSH</code>.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_bibliography.html">Bibliography</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.00)</a> | Next: <a href="FDL.html">Appendix B: GNU Free Documentation License</a> →</p>
+<p>← Previous: <a href="_bibliography.html">Bibliography</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="FDL.html">Appendix B: GNU Free Documentation License</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -2708,11 +2810,6 @@ loops. Currently, only <code>repeat</code> loops are unrolled. The argument
 </div>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
-</div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2023-09-12 16:56:23 +0200
 </div>
 </div>
 </body>
