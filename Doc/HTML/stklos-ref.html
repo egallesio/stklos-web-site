@@ -798,7 +798,7 @@ pre.rouge {
 </ul>
 </li>
 <li><a href="#doc_bibliography">Bibliography</a></li>
-<li><a href="#_idiosync">Appendix A: STklos Idiosyncrasies</a>
+<li><a href="#doc_idiosync">Appendix A: STklos Idiosyncrasies</a>
 <ul class="sectlevel2">
 <li><a href="#doc_stklos_libraries">A.1. STklos libraries</a></li>
 <li><a href="#doc_stklos_compiler">A.2. STklos compiler</a></li>
@@ -939,7 +939,7 @@ In <strong><em>STklos</em></strong>, by default, identifiers which start (or end
 <code>bar:</code> are <strong><em>STklos</em></strong> keywords, but <code>not:key</code> is not a
 keyword. Alternatively, to be compatible with other Scheme implementations,
 the notation <code>#:foo</code> is also available to denote the keyword of name
-<code>foo</code>. See <em><a href="#_keywords">[_keywords]</a></em> for more information.</p>
+<code>foo</code>. See <em><a href="#doc_keywords">Section 4.14</a></em> for more information.</p>
 </div>
 <div class="paragraph">
 <p>The reader behavior, concerning keywords, can also be changed by the
@@ -1088,12 +1088,12 @@ the constants <code>#t</code> and <code>#f</code> as proposed by R<sup>7</sup>RS
 <p><code>[]</code> Brackets are equivalent to
 parentheses. They are used for grouping and to build lists. A
 list opened with a left square bracket must be closed with a
-right square bracket (see <em><a href="#_pairs_and_lists">[_pairs_and_lists]</a></em>).</p>
+right square bracket (see <em><a href="#doc_pairs_and_lists">Section 4.4</a></em>).</p>
 </li>
 <li>
 <p><code>:</code> a colon at the beginning or the end of
 a symbol introduces a keyword.  Keywords are described in section
-Keywords (see _<a href="#_keywords">[_keywords]</a>).</p>
+Keywords (see <em><a href="#doc_keywords">Section 4.14</a></em>).</p>
 </li>
 <li>
 <p><code>&#35;n=</code> 
@@ -1563,7 +1563,7 @@ assignment, as described in <code>set!</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Furhermore, Parameter Objects (see <em><a href="#_parameter_objects">[_parameter_objects]</a></em>) are
+<p>Furhermore, Parameter Objects (see <em><a href="#doc_parameter_objects">Section 4.21</a></em>) are
 their own setter:</p>
 </div>
 <div class="listingblock">
@@ -13329,7 +13329,7 @@ which case it defaults to the value returned by <code>current-output-port</code>
 main difference with the <code>write</code> procedure is that <code>write*</code>
 handles data structures with cycles. Circular structure written by
 this procedure use the <code>"&#35;n="</code>)) and  <code>"&#35;n&#35;"</code>))
-notations (see <a href="#_other_notations">[_other_notations]</a>).</p>
+notations (see <em><a href="#doc_other_notations">Section 1.2.4</a></em>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -18333,7 +18333,7 @@ returns <code>#f</code> otherwise.</p>
 <div class="paragraph">
 <p>Sends the integer signal <code>sig</code> to <code>proc</code>. Since value of <code>sig</code> is system
 dependant, use the symbolic defined signal constants to make your program
-independant of the running system (see <a href="#_signals">[_signals]</a>).
+independant of the running system (see <em><a href="#doc_signals">Section 4.20</a></em>).
 The result of <code>process-send-signal</code> is <strong><em>void</em></strong>.</p>
 </div>
 <div class="paragraph">
@@ -19397,7 +19397,7 @@ For instance,</p>
 <p>is equivalent to the requiring <code>srfi-1</code> and <code>srfi-2</code>.</p>
 </div>
 <div class="paragraph">
-<p>A list of available symbolic names for features is given in <a href="#_srfis">[_srfis]</a>.</p>
+<p>A list of available symbolic names for features is given in <a href="#doc_srfis">Chapter 13</a>.</p>
 </div>
 <div class="paragraph">
 <p><a id='P_require-feature'></a>
@@ -19429,7 +19429,7 @@ Consequently, to use <strong><a href="http://srfi.schemers.org/srfi-1/srfi-1.htm
 </div>
 </div>
 <div class="paragraph">
-<p>See also <a href="#_srfis">[_srfis]</a> for more information.</p>
+<p>See also <a href="#doc_srfis">Chapter 13</a> for more information.</p>
 </div>
 <div id="assume" class="paragraph">
 <p><a id='P_assume'></a>
@@ -23042,7 +23042,7 @@ The syntax of <code>define-class</code> is close to CLOS <code>defclass</code>:<
 <div class="paragraph">
 <p>The <strong><em>metaclass option</em></strong> will not be discussed here.
 The <strong><em>superclass</em></strong>es list specifies the super classes of
-<strong><em>class</em></strong> (see <a href="#_inheritance">[_inheritance]</a> for details).</p>
+<strong><em>class</em></strong> (see <em><a href="#doc_inheritance">Section 8.2.2</a></em> for details).</p>
 </div>
 <div class="paragraph">
 <p>
@@ -23670,7 +23670,7 @@ not needed.</p>
 
 When a generic function is called, the list of applicable
 methods is built.  As mentioned before, the most specific method
-of this list is applied (see <a href="#_generic_functions">[_generic_functions]</a>).</p>
+of this list is applied (see <a href="#doc_generic_functions">Section 8.2.3</a>).</p>
 </div>
 <div class="paragraph">
 <p>This method may call, if needed, the next method in the list of
@@ -25817,7 +25817,7 @@ the default value  of this parameter is <code>#t</code>.</p>
 read beahviour&#8217;s globally.</p>
 </li>
 <li>
-<p>See also syntax for <em><a href="#_symbols">special characters</a></em> in symbols.</p>
+<p>See also syntax for <em><a href="#doc_symbols">special characters</a></em> in symbols.</p>
 </li>
 </ul>
 </div>
@@ -28265,7 +28265,7 @@ is more general than the one defined this SRFI.</p>
 <p>
 
 <strong><a href="http://srfi.schemers.org/srfi-35/srfi-35.html">SRFI-35</a></strong> is fully supported.
-See <em><a href="#_predefined_conditions">[_predefined_conditions]</a></em> for the predefined conditions
+See <em><a href="#doc_predefined_conditions">Section 7.3</a></em> for the predefined conditions
 and when it is required to load this file.</p>
 </div>
 </div>
@@ -28274,7 +28274,7 @@ and when it is required to load this file.</p>
 <div class="paragraph">
 <p>
 
-<strong><a href="http://srfi.schemers.org/srfi-36/srfi-36.html">SRFI-36</a></strong> is fully supported.  See <em><a href="#_predefined_conditions">[_predefined_conditions]</a></em>
+<strong><a href="http://srfi.schemers.org/srfi-36/srfi-36.html">SRFI-36</a></strong> is fully supported.  See <em><a href="#doc_predefined_conditions">Section 7.3</a></em>
 Conditions) for the predefined conditions and when it is required to
 load this file.</p>
 </div>
@@ -30882,7 +30882,7 @@ with Modules</strong>&#8201;&#8212;&#8201;LISP and Symbolic Computation, 91996, 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_idiosync">Appendix A: STklos Idiosyncrasies</h2>
+<h2 id="doc_idiosync">Appendix A: STklos Idiosyncrasies</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="doc_stklos_libraries">A.1. STklos libraries</h3>
@@ -31281,7 +31281,7 @@ the exported symbols of <strong><a href="http://srfi.schemers.org/srfi-1/srfi-1.
 <code>(srfi 1)</code> library.</p>
 </div>
 <div class="paragraph">
-<p>See  <em><a href="#_srfis">[_srfis]</a></em> for more information</p>
+<p>See  <em><a href="#doc_srfis">Chapter 13</a></em> for more information</p>
 </div>
 </div>
 <div class="sect3">
