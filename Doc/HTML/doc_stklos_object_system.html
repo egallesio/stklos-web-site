@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_stklos_object_system" class="book toc2 toc-left">
+<body id="doc_stklos_object_system" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,43 +673,43 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_stklos_object_system.html"><span class="toc-current">8. STklos Object System</span></a>
+<li><a href="doc_stklos_object_system.html"><span class="toc-current">8. STklos Object System</span></a>
 <ul class="sectlevel2">
-<li><a href="_stklos_object_system.html#_introduction_2">8.1. Introduction</a>
+<li><a href="doc_stklos_object_system.html#doc_introduction_2">8.1. Introduction</a>
 </li>
-<li><a href="_stklos_object_system.html#_object_system_tutorial">8.2. Object System Tutorial</a>
+<li><a href="doc_stklos_object_system.html#doc_object_system_tutorial">8.2. Object System Tutorial</a>
 </li>
-<li><a href="_stklos_object_system.html#_object_system_main_functions_and_syntaxes">8.3. Object System Main Functions and Syntaxes</a>
+<li><a href="doc_stklos_object_system.html#doc_object_system_main_functions_and_syntaxes">8.3. Object System Main Functions and Syntaxes</a>
 </li>
 </ul>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
 </li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
 </li>
-<li><a href="_srfis.html">13. SRFIs</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -720,28 +720,28 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_stklos_object_system">8. STklos Object System</h2>
+<h2 id="doc_stklos_object_system">8. STklos Object System</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_introduction_2">8.1. Introduction</h3>
+<h3 id="doc_introduction_2">8.1. Introduction</h3>
 <div class="paragraph">
 <p>The aim of this chapter is to present <strong><em>STklos</em></strong> object
 system.  Briefly stated, <strong><em>STklos</em></strong> gives the  programmer
 an extensive object system with meta-classes, multiple
 inheritance, generic functions and multi-methods.  Furthermore,
 its implementation relies on a MOP  (Meta Object Protocol
-(MOP) <a href="_bibliography.html#AMOP">[AMOP]</a>),
+(MOP) <a href="doc_bibliography.html#AMOP">[AMOP]</a>),
 in the spirit of the one defined for
-CLOS <a href="_bibliography.html#CLtL2">[CLtL2]</a>.</p>
+CLOS <a href="doc_bibliography.html#CLtL2">[CLtL2]</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong><em>STklos</em></strong> implementation is derived from the version 1.3 of <strong><em>Tiny CLOS</em></strong>, a
 pure and clean CLOS-like MOP implementation in Scheme written by Gregor
-Kickzales <a href="_bibliography.html#Tiny-Clos">[Tiny-Clos]</a>. However, Tiny CLOS implementation was designed as a
+Kickzales <a href="doc_bibliography.html#Tiny-Clos">[Tiny-Clos]</a>. However, Tiny CLOS implementation was designed as a
 pedagogical tool and consequently, completeness and efficiency were not the
 author concern for it.  <strong><em>STklos</em></strong> extends the Tiny CLOS model to be efficient
-and as close as possible to CLOS, the Common Lisp Object System <a href="_bibliography.html#CLtL2">[CLtL2]</a>.
-Some features of <strong><em>STklos</em></strong> are also issued from <a href="_bibliography.html#Dylan">[Dylan]</a> or <a href="_bibliography.html#SOS">[SOS]</a>.</p>
+and as close as possible to CLOS, the Common Lisp Object System <a href="doc_bibliography.html#CLtL2">[CLtL2]</a>.
+Some features of <strong><em>STklos</em></strong> are also issued from <a href="doc_bibliography.html#Dylan">[Dylan]</a> or <a href="doc_bibliography.html#SOS">[SOS]</a>.</p>
 </div>
 <div class="paragraph">
 <p>This chapter is divided in three parts, which have a quite different audience
@@ -769,21 +769,21 @@ meta programming.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_object_system_tutorial">8.2. Object System Tutorial</h3>
+<h3 id="doc_object_system_tutorial">8.2. Object System Tutorial</h3>
 <div class="paragraph">
 <p>The <strong><em>STklos</em></strong> object system relies on classes like most of the current OO
 languages.  Furthermore, <strong><em>STklos</em></strong> provides meta-classes, multiple
 inheritance, generic functions and multi-methods as in CLOS, the Common Lisp
-Object System <a href="_bibliography.html#CLtL2">[CLtL2]</a> or <a href="_bibliography.html#Dylan">[Dylan]</a>.  This chapter presents <strong><em>STklos</em></strong> in
+Object System <a href="doc_bibliography.html#CLtL2">[CLtL2]</a> or <a href="doc_bibliography.html#Dylan">[Dylan]</a>.  This chapter presents <strong><em>STklos</em></strong> in
 a rather informal manner.  Its intent is to give the reader an idea of the
 "<strong><em>look and feel</em></strong>" of <strong><em>STklos</em></strong> programming.  However, we suppose here that
 the reader has some basic notions of OO programming, and is familiar with
 terms such as <strong><em>classes, instances</em></strong> or <strong><em>methods.</em></strong></p>
 </div>
 <div class="sect3">
-<h4 id="_class_definition_and_instantiation">8.2.1. Class definition and instantiation</h4>
+<h4 id="doc_class_definition_and_instantiation">8.2.1. Class definition and instantiation</h4>
 <div class="sect4">
-<h5 id="_class_definition">Class definition</h5>
+<h5 id="doc_class_definition">Class definition</h5>
 <div class="paragraph">
 <p>
 
@@ -803,7 +803,7 @@ The syntax of <code>define-class</code> is close to CLOS <code>defclass</code>:<
 <div class="paragraph">
 <p>The <strong><em>metaclass option</em></strong> will not be discussed here.
 The <strong><em>superclass</em></strong>es list specifies the super classes of
-<strong><em>class</em></strong> (see <a href="_stklos_object_system.html#_inheritance">Section 8.2.2</a> for details).</p>
+<strong><em>class</em></strong> (see <a href="#_inheritance">[_inheritance]</a> for details).</p>
 </div>
 <div class="paragraph">
 <p>
@@ -843,7 +843,7 @@ class <code>&lt;point&gt;</code> and adding a new slot (the <code>radius</code> 
 </div>
 </div>
 <div class="sect4">
-<h5 id="_instance_creation_and_slot_access">Instance creation and slot access</h5>
+<h5 id="doc_instance_creation_and_slot_access">Instance creation and slot access</h5>
 <div class="paragraph">
 <p>
 
@@ -903,7 +903,7 @@ Slots are:
 </div>
 </div>
 <div class="sect4">
-<h5 id="_slot_definition">Slot Definition</h5>
+<h5 id="doc_slot_definition">Slot Definition</h5>
 <div class="paragraph">
 <p>When specifying a slot, a set of options can be given to
 the system.  Each option is specified with a keyword. For
@@ -1012,7 +1012,7 @@ done with:</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><strong><em>STklos</em></strong> also define <code>slot-set!</code> as the <a href="_srfis.html#setter">setter function</a> of <code>slot-ref</code>.
+<p><strong><em>STklos</em></strong> also define <code>slot-set!</code> as the <a href="doc_srfis.html#setter">setter function</a> of <code>slot-ref</code>.
 As a consequence, we have</p>
 </div>
 <div class="listingblock">
@@ -1027,7 +1027,7 @@ As a consequence, we have</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_virtual_slots">Virtual Slots</h5>
+<h5 id="doc_virtual_slots">Virtual Slots</h5>
 <div class="paragraph">
 <p>
 
@@ -1088,9 +1088,9 @@ Slots are:
 </div>
 </div>
 <div class="sect3">
-<h4 id="_inheritance">8.2.2. Inheritance</h4>
+<h4 id="doc_inheritance">8.2.2. Inheritance</h4>
 <div class="sect4">
-<h5 id="_class_hierarchy_and_inheritance_of_slots">Class hierarchy and inheritance of slots</h5>
+<h5 id="doc_class_hierarchy_and_inheritance_of_slots">Class hierarchy and inheritance of slots</h5>
 <div class="paragraph">
 <p>inheritance
 Inheritance is specified upon class definition. As said in the introduction,
@@ -1120,7 +1120,7 @@ all the classes defined by <code>define-class</code>.</p>
 <li>
 <p><code>D</code>, <code>E</code>, and <code>F</code> use multiple inheritance: each class inherits from two
 previously defined classes.  Those class definitions define a hierarchy which
-is shown in <a href="_stklos_object_system.html#class_hierarchy">Figure 1</a>.</p>
+is shown in <a href="doc_stklos_object_system.html#class_hierarchy">Figure 1</a>.</p>
 </li>
 </ul>
 </div>
@@ -1162,7 +1162,7 @@ The order of slots is not significant.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_class_precedence_list">Class precedence list</h5>
+<h5 id="doc_class_precedence_list">Class precedence list</h5>
 <div class="paragraph">
 <p></p>
 </div>
@@ -1219,9 +1219,9 @@ class <code>X</code> is placed before <code>Y</code> in the super classes of <co
 are not always sufficient to determine a unique order.  However, they give an
 idea of how the things work. <strong><em>STklos</em></strong> algorithm for calculating the class
 precedence list of a class is a little simpler than the CLOS one described in
-<a href="_bibliography.html#AMOP">[AMOP]</a> for breaking ties.  Consequently, the calculated class
+<a href="doc_bibliography.html#AMOP">[AMOP]</a> for breaking ties.  Consequently, the calculated class
 precedence list by <strong><em>STklos</em></strong> algorithm can be different than the one given by
-the CLOS one in some subtle situations.  Taking the <code>F</code> class shown in <a href="_stklos_object_system.html#class_hierarchy">Figure 1</a>,
+the CLOS one in some subtle situations.  Taking the <code>F</code> class shown in <a href="doc_stklos_object_system.html#class_hierarchy">Figure 1</a>,
 the <strong><em>STklos</em></strong> calculated class precedence list is</p>
 </div>
 <div class="listingblock">
@@ -1266,9 +1266,9 @@ element is the most specific class.  For instance,</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_generic_functions">8.2.3. Generic functions</h4>
+<h4 id="doc_generic_functions">8.2.3. Generic functions</h4>
 <div class="sect4">
-<h5 id="_generic_functions_and_methods">Generic functions and methods</h5>
+<h5 id="doc_generic_functions_and_methods">Generic functions and methods</h5>
 <div class="paragraph">
 <p>
 
@@ -1425,13 +1425,13 @@ not needed.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_next_method">Next-method</h5>
+<h5 id="doc_next_method">Next-method</h5>
 <div class="paragraph">
 <p>
 
 When a generic function is called, the list of applicable
 methods is built.  As mentioned before, the most specific method
-of this list is applied (see <a href="_stklos_object_system.html#_generic_functions">Section 8.2.3</a>).</p>
+of this list is applied (see <a href="#_generic_functions">[_generic_functions]</a>).</p>
 </div>
 <div class="paragraph">
 <p>This method may call, if needed, the next method in the list of
@@ -1462,7 +1462,7 @@ applicable methods.  This is done by using the special form
 </div>
 </div>
 <div class="sect4">
-<h5 id="_standard_generic_functions">Standard  generic functions</h5>
+<h5 id="doc_standard_generic_functions">Standard  generic functions</h5>
 <div class="paragraph">
 <p>
 
@@ -1552,9 +1552,9 @@ we could define the following method to compare points:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_object_system_main_functions_and_syntaxes">8.3. Object System Main Functions and Syntaxes</h3>
+<h3 id="doc_object_system_main_functions_and_syntaxes">8.3. Object System Main Functions and Syntaxes</h3>
 <div class="sect3">
-<h4 id="_classes_and_instances">8.3.1. Classes and Instances</h4>
+<h4 id="doc_classes_and_instances">8.3.1. Classes and Instances</h4>
 <div class="paragraph">
 <p><a id='P_define-class'></a>
 </p>
@@ -2000,7 +2000,7 @@ class <code>&lt;A&gt;</code>: it does not have the slot <code>c-slot</code> anym
 </div>
 </div>
 <div class="sect3">
-<h4 id="_generic_functions_and_methods_2">8.3.2. Generic Functions and Methods</h4>
+<h4 id="doc_generic_functions_and_methods_2">8.3.2. Generic Functions and Methods</h4>
 <div class="paragraph">
 <p>Generic functions and methods are an important part of <strong><em>STklos</em></strong> object
 system. A generic function is a function which can have several methods with a
@@ -2256,7 +2256,7 @@ applicable method.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_misc_2">8.3.3. Misc.</h4>
+<h4 id="doc_misc_2">8.3.3. Misc.</h4>
 <div class="paragraph">
 <p><a id='P_class-precedence-list'></a><a id='P_class-subclasses'></a><a id='P_class-direct-subclasses'></a><a id='P_class-direct-superclasses'></a>
 
@@ -2548,7 +2548,7 @@ not explicitly created, however, the documentation will be set to <code>#f</code
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_exceptions_and_conditions.html">Exceptions and Conditions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> →</p>
+<p>← Previous: <a href="doc_exceptions_and_conditions.html">Exceptions and Conditions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_threads_mutexes_and_condition_variables.html">Threads, Mutexes and Condition Variables</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -2569,7 +2569,7 @@ not explicitly created, however, the documentation will be set to <code>#f</code
 <a href="#_footnoteref_2">2</a>. Port 13, if open, can be used for testing: making a connection to it permits to know the distant system&#8217;s idea of the time of day.
 </div>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="_bibliography.html#Bigloo">[Bigloo]</a>
+<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="doc_bibliography.html#Bigloo">[Bigloo]</a>
 </div>
 <div class="footnote" id="_footnotedef_1">
 <a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>

@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_exceptions_and_conditions" class="book toc2 toc-left">
+<body id="doc_using_the_slib_package" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,43 +673,35 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_exceptions_and_conditions.html"><span class="toc-current">7. Exceptions and Conditions</span></a>
-<ul class="sectlevel2">
-<li><a href="_exceptions_and_conditions.html#_exceptions">7.1. Exceptions</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_exceptions_and_conditions.html#_conditions">7.2. Conditions</a>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
 </li>
-<li><a href="_exceptions_and_conditions.html#_predefined_conditions">7.3. Predefined Conditions</a>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
 </li>
-</ul>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
 </li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+<li><a href="doc_using_the_slib_package.html"><span class="toc-current">12. Using the SLIB package</span></a>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
-</li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
-</li>
-<li><a href="_srfis.html">13. SRFIs</a>
-</li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -720,353 +712,35 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_exceptions_and_conditions">7. Exceptions and Conditions</h2>
+<h2 id="doc_using_the_slib_package">12. Using the SLIB package</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_exceptions">7.1. Exceptions</h3>
 <div class="paragraph">
 <p>
-The following text is extracted from <strong><a href="http://srfi.schemers.org/srfi-34/srfi-34.html">SRFI-34</a></strong> (<em>Exception Handling for Programs</em>), from which
-<strong><em>STklos</em></strong> exceptions are derived. Note that exceptions are now part of R<sup>7</sup>RS.</p>
-</div>
-<div class="paragraph">
-<p>Exception handlers are one-argument procedures that determine the action the
-program takes when an exceptional situation is signalled. The system
-implicitly maintains a current exception handler.</p>
-</div>
-<div class="paragraph">
-<p>The program raises an exception by invoking the current exception handler,
-passing to it an object encapsulating information about the exception. Any
-procedure accepting one argument may serve as an exception handler and any
-object may be used to represent an exception.</p>
-</div>
-<div class="paragraph">
-<p>The system maintains the current exception handler as part of the dynamic
-environment of the program, akin to the current input or output port, or the
-context for dynamic-wind. The dynamic environment can be thought of as that
-part of a continuation that does not specify the destination of any returned
-values. It includes the current input and output ports, the dynamic-wind
-context, and this SRFI&#8217;s current exception handler.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_with-handler'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(with-handler &lt;handler&gt; &lt;expr<sub>1</sub>&gt; &#8230;&#8203; &lt;expr<sub>n</sub>&gt;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Evaluates the sequences of expressions <code>&lt;expr<sub>1</sub>&gt;</code> to <code>&lt;expr<sub>n</sub>&gt;</code>.
-<code>&lt;handler&gt;</code> must be a procedure that accepts one argument. It is installed
-as the current exception handler for the dynamic extent (as determined by
-dynamic-wind) of the evaluations of the expressions</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">with-handler</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">c</span><span class="p">)</span>
-                <span class="p">(</span><span class="nb">display</span> <span class="s">"Catch an error\n"</span><span class="p">))</span>
-   <span class="p">(</span><span class="nb">display</span> <span class="s">"One ... "</span><span class="p">)</span>
-   <span class="p">(</span><span class="nb">+</span> <span class="s">"will yield"</span> <span class="s">"an error"</span><span class="p">)</span>
-   <span class="p">(</span><span class="nb">display</span> <span class="s">"... Two"</span><span class="p">))</span>
-       <span class="nv">|-</span> <span class="s">"One ... Catch an error"</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_with-exception-handler'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver">R<sup>7</sup>RS procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(with-exception-handler &lt;handler&gt; &lt;thunk&gt;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>This form is similar to <code>with-handler</code>. It uses a <strong><em>thunk</em></strong> instead of
-a sequence of expressions. It is conform to <strong><a href="http://srfi.schemers.org/srfi-34/srfi-34.html">SRFI-34</a></strong> (<em>Exception Handling for Programs</em>).
-In fact,</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">with-handler</span> <span class="nv">&lt;handler&gt;</span> <span class="nv">&lt;expr1&gt;</span> <span class="o">...</span> <span class="nv">&lt;exprn&gt;</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>is equivalent to</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">with-exception-handler</span> <span class="nv">&lt;handler&gt;</span>
-  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="nv">&lt;expr1&gt;</span> <span class="o">...</span> <span class="nv">&lt;exprn&gt;</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_raise'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver">R<sup>7</sup>RS procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(raise obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Invokes the current exception handler on <code>obj</code>. The handler is called in
-the dynamic environment of the call to <code>raise</code>, except that the current
-exception handler is that in place for the call to <code>with-handler</code>
-that installed the handler being called.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">with-handler</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">c</span><span class="p">)</span>
-             <span class="p">(</span><span class="nf">format</span> <span class="s">"value ~A was raised"</span> <span class="nv">c</span><span class="p">))</span>
-   <span class="p">(</span><span class="nf">raise</span> <span class="ss">'foo</span><span class="p">)</span>
-   <span class="p">(</span><span class="nf">format</span> <span class="no">#t</span> <span class="s">"never printed\n"</span><span class="p">))</span>
-          <span class="nv">=&gt;</span> <span class="s">"value foo was raised"</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_raise-continuable'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver">R<sup>7</sup>RS procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(raise-continuable obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Raises an exception by invoking the current exception handler on
-<code>obj</code>. The handler is called with the same dynamic environment as the
-call to <code>raise-continuable</code>, except that: (1) the current exception
-handler is the one that was in place when the handler being called was
-installed, and (2) if the handler being called returns, then it will again
-become the current exception handler.  If the handler returns, the values
-it returns become the values returned by the call to <code>raise-continuable</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">with-exception-handler</span>
-  <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">con</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">cond</span>
-      <span class="p">((</span><span class="nb">string?</span> <span class="nv">con</span><span class="p">)</span>
-       <span class="p">(</span><span class="nb">display</span> <span class="nv">con</span><span class="p">))</span>
-      <span class="p">(</span><span class="k">else</span>
-       <span class="p">(</span><span class="nb">display</span> <span class="s">"a warning has been issued"</span><span class="p">)))</span>
-    <span class="mi">42</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span>
-    <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nf">raise-continuable</span> <span class="s">"should be a number"</span><span class="p">)</span>
-       <span class="mi">23</span><span class="p">)))</span>
-  <span class="c1">;; prints should be a number</span>
-                <span class="nv">=&gt;</span> <span class="mi">65</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_guard'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver">R<sup>7</sup>RS procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(guard (&lt;var&gt; &lt;clause1 &gt; &lt;clause2 &gt; &#8230;&#8203;)  &lt;body&gt;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Evaluating a guard form evaluates <code>&lt;body&gt;</code> with an exception handler
-that binds the raised object to <code>&lt;var&gt;</code> and within the scope of that
-binding evaluates the clauses as if they were the clauses of a cond
-expression. That implicit cond  expression is evaluated with the
-continuation and dynamic environment of the <code>guard</code> expression.
-If every <code>&lt;clause&gt;</code>s test evaluates to false and there is no <code>else</code>
-clause, then <code>raise</code> is re-invoked on the raised object within the
-dynamic environment of the original call to <code>raise</code> except that the
-current exception handler is that of the <code>guard</code> expression.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">guard</span> <span class="p">(</span><span class="nf">condition</span>
-         <span class="p">((</span><span class="nb">assq</span> <span class="ss">'a</span> <span class="nv">condition</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="nv">cdr</span><span class="p">)</span>
-         <span class="p">((</span><span class="nb">assq</span> <span class="ss">'b</span> <span class="nv">condition</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nf">raise</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'a</span> <span class="mi">42</span><span class="p">))))</span>
-         <span class="nv">=&gt;</span> <span class="mi">42</span>
 
-<span class="p">(</span><span class="nf">guard</span> <span class="p">(</span><span class="nf">condition</span>
-         <span class="p">((</span><span class="nb">assq</span> <span class="ss">'a</span> <span class="nv">condition</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="nv">cdr</span><span class="p">)</span>
-         <span class="p">((</span><span class="nb">assq</span> <span class="ss">'b</span> <span class="nv">condition</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nf">raise</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'b</span> <span class="mi">23</span><span class="p">))))</span>
-         <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">b</span> <span class="o">.</span> <span class="mi">23</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nf">with-handler</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">c</span><span class="p">)</span> <span class="p">(</span><span class="nf">format</span> <span class="s">"value ~A was raised"</span> <span class="nv">c</span><span class="p">))</span>
-  <span class="p">(</span><span class="nf">guard</span> <span class="p">(</span><span class="nf">condition</span>
-       <span class="p">((</span><span class="nb">assq</span> <span class="ss">'a</span> <span class="nv">condition</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="nv">cdr</span><span class="p">)</span>
-       <span class="p">((</span><span class="nb">assq</span> <span class="ss">'b</span> <span class="nv">condition</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nf">raise</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nb">cons</span> <span class="ss">'x</span> <span class="mi">0</span><span class="p">)))))</span>
-         <span class="nv">=&gt;</span> <span class="s">"value ((x . 0)) was raised"</span></code></pre>
-</div>
+<strong><em>SLIB</em></strong> is a library for the programming language Scheme, written by
+Aubrey Jaffer <a href="doc_bibliography.html#SLIB">[SLIB]</a>.   It provides a platform independent framework for
+using packages of Scheme procedures and syntax. It uses only standard Scheme
+syntax and thus works on many different Scheme implementations.</p>
 </div>
 <div class="paragraph">
-<p><a id='P_current-exception-handler'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(current-exception-handler) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the current exception handler. This procedure is defined in
-,(link-srfi 18).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_conditions">7.2. Conditions</h3>
-<div class="paragraph">
-<p>
-The following text is extracted from <strong><a href="http://srfi.schemers.org/srfi-35/srfi-35.html">SRFI-35</a></strong> (<em>Conditions</em>), from which
-<strong><em>STklos</em></strong> conditions are derived.</p>
-</div>
-<div class="paragraph">
-<p>Conditions are values that communicate information about exceptional
-situations between parts of a program. Code that detects an exception may be
-in a different part of the program than the code that handles
-it. In fact, the former may have been written independently from the
-latter. Consequently, to facilitate effective handling of exceptions,
-conditions must communicate as much information as possible as
-accurately as possible, and still allow effective handling by code
-that did not precisely anticipate the nature of the exception that
-occurred.</p>
-</div>
-<div class="paragraph">
-<p>Conditions available in <strong><em>STklos</em></strong> are derived from <strong>SRFI-35</strong> and in this SRFI
-two mechanisms to enable this kind of communication are provided:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>subtyping among condition types allows handling code to
-determine the general nature of an exception even though it does
-not anticipate its exact nature,</p>
-</li>
-<li>
-<p>compound conditions allow an exceptional situation to be
-described in multiple ways.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Conditions are structures with named slots. Each condition belongs to
-one condition type (a condition type can be made from several
-condition types). Each condition type specifies a set of
-slot names. A condition belonging to a condition type includes a
-value for each of the type&#8217;s slot names. These values can be
-extracted from the condition by using the appropriate slot name.</p>
-</div>
-<div class="paragraph">
-<p>
-There is a tree of condition types with the distinguished <code>&amp;condition</code>
-as its root. All other condition types have a parent condition type.</p>
-</div>
-<div class="paragraph">
-<p>Conditions are implemented with <strong><em>STklos</em></strong> structures (with a special bit
-indicating that there are conditions). Of course, condition types are
-implemented with structure types. As a consequence, functions on
-structures or structures types are available on conditions or
-conditions types (the contrary is not true). For instance, if C is a
-condition, the expression</p>
+<p>To  use this package, you have just to type</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">struct-&gt;list</span> <span class="nv">C</span><span class="p">)</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">require</span> <span class="s">"slib"</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>is a simple way to see it&#8217;s slots and their associated value.</p>
+<p>or use the <strong><a href="http://srfi.schemers.org/srfi-96/srfi-96.html">SRFI-96</a></strong> (<em>SLIB Prerequisites</em>) with</p>
 </div>
-<div class="paragraph">
-<p><a id='P_make-condition-type'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph small">
-<p><code><strong>(make-condition-type id  parent  slot-names) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Make-condition-type</code> returns a new condition type. <code>Id</code> must be a symbol
-that serves as a symbolic name for the condition type. <code>Parent</code> must itself
-be a condition type. <code>Slot-names</code> must be a list of symbols. It identifies
-the slots of the conditions associated with the condition type.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-type?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-type? obj) </strong></code><br></p>
-</div>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">import</span> <span class="p">(</span><span class="nf">srfi</span> <span class="mi">96</span><span class="p">))</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a condition type, and <code>#f</code> otherwise</p>
-</div>
-<div class="paragraph">
-<p><a id='P_make-compound-condition-type'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(make-compound-condition-type id ct<sub>1</sub> &#8230;&#8203;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Make-compound-condition-type</code> returns a new condition type, built
-from the condition types <code>ct<sub>1</sub></code>, &#8230;&#8203;
-<code>Id</code> must be a symbol that serves as a symbolic name for the
-condition type. The slots names of the new condition type is the
-union of the slots of conditions <code>ct<sub>1</sub></code> &#8230;&#8203;</p>
+<p>and follow the instructions given in the <strong><em>SLIB</em></strong> library manual to
+use a particular package.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1075,258 +749,35 @@ union of the slots of conditions <code>ct<sub>1</sub></code> &#8230;&#8203;</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This function is not defined in <strong><a href="http://srfi.schemers.org/srfi-34/srfi-34.html">SRFI-34</a></strong> (<em>Exception Handling for Programs</em>).
+<div class="paragraph">
+<p><strong><em>SLIB</em></strong> uses also the <em>require</em> and <em>provide</em> mechanism to load
+components of the library. Once <strong><em>SLIB</em></strong> has been loaded, the standard
+<strong><em>STklos</em></strong> <code>require</code> and <code>provide</code> are overloaded such as if their
+parameter is a string this is the old <strong><em>STklos</em></strong> procedure which is
+called, and if their parameter is a symbol, this is the <strong><em>SLIB</em></strong> one
+which is called.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>SLIB</em></strong> needs to create a catalog of the file that must be loaded to
+implement a given feature. This catalog is stored in a file named
+<code>slibcat</code> This file is, by default located in the
+<code>slib</code> directory into the <strong><em>STklos</em></strong> configuration directory
+(generally <code>~/.config/stklos</code>).  It is possible to change this
+directory with the <code>STKLOS_IMPLEMENTATION_PATH</code> shell variable.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>STklos</em></strong> searches the <strong><em>SLIB</em></strong> implementation directory in some standard
+places. If not found, you can fix it with the <code>SCHEME_LIBRARY_PATH</code> shell
+variable.</p>
+</div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p><a id='P_make-condition'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(make-condition type slot-name value  &#8230;&#8203;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Make-condition</code> creates a condition value belonging condition type
-<code>type</code>. The following arguments must be, in turn, a slot name and an
-arbitrary value. There must be such a pair for each slot of <code>type</code> and
-its direct and indirect supertypes. <code>Make-condition</code> returns the
-condition value, with the argument values associated with their
-respective slots.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nf">ct</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct1</span> <span class="nv">&amp;condition</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span><span class="p">)))</span>
-       <span class="p">(</span><span class="nf">c</span>  <span class="p">(</span><span class="nf">make-condition</span> <span class="nv">ct</span> <span class="ss">'b</span> <span class="mi">2</span> <span class="ss">'a</span> <span class="mi">1</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nf">struct-&gt;list</span> <span class="nv">c</span><span class="p">))</span>
-     <span class="nv">=&gt;</span> <span class="p">((</span><span class="nf">a</span> <span class="o">.</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nf">b</span> <span class="o">.</span> <span class="mi">2</span><span class="p">))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_condition?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition? obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a condition, and <code>#f</code> otherwise</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-has-type?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-has-type? condition condition-type) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Condition-has-type?</code> tests if <code>condition</code> belongs to <code>condition-type</code>.
-It returns <code>#t</code> if any of condition 's types includes <code>condition-type</code>
-either directly or as an ancestor and <code>#f</code> otherwise.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"> <span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nf">ct1</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct1</span> <span class="nv">&amp;condition</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span><span class="p">)))</span>
-        <span class="p">(</span><span class="nf">ct2</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct2</span> <span class="nv">ct1</span> <span class="o">'</span><span class="p">(</span><span class="nf">c</span><span class="p">)))</span>
-        <span class="p">(</span><span class="nf">ct3</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct3</span> <span class="nv">&amp;condition</span> <span class="o">'</span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span> <span class="nv">z</span><span class="p">)))</span>
-        <span class="p">(</span><span class="nf">c</span>   <span class="p">(</span><span class="nf">make-condition</span> <span class="nv">ct2</span> <span class="ss">'a</span> <span class="mi">1</span> <span class="ss">'b</span> <span class="mi">2</span> <span class="ss">'c</span> <span class="mi">3</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nf">condition-has-type?</span> <span class="nv">c</span> <span class="nv">ct1</span><span class="p">)</span>
-     <span class="p">(</span><span class="nf">condition-has-type?</span> <span class="nv">c</span> <span class="nv">ct2</span><span class="p">)</span>
-     <span class="p">(</span><span class="nf">condition-has-type?</span> <span class="nv">c</span> <span class="nv">ct3</span><span class="p">)))</span>
-    <span class="nv">=&gt;</span> <span class="p">(</span><span class="no">#t</span> <span class="no">#t</span> <span class="no">#f</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-ref'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-ref condition slot-name) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Condition</code> must be a condition, and <code>slot-name</code> a symbol. Moreover,
-<code>condition</code> must belong to a condition type which has a slot name called
-<code>slot-name</code>, or one of its (direct or indirect) supertypes must have the
-slot. <code>Condition-ref</code> returns the value associated with <code>slot-name</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nf">ct</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct1</span> <span class="nv">&amp;condition</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span><span class="p">)))</span>
-       <span class="p">(</span><span class="nf">c</span>  <span class="p">(</span><span class="nf">make-condition</span> <span class="nv">ct</span> <span class="ss">'b</span> <span class="mi">2</span> <span class="ss">'a</span> <span class="mi">1</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nf">condition-ref</span> <span class="nv">c</span> <span class="ss">'b</span><span class="p">))</span>
-     <span class="nv">=&gt;</span> <span class="mi">2</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-set!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-set! condition slot-name obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Condition</code> must be a condition, and <code>slot-name</code> a symbol. Moreover,
-<code>condition</code> must belong to a condition type which has a slot name called
-<code>slot-name</code>, or one of its (direct or indirect) supertypes must have the
-slot. <code>Condition-set!</code> change the value associated with <code>slot-name</code> to <code>obj</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Whereas <code>condition-ref</code> is defined in ,(srfi 35),
-<code>confition-set!</code> is not.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><a id='P_make-compound-condition'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(make-compound-condition condition<sub>0</sub> condition<sub>1</sub> &#8230;&#8203;) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Make-compound-condition</code> returns a compound condition belonging to
-all condition types that the <code>condition<sub>i</sub></code> belong to.</p>
-</div>
-<div class="paragraph">
-<p><code>Condition-ref</code>, when applied to a compound condition will return
- the value from the first of the <code>conditioni</code> that has such a slot.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_extract-condition'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(extract-condition condition  condition-type) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Condition</code> must be a condition belonging to <code>condition-type</code>.
-<code>Extract-condition</code> returns a condition of <code>condition-type</code>
-with the slot values specified by <code>condition</code>. The new condition
-is always allocated.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nf">ct1</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct1</span> <span class="nv">&amp;condition</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span><span class="p">)))</span>
-       <span class="p">(</span><span class="nf">ct2</span> <span class="p">(</span><span class="nf">make-condition-type</span> <span class="ss">'ct2</span> <span class="nv">ct1</span> <span class="o">'</span><span class="p">(</span><span class="nf">c</span><span class="p">)))</span>
-       <span class="p">(</span><span class="nf">c2</span>  <span class="p">(</span><span class="nf">make-condition</span> <span class="nv">ct2</span> <span class="ss">'a</span> <span class="mi">1</span> <span class="o">'</span> <span class="nv">b</span> <span class="mi">2</span> <span class="ss">'c</span> <span class="mi">3</span><span class="p">))</span>
-       <span class="p">(</span><span class="nf">c1</span>  <span class="p">(</span><span class="nf">extract-condition</span> <span class="nv">c2</span> <span class="nv">ct1</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nf">condition-has-type?</span> <span class="nv">c1</span> <span class="nv">ct2</span><span class="p">)</span>
-     <span class="p">(</span><span class="nf">condition-has-type?</span> <span class="nv">c1</span> <span class="nv">ct1</span><span class="p">)))</span>
-      <span class="nv">=&gt;</span> <span class="p">(</span><span class="no">#f</span> <span class="no">#t</span><span class="p">)</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_predefined_conditions">7.3. Predefined Conditions</h3>
-<div class="paragraph">
-<p>
-
-<strong><em>STklos</em></strong> implements all the conditions types which are defined in
-<strong><a href="http://srfi.schemers.org/srfi-35/srfi-35.html">SRFI-35</a></strong> (<em>Conditions</em>) and <strong><a href="http://srfi.schemers.org/srfi-36/srfi-36.html">SRFI-36</a></strong> (<em>I/O Conditions</em>).
-However, the access functions which are (implicitely) defined
-in those SRFIs are only available if the file <code>"conditions"</code> is
-required. This can be done with the call:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">require</span> <span class="s">"conditions"</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Another way to have access to the hierarchy of the <strong><a href="http://srfi.schemers.org/srfi-35/srfi-35.html">SRFI-35</a></strong> (<em>Conditions</em>)
-and <strong><a href="http://srfi.schemers.org/srfi-36/srfi-36.html">SRFI-36</a></strong> (<em>I/O Conditions</em>) condition:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">require-extension</span> <span class="nv">conditions</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The following hierarchy of conditions is predefined:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code>&amp;condition
-   &amp;message (has "message" slot)
-   &amp;serious
-   &amp;error
-      &amp;error-message (has *message*, "location" and "backtrace" slots)
-      &amp;i/o-error
-         &amp;i/o-port-error (has a "port" slot)
-            &amp;i/o-read-error
-            &amp;i/o-write-error
-            &amp;i/o-closed-error
-        &amp;i/o-filename-error (has a "filename" slots)
-            &amp;i/o-malformed-filename-error
-            &amp;i/o-file-protection-error
-                &amp;i/o-file-is-read-only-error
-            &amp;i/o-file-already-exists-error
-            &amp;i/o-no-such-file-error
-     &amp;read-error (has the "line", "column", "position" and "span" slots)</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_pattern_matching.html">Pattern Matching</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_stklos_object_system.html">STklos Object System</a> →</p>
+<p>← Previous: <a href="doc_foreign_function_interface.html">Foreign Function Interface</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_srfis.html">SRFIs</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1347,7 +798,10 @@ and <strong><a href="http://srfi.schemers.org/srfi-36/srfi-36.html">SRFI-36</a><
 <a href="#_footnoteref_2">2</a>. Port 13, if open, can be used for testing: making a connection to it permits to know the distant system&#8217;s idea of the time of day.
 </div>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="_bibliography.html#Bigloo">[Bigloo]</a>
+<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="doc_bibliography.html#Bigloo">[Bigloo]</a>
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
 </div>
 </div>
 </body>

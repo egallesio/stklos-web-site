@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_introduction" class="book toc2 toc-left">
+<body id="doc_introduction" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,41 +673,41 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html"><span class="toc-current">1. Introduction</span></a>
+<li><a href="doc_introduction.html"><span class="toc-current">1. Introduction</span></a>
 <ul class="sectlevel2">
-<li><a href="_introduction.html#_overview_of_stklos">1.1. Overview of <strong><em>STklos</em></strong></a>
+<li><a href="doc_introduction.html#doc_overview_of_stklos">1.1. Overview of <strong><em>STklos</em></strong></a>
 </li>
-<li><a href="_introduction.html#_lexical_conventions">1.2. Lexical Conventions</a>
+<li><a href="doc_introduction.html#doc_lexical_conventions">1.2. Lexical Conventions</a>
 </li>
 </ul>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
 </li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
 </li>
-<li><a href="_srfis.html">13. SRFIs</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -718,16 +718,16 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_introduction">1. Introduction</h2>
+<h2 id="doc_introduction">1. Introduction</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_overview_of_stklos">1.1. Overview of <strong><em>STklos</em></strong></h3>
+<h3 id="doc_overview_of_stklos">1.1. Overview of <strong><em>STklos</em></strong></h3>
 <div class="paragraph">
 <p>
 
-<strong><em>STklos</em></strong> is the successor of <strong><em>STk</em></strong> <a href="_bibliography.html#STk">[STk]</a>,
+<strong><em>STklos</em></strong> is the successor of <strong><em>STk</em></strong> <a href="doc_bibliography.html#STk">[STk]</a>,
 a Scheme interpreter which was tightly
-connected to the Tk graphical toolkit <a href="_bibliography.html#Tk">[Tk]</a>.
+connected to the Tk graphical toolkit <a href="doc_bibliography.html#Tk">[Tk]</a>.
 <strong><em>STk</em></strong> had an object layer which was called <strong><em>STklos</em></strong>. At this
 time, <strong><em>STk</em></strong> was used to denote the base Scheme interpreter and
 <strong><em>STklos</em></strong> was used to denote its object layer, which was an
@@ -751,15 +751,15 @@ minor and adapting a <strong><em>STk</em></strong> program for the <strong><em>S
 generally quite easy. The only programs which need heavier work
 are programs which use Tk without objects, since the new
 preferred GUI system is now based on GTK+
-<a href="_bibliography.html#GTK">[GTK]</a>. Programmers used to GUI programming using
+<a href="doc_bibliography.html#GTK">[GTK]</a>. Programmers used to GUI programming using
 <strong><em>STklos</em></strong> classes will find that both system, even if not
 identical in every points, share the same philosophy.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_lexical_conventions">1.2. Lexical Conventions</h3>
+<h3 id="doc_lexical_conventions">1.2. Lexical Conventions</h3>
 <div class="sect3">
-<h4 id="_identifiers">1.2.1. Identifiers</h4>
+<h4 id="doc_identifiers">1.2.1. Identifiers</h4>
 <div class="paragraph">
 <p>
 
@@ -773,7 +773,7 @@ In <strong><em>STklos</em></strong>, by default, identifiers which start (or end
 <code>bar:</code> are <strong><em>STklos</em></strong> keywords, but <code>not:key</code> is not a
 keyword. Alternatively, to be compatible with other Scheme implementations,
 the notation <code>#:foo</code> is also available to denote the keyword of name
-<code>foo</code>. See <em><a href="_standard_procedures.html#_keywords">Section 4.14</a></em> for more information.</p>
+<code>foo</code>. See <em><a href="#_keywords">[_keywords]</a></em> for more information.</p>
 </div>
 <div class="paragraph">
 <p>The reader behavior, concerning keywords, can also be changed by the
@@ -821,7 +821,7 @@ behavior can be changed by</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_comments">1.2.2. Comments</h4>
+<h4 id="doc_comments">1.2.2. Comments</h4>
 <div class="paragraph">
 <p>
 
@@ -867,11 +867,11 @@ the notation introduced in <strong><a href="http://srfi.schemers.org/srfi-22/srf
 to the <strong><em>STklos</em></strong> keywords <code>&#35;:key</code>, <code>&#35;:optional</code> and
 <code>&#35;:rest</code>. This permits to Scheme lambdas, which accepts
 keywords and optional arguments, to be compatible with DSSSL lambdas
-<a href="_bibliography.html#DSSSL">[DSSSL]</a>.</p>
+<a href="doc_bibliography.html#DSSSL">[DSSSL]</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_here_strings">1.2.3. Here Strings</h4>
+<h4 id="doc_here_strings">1.2.3. Here Strings</h4>
 <div class="paragraph">
 <p>
 
@@ -904,7 +904,7 @@ No escape sequences are recognized between the starting and terminating lines.</
 </div>
 </div>
 <div class="sect3">
-<h4 id="_other_notations">1.2.4. Other Notations</h4>
+<h4 id="doc_other_notations">1.2.4. Other Notations</h4>
 <div class="paragraph">
 <p>
 
@@ -922,12 +922,12 @@ the constants <code>#t</code> and <code>#f</code> as proposed by R<sup>7</sup>RS
 <p><code>[]</code> Brackets are equivalent to
 parentheses. They are used for grouping and to build lists. A
 list opened with a left square bracket must be closed with a
-right square bracket (see <em><a href="_standard_procedures.html#_pairs_and_lists">Section 4.4</a></em>).</p>
+right square bracket (see <em><a href="#_pairs_and_lists">[_pairs_and_lists]</a></em>).</p>
 </li>
 <li>
 <p><code>:</code> a colon at the beginning or the end of
 a symbol introduces a keyword.  Keywords are described in section
-Keywords (see _<a href="_standard_procedures.html#_keywords">Section 4.14</a>).</p>
+Keywords (see _<a href="#_keywords">[_keywords]</a>).</p>
 </li>
 <li>
 <p><code>&#35;n=</code> 
@@ -966,7 +966,7 @@ expression</p>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_preface.html">Preface</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_expressions.html">Expressions</a> →</p>
+<p>← Previous: <a href="doc_preface.html">Preface</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_expressions.html">Expressions</a> →</p>
 </div>
 </div>
 </body>

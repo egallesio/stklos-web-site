@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_expressions" class="book toc2 toc-left">
+<body id="doc_expressions" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,57 +673,57 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_expressions.html"><span class="toc-current">2. Expressions</span></a>
+<li><a href="doc_expressions.html"><span class="toc-current">2. Expressions</span></a>
 <ul class="sectlevel2">
-<li><a href="_expressions.html#_literal_expressions">2.1. Literal expressions</a>
+<li><a href="doc_expressions.html#doc_literal_expressions">2.1. Literal expressions</a>
 </li>
-<li><a href="_expressions.html#_procedures">2.2. Procedures</a>
+<li><a href="doc_expressions.html#doc_procedures">2.2. Procedures</a>
 </li>
-<li><a href="_expressions.html#_assignments">2.3. Assignments</a>
+<li><a href="doc_expressions.html#doc_assignments">2.3. Assignments</a>
 </li>
-<li><a href="_expressions.html#_conditionals">2.4. Conditionals</a>
+<li><a href="doc_expressions.html#doc_conditionals">2.4. Conditionals</a>
 </li>
-<li><a href="_expressions.html#_binding_constructs">2.5. Binding Constructs</a>
+<li><a href="doc_expressions.html#doc_binding_constructs">2.5. Binding Constructs</a>
 </li>
-<li><a href="_expressions.html#_sequencing">2.6. Sequencing</a>
+<li><a href="doc_expressions.html#doc_sequencing">2.6. Sequencing</a>
 </li>
-<li><a href="_expressions.html#_iterations">2.7. Iterations</a>
+<li><a href="doc_expressions.html#doc_iterations">2.7. Iterations</a>
 </li>
-<li><a href="_expressions.html#_delayed_evaluation">2.8. Delayed Evaluation</a>
+<li><a href="doc_expressions.html#doc_delayed_evaluation">2.8. Delayed Evaluation</a>
 </li>
-<li><a href="_expressions.html#_quasiquotation">2.9. Quasiquotation</a>
+<li><a href="doc_expressions.html#doc_quasiquotation">2.9. Quasiquotation</a>
 </li>
-<li><a href="_expressions.html#_macros">2.10. Macros</a>
+<li><a href="doc_expressions.html#doc_macros">2.10. Macros</a>
 </li>
 </ul>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
 </li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
 </li>
-<li><a href="_srfis.html">13. SRFIs</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -734,16 +734,16 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_expressions">2. Expressions</h2>
+<h2 id="doc_expressions">2. Expressions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter describes the main forms available in <strong><em>STklos</em></strong>. R<sup>5</sup>RS
 constructions are given
-very succinctly here for reference. See <a href="_bibliography.html#R5RS">[R5RS]</a> for a complete
+very succinctly here for reference. See <a href="doc_bibliography.html#R5RS">[R5RS]</a> for a complete
 description.</p>
 </div>
 <div class="sect2">
-<h3 id="_literal_expressions">2.1. Literal expressions</h3>
+<h3 id="doc_literal_expressions">2.1. Literal expressions</h3>
 <div class="paragraph">
 <p><a id='P_quote'></a>
 </p>
@@ -791,7 +791,7 @@ constant vectors. This is not necessary with STklos.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_procedures">2.2. Procedures</h3>
+<h3 id="doc_procedures">2.2. Procedures</h3>
 <div class="paragraph">
 <p>
 
@@ -1036,7 +1036,7 @@ of any <code>&lt;clause&gt;</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_assignments">2.3. Assignments</h3>
+<h3 id="doc_assignments">2.3. Assignments</h3>
 <div class="paragraph">
 <p>
 <a id='P_set!'></a>
@@ -1165,7 +1165,7 @@ assignment, as described in <code>set!</code>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Furhermore, Parameter Objects (see <em><a href="_standard_procedures.html#_parameter_objects">Section 4.21</a></em>) are
+<p>Furhermore, Parameter Objects (see <em><a href="#_parameter_objects">[_parameter_objects]</a></em>) are
 their own setter:</p>
 </div>
 <div class="listingblock">
@@ -1177,7 +1177,7 @@ their own setter:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditionals">2.4. Conditionals</h3>
+<h3 id="doc_conditionals">2.4. Conditionals</h3>
 <div class="paragraph">
 <p>
 <a id='P_if'></a>
@@ -1454,7 +1454,7 @@ returned. Otherwise, <code>unless</code> returns <strong><em>void</em></strong>.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_binding_constructs">2.5. Binding Constructs</h3>
+<h3 id="doc_binding_constructs">2.5. Binding Constructs</h3>
 <div class="paragraph">
 <p>
 The three binding constructs <code>let</code>, <code>let*</code>, and
@@ -1831,7 +1831,7 @@ this behavior</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sequencing">2.6. Sequencing</h3>
+<h3 id="doc_sequencing">2.6. Sequencing</h3>
 <div class="paragraph">
 <p><a id='P_begin'></a>
 </p>
@@ -1915,7 +1915,7 @@ for defining new syntaxes, and should probably not be used as is.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_iterations">2.7. Iterations</h3>
+<h3 id="doc_iterations">2.7. Iterations</h3>
 <div class="paragraph">
 <p><a id='P_do'></a>
 </p>
@@ -2129,7 +2129,7 @@ could be better rewritten in:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_delayed_evaluation">2.8. Delayed Evaluation</h3>
+<h3 id="doc_delayed_evaluation">2.8. Delayed Evaluation</h3>
 <div class="paragraph">
 <p>
 
@@ -2204,7 +2204,7 @@ unbounded space during evaluation.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Forces the value of <code>promise</code> (see <em><a href="_expressions.html#delay">primitive delay</a></em>).
+<p>Forces the value of <code>promise</code> (see <em><a href="doc_expressions.html#delay">primitive delay</a></em>).
 If no value has been computed for the promise, then a value is
 computed and returned. The value of the promise is cached
 (or "memoized") so that if it is forced a second time, the
@@ -2306,7 +2306,7 @@ SRFI-45.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_quasiquotation">2.9. Quasiquotation</h3>
+<h3 id="doc_quasiquotation">2.9. Quasiquotation</h3>
 <div class="paragraph">
 <p>
 
@@ -2379,7 +2379,7 @@ in all respects.  <code>,&lt;expression&gt;</code> is identical to <code>(unquot
 </div>
 </div>
 <div class="sect2">
-<h3 id="_macros">2.10. Macros</h3>
+<h3 id="doc_macros">2.10. Macros</h3>
 <div class="paragraph">
 <p>
 
@@ -2731,7 +2731,7 @@ the macro-expansion, while the expanded form contains macro calls.</p>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_introduction.html">Introduction</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_program_structure.html">Program structure</a> →</p>
+<p>← Previous: <a href="doc_introduction.html">Introduction</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_program_structure.html">Program structure</a> →</p>
 </div>
 </div>
 <div id="footnotes">

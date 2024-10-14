@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_pattern_matching" class="book toc2 toc-left">
+<body id="doc_foreign_function_interface" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,41 +673,41 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_pattern_matching.html"><span class="toc-current">6. Pattern Matching</span></a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
+</li>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+</li>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
+</li>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+</li>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
+</li>
+<li><a href="doc_foreign_function_interface.html"><span class="toc-current">11. Foreign Function Interface</span></a>
 <ul class="sectlevel2">
-<li><a href="_pattern_matching.html#_the_pattern_language">6.1. The Pattern Language</a>
+<li><a href="doc_foreign_function_interface.html#doc_external_functions">11.1. External functions</a>
 </li>
-<li><a href="_pattern_matching.html#_stklos_pattern_matching_facilities">6.2. <strong><em>STklos</em></strong> Pattern Matching Facilities</a>
+<li><a href="doc_foreign_function_interface.html#doc_c_pointers">11.2. C pointers</a>
 </li>
 </ul>
 </li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
 </li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
-</li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
-</li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
-</li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
-</li>
-<li><a href="_srfis.html">13. SRFIs</a>
-</li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -718,279 +718,554 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_pattern_matching">6. Pattern Matching</h2>
+<h2 id="doc_foreign_function_interface">11. Foreign Function Interface</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p></p>
 </div>
 <div class="paragraph">
-<p>Pattern matching is a key feature of most modern functional
-programming languages since it allows clean and secure code to be
-written. Internally, "pattern-matching forms" should be translated
-(compiled) into cascades of "elementary tests" where code is made as
-efficient as possible, avoiding redundant tests; <strong><em>STklos</em></strong> "pattern
-matching compiler" provides this <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. The
-code (and documentation) included in <strong><em>STklos</em></strong> has been stolen from
-the Bigloo package v4.5 (the only difference between both package is
-the pattern matching of structures which is absent in <strong><em>STklos</em></strong>.</p>
+<p>The <strong><em>STklos</em></strong> Foreign Function Interface (FFI for short) has been
+defined to allow an easy access to functions written in C without
+needing to build C-wrappers and, consequently, without any need to
+write C code.  FFI is very machine dependent and <strong><em>STklos</em></strong> uses the
+<a href="https://sourceware.org/libffi/"><strong>libffi library</strong></a>, a portable Foreign Function
+Interface library, to give access to C written code.
+This library supports a large set of architectures/OS that are
+described on its Home Page.</p>
 </div>
 <div class="paragraph">
-<p>The technique used is described in details in C. Queinnec and
-J-M. Geffroy paper <a href="_bibliography.html#QuG92">[QuG92]</a>, and the code generated can be considered
-optimal</p>
+<p>Moreover, since FFI allows very low level access, it is easy to crash
+the <strong><em>STklos</em></strong> VM when using an external C function.</p>
 </div>
 <div class="paragraph">
-<p>The "pattern language" allows the expression of a wide variety of patterns,
-including:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Non-linear patterns: pattern variables can appear more than
-once, allowing comparison of subparts of the datum (through <code>eq?</code>)</p>
-</li>
-<li>
-<p>Recursive patterns on lists: for example, checking that the
-datum is a list of zero or more <code>a</code>s followed by zero or more <code>`b</code>s.</p>
-</li>
-<li>
-<p>Pattern matching on lists as well as on vectors.</p>
-</li>
-</ul>
+<p><strong>Note that the support for FFI is still minimal and that it will
+evolve in future versions.</strong></p>
 </div>
 <div class="sect2">
-<h3 id="_the_pattern_language">6.1. The Pattern Language</h3>
+<h3 id="doc_external_functions">11.1. External functions</h3>
 <div class="paragraph">
-<p>
-The syntax for <code>&lt;pattern&gt;</code> is:</p>
+<p>The definition of an external function is done with the
+<code>define-external</code> special form.  This form takes as arguments
+a typed list of parameters and accepts several options to define the
+name of the function in the C world, the library which defines this
+function, &#8230;&#8203; The type of the function result and the type of its
+arguments are defined in <a href="doc_foreign_function_interface.html#ffi_types">Table 1</a>. This table lists
+the various keywords reserved for denoting types and their equivalence
+between the C and the Scheme worlds.</p>
 </div>
-<div class="paragraph">
-<p>[:small]</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="ffi_types" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. FFI types</caption>
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">&lt;pattern&gt;</th>
-<th class="tableblock halign-left valign-top">Matches:</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Corresponding C type</th>
+<th class="tableblock halign-left valign-top">Corresponding Scheme type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;atom&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">the &lt;atom&gt;.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:void</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(kwote &lt;atom&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">any expression eq? to &lt;atom&gt;.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:char</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme character</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(and &lt;pat<sub>1</sub>&gt; &#8230;&#8203; &lt;pat<sub>n</sub>&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if all of &lt;pati&gt; match.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:short</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(or &lt;pat<sub>1</sub>&gt; &#8230;&#8203; &#8230;&#8203;&lt;pat<sub>n</sub>&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if any of &lt;pat<sub>1</sub>&gt; through &lt;pat<sub>n</sub>&gt; matches.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:ushort</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(not &lt;pat&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if &lt;pat&gt; doesn&#8217;t match.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:int</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(? &lt;predicate&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">if &lt;predicate&gt; is true.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:uint</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(&lt;pat<sub>1</sub>&gt; &#8230;&#8203; &lt;pat<sub>n</sub>&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">a list of n elements. Here, &#8230;&#8203; is a
-                                  meta-character denoting a finite repetition
-                                  of patterns.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:long</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;pat&gt; &#8230;&#8203;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">a (possibly empty) repetition
-                                  of &lt;pat&gt; in a list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:ulong</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unsigned long int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme integer</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">#(&lt;pat&gt; &#8230;&#8203; &lt;pat<sub>n</sub>&gt;)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">a vector of n elements.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:float</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme real number</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">?&lt;id&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anything, and binds id as a variable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:double</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme real number</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">?-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">anything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:boolean</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">??-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">any (possibly empty) repetition of anything in a list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:pointer</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme pointer object or Scheme string</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">???-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">any end of list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:string</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">char *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scheme string</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>:obj</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">void *</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any Scheme object passed as is</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p><strong>Remark:</strong> <code>and</code>, <code>or</code>, <code>not</code> and <code>kwote</code> must be quoted in order to be treated
-as literals. This is the only justification for having the <code>kwote</code> pattern
-since, by convention, any atom which is not a keyword is quoted.</p>
+<p><a id='P_define-external'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(define-external name parameters option) </strong></code><br></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>Explanations Through Examples</strong></p>
+<p>The form <code>define-external</code> binds a new procedure to <code>name</code>.
+The arity of this new procedure is defined by the typed list of
+parameters given by <code>parameters</code>. This parameters list is a list
+of keywords (as defined in the previous table) or couples whose first
+element is the name of the parameter, and the second one is a type
+keyword.  All the types defined in the above table, except
+<code>:void</code>, are allowed for the parameters of a foreign function.</p>
+</div>
+<div class="paragraph">
+<p><code>Define-external</code> accepts several options:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>?-</code> matches any s-expr.</p>
+<p><code>:return-type</code> is used to define the type of the value returned
+by the foreign function. The type returned must be chosen in the types specified
+in the table. For instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">maximum</span><span class="p">(</span><span class="nf">:int</span> <span class="nv">:int</span><span class="p">)</span>
+   <span class="nv">:return-type</span> <span class="nv">:int</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>defines the foreign function maximum which takes two C integers and
+returns an integer result. Omitting this option default to a result
+type equal to <code>:void</code> (i.e. the returned value is <em>undefined</em>).</p>
+</div>
 </li>
 <li>
-<p><code>a</code> matches the atom <code>'a</code>.</p>
+<p><code>:entry-name</code> is used to specify the name of the foreign
+function in the C world. If this option is omitted, the entry-name is
+supposed to be <code>name</code>. For instance:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">minimum</span><span class="p">((</span><span class="nf">a</span> <span class="nv">:int</span><span class="p">)</span> <span class="p">(</span><span class="nf">b</span> <span class="nv">:int</span><span class="p">))</span>
+   <span class="nv">:return-type</span> <span class="nv">:int</span>
+   <span class="nv">:entry-name</span>  <span class="s">"min"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>defines the Scheme function <code>minimum</code> whose application
+executes the C function called <code>min</code>.</p>
+</div>
 </li>
 <li>
-<p><code>?a</code> matches any expression, and binds the variable <code>a</code> to
-this expression.</p>
-</li>
-<li>
-<p><code>(? integer?)</code> matches any integer.</p>
-</li>
-<li>
-<p><code>(a (a b))</code> matches the only list <code>'(a (a b))</code>.</p>
-</li>
-<li>
-<p><code>???-</code> can only appear at the end of a list, and always succeeds.
-For instance, <code>(a ???-)</code> is equivalent to <code>(a . ?-)</code>.</p>
-</li>
-<li>
-<p>when occurring in a list, <code>??-</code> matches any
-sequence of anything: <code>(a ??- b)</code> matches any list whose
-<code>car</code> is <code>a</code> and last <code>car</code> is <code>b</code>.</p>
-</li>
-<li>
-<p><code>(a &#8230;&#8203;)</code> matches any list of `a&#8217;s, possibly empty.</p>
-</li>
-<li>
-<p><code>(?x ?x)</code> matches any list of length 2 whose <code>car</code> is <strong><em>eq</em></strong> to its <code>cadr</code>.</p>
-</li>
-<li>
-<p><code>((and (not a) ?x) ?x)</code> matches any list of length 2 whose <code>car</code> is
-not <strong><em>eq</em></strong> to <code>'a</code> but is <strong><em>eq</em></strong> to its <code>cadr</code>.</p>
-</li>
-<li>
-<p><code>#(?- ?- ???-)</code> matches any vector whose length is at least 2.</p>
+<p><code>:library-name</code> is used to specify the library which contains the
+foreign-function. If necessary, the library is loaded before calling the
+C function. So,</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">minimum</span><span class="p">((</span><span class="nf">a</span> <span class="nv">:int</span><span class="p">)</span> <span class="p">(</span><span class="nf">b</span> <span class="nv">:int</span><span class="p">))</span>
+   <span class="nv">:return-type</span>  <span class="nv">:int</span>
+   <span class="nv">:entry-name</span>   <span class="s">"min"</span>
+   <span class="nv">:library-name</span> <span class="s">"libminmax"</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>defines a function which will execute the function <code>min</code>
+located in the library <code>libminmax.xx</code> (where <code>xx</code> is the suffix used
+for shared libraries on the running system (generally <code>so</code>)).</p>
+</div>
 </li>
 </ul>
 </div>
-<div class="admonitionblock important">
+<div class="paragraph">
+<p>Hereafter, are some commented definitions of external functions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"> <span class="p">(</span><span class="nf">define-external</span> <span class="nv">isatty</span> <span class="p">((</span><span class="nf">fd</span> <span class="nv">:int</span><span class="p">))</span>
+     <span class="nv">:return-type</span> <span class="nv">:boolean</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nf">define-external</span> <span class="nv">system</span> <span class="p">((</span><span class="nf">cmd</span> <span class="nv">:string</span><span class="p">))</span>
+    <span class="nv">:return-type</span> <span class="nv">:int</span><span class="p">)</span>
+
+  <span class="p">(</span><span class="nf">define-external</span> <span class="nv">ttyname</span> <span class="p">(</span><span class="nf">:int</span><span class="p">)</span>
+    <span class="nv">:return-type</span> <span class="nv">:string</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All these functions are defined in the C standard library, hence it is not
+necessary to specify the <code>:library-name</code> option.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>istty</em></strong> is declared here as a function which takes an
+integer and returns a boolean (in fact, the value returned by the
+C function <strong><em>isatty</em></strong> is an <strong><em>int</em></strong>, but we ask here to the FFI
+system to translate this result as a boolean value in the Scheme
+world).</p>
+</li>
+<li>
+<p><strong><em>system</em></strong> is a function which takes a string as parameter
+and returns an <strong><em>int</em></strong>.</p>
+</li>
+<li>
+<p><strong><em>ttyname</em></strong> is a function whih takes an int and returns a string.
+Note that in this function the name of the parameter has been omitted
+as within C prototypes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If an external function receives an <code>:int</code> argument and is passed a
+Scheme bignum, which then doesn&#8217;t fit a <strong><em>long int</em></strong> in C, the
+external function will signal an error. When a <code>:float</code> or <code>:double</code>
+argument is declared and is passed a Scheme real that requires so many
+bits so as to not be representable in that type, that argument will be
+silently taken as infinity.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"> <span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-abs</span> <span class="p">((</span><span class="nf">fd</span> <span class="nv">:int</span><span class="p">))</span>
+     <span class="nv">:entry-name</span> <span class="s">"abs"</span>
+     <span class="nv">:return-type</span> <span class="nv">:int</span><span class="p">)</span>
+
+ <span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-fabs</span> <span class="p">((</span><span class="nf">fd</span> <span class="nv">:double</span><span class="p">))</span>
+     <span class="nv">:entry-name</span> <span class="s">"fabs"</span>
+     <span class="nv">:return-type</span> <span class="nv">:double</span><span class="p">)</span>
+
+ <span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-fabsf</span> <span class="p">((</span><span class="nf">fd</span> <span class="nv">:float</span><span class="p">))</span>
+     <span class="nv">:entry-name</span> <span class="s">"fabsf"</span>
+     <span class="nv">:return-type</span> <span class="nv">:float</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can now use the function we have just defined:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">c-abs</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="nb">expt</span> <span class="mi">2</span> <span class="mi">70</span><span class="p">)))</span>    <span class="nv">=&gt;</span> <span class="nv">Error</span>
+<span class="p">(</span><span class="nf">c-fabs</span> <span class="mf">-1.0</span><span class="nv">e+250</span><span class="p">)</span>         <span class="nv">=&gt;</span> <span class="mi">1</span><span class="nv">e+250</span>
+<span class="p">(</span><span class="nf">c-fabsf</span> <span class="mf">-1.0</span><span class="nv">e+250</span><span class="p">)</span>        <span class="nv">=&gt;</span> <span class="m">+inf.0</span>
+<span class="p">(</span><span class="nf">c-fabs</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="nb">expt</span> <span class="mi">10</span> <span class="mi">300</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="mi">1</span><span class="nv">e+300</span>
+<span class="p">(</span><span class="nf">c-fabs</span> <span class="p">(</span><span class="nb">-</span> <span class="p">(</span><span class="nb">expt</span> <span class="mi">10</span> <span class="mi">600</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="m">+inf.0</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the following example we use the <code>:string</code> type. C functions accepting
+pointers to null-terminated strings are directly translated to this type.</p>
+</div>
+<div class="paragraph">
+<p>The POSIX function <code>strpbrk</code> accepts two string arguments (in C, two
+pointers to <code>char</code>). The C call <code>strpbrk(str1, str2)</code> returns a
+pointer to the first occurrence in the string <code>str1</code> of one of the
+bytes in the string <code>str2</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-strpbrk</span> <span class="p">((</span><span class="nf">str</span> <span class="nv">:string</span><span class="p">)</span> <span class="p">(</span><span class="nf">accept</span> <span class="nv">:string</span><span class="p">))</span>
+    <span class="nv">:entry-name</span> <span class="s">"strpbrk"</span>
+    <span class="nv">:return-type</span> <span class="nv">:string</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">c-strpbrk</span> <span class="s">"a string"</span> <span class="s">"rz"</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="s">"ring"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that it would be possible to use a <code>:pointer</code> type instead for the return
+value, although in this case it would be more cumbersome (but does help understand
+the FFI better!):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-strpbrk</span> <span class="p">((</span><span class="nf">str</span> <span class="nv">:string</span><span class="p">)</span> <span class="p">(</span><span class="nf">accept</span> <span class="nv">:string</span><span class="p">))</span>
+    <span class="nv">:entry-name</span> <span class="s">"strpbrk"</span>
+    <span class="nv">:return-type</span> <span class="nv">:pointer</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">c-strpbrk</span> <span class="s">"a string"</span> <span class="s">"rz"</span><span class="p">)</span>
+                            <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">C-pointer</span> <span class="mi">7</span><span class="nv">f17baf94d06</span> <span class="nv">@</span> <span class="mi">7</span><span class="nv">f17bafb4360</span><span class="p">]</span>
+<span class="p">(</span><span class="nf">cpointer-&gt;string</span> <span class="p">(</span><span class="nf">c-strpbrk</span> <span class="s">"a string"</span> <span class="s">"rz"</span><span class="p">))</span>
+                            <span class="nv">=&gt;</span> <span class="s">"ring"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to pass a <code>NULL</code> pointer to an external C function, the
+<code>#void</code> Scheme value can be used.</p>
+</div>
+<div class="paragraph">
+<p>As an example, the second argument to the <code>strtol</code> function can be
+<code>NULL</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">strtol</span><span class="p">(</span><span class="nf">:string</span> <span class="nv">:pointer</span> <span class="nv">:int</span><span class="p">)</span>
+  <span class="nv">:return-type</span> <span class="nv">:long</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">strtol</span> <span class="s">"1001"</span> <span class="o">#</span><span class="nv">void</span> <span class="mi">10</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="mi">1001</span>
+<span class="p">(</span><span class="nf">strtol</span> <span class="s">"1001"</span> <span class="o">#</span><span class="nv">void</span> <span class="mi">2</span><span class="p">)</span>  <span class="nv">=&gt;</span> <span class="mi">9</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Functions on C pointers are described in the next section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doc_c_pointers">11.2. C pointers</h3>
+<div class="paragraph">
+<p>It is very common that external functions return pointers, serving as
+handles on internal structures. This pointers, called hereafter
+<strong>cpointers</strong>, are then boxed in a Scheme objects. This section presents
+the functions that can be used to deal with C pointers.</p>
+</div>
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-<code>??-</code> and <code>&#8230;&#8203;</code> patterns can not appear inside a vector, where you
-should use <code>???-</code><br>
-For example, <code>&#35;(a ??- b)</code> or <code>#(a&#8230;&#8203;)</code> are invalid
-patterns, whereas <code>&#35;(a ???-)</code> is valid and matches any vector whose first
-element is the atom <code>a</code>.
+Note that by using <strong>cpointers</strong> objects, one gives up the safety of
+the Scheme environment, and care must be taken to avoid memory corruptions,
+errors, crashes&#8230;&#8203;
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_stklos_pattern_matching_facilities">6.2. <strong><em>STklos</em></strong> Pattern Matching Facilities</h3>
 <div class="paragraph">
-<p>Only two special forms are provided for this in <strong><em>STklos</em></strong>: <code>match-case</code> and
-<code>match-lambda</code>.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_match-case'></a>
+<p><a id='P_cpointer?'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(match-case &lt;key&gt; &lt;clause&gt; &#8230;&#8203;) </strong></code><br></p>
+<p><code><strong>(cpointer? obj) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>The argument key may be any expression and each clause has the form</p>
+<p>Returns <code>#t</code> is <code>obj</code> is a cpointer (a Scheme object which encapsulate
+a pointer to a C object), and <code>#f</code> otherwise.</p>
 </div>
-<div class="listingblock">
+<div class="paragraph">
+<p><a id='P_cpointer-null?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">&lt;pattern&gt;</span> <span class="nv">&lt;expression&gt;</span> <span class="o">...</span><span class="p">)</span></code></pre>
+<div class="paragraph small">
+<p><code><strong>(cpointer-null? obj) </strong></code><br></p>
 </div>
 </div>
-<div class="paragraph">
-<p>A match-case expression is evaluated as follows: <code>&lt;key&gt;</code> is evaluated
-and the result is compared with each successive pattern. If the <code>&lt;pattern&gt;</code>
-in some clause yields a match, then the <code>&lt;expression&gt;</code>s in that clause are
-evaluated from left to right in an environment where the pattern variables
-are bound to the corresponding subparts of <code>&lt;key&gt;</code>, and the result of the
-last expression in that clause is returned as the result of the
-<code>match-case</code> expression. If no pattern in any clause matches the <code>&lt;key&gt;</code>,
-then, if there is an <code>else</code> clause, its expressions are evaluated and
-the result of the last is the result of the whole <code>match-case</code>
-expression; otherwise the result of the <code>match-case</code> expression
-is unspecified.</p>
 </div>
 <div class="paragraph">
-<p>The equality predicate used for tests is <code>eq?</code>.</p>
+<p>Returns <code>#t</code> is <code>obj</code> is a cpointer and its value is the C NULL value.
+Returnd <code>#f</code> otherwise.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">match-case</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="nv">a</span><span class="p">)</span>
-   <span class="p">((</span><span class="nf">?x</span> <span class="nv">?x</span><span class="p">)</span> <span class="ss">'foo</span><span class="p">)</span>
-   <span class="p">((</span><span class="nf">?x</span> <span class="nv">?-</span> <span class="nv">?x</span><span class="p">)</span> <span class="ss">'bar</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="nv">bar</span>
+<div class="paragraph">
+<p><a id='P_cpointer-data-set!'></a><a id='P_cpointer-data'></a>
 
-<span class="p">(</span><span class="nf">match-case</span> <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="p">(</span><span class="nf">b</span> <span class="nv">c</span><span class="p">)</span> <span class="nv">d</span><span class="p">)</span>
-   <span class="p">((</span><span class="nf">?x</span> <span class="nv">?y</span><span class="p">)</span> <span class="p">(</span><span class="nb">list</span> <span class="ss">'length=2</span> <span class="nv">y</span> <span class="nv">x</span><span class="p">))</span>
-   <span class="p">((</span><span class="nf">?x</span> <span class="nv">?y</span> <span class="nv">?z</span><span class="p">)</span> <span class="p">(</span><span class="nb">list</span> <span class="ss">'length=3</span> <span class="nv">z</span> <span class="nv">y</span> <span class="nv">x</span><span class="p">)))</span>
-                        <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">length=3</span> <span class="nv">d</span> <span class="p">(</span><span class="nf">b</span> <span class="nv">c</span><span class="p">)</span> <span class="nv">a</span><span class="p">)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_match-lambda'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(match-lambda &lt;clause&gt; &#8230;&#8203;) </strong></code><br></p>
+<p><code><strong>(cpointer-data obj) </strong></code><br>
+<code><strong>(cpointer-data-set! obj adr) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p><code>match-lambda</code> expands into a lambda-expression expecting an argument
-which, once applied to an expression, behaves exactly like a
-<code>match-case</code> expression.</p>
+<p><code>cpointer-data</code> returns the value associated to cpointer <code>obj</code>
+(that is the value of the pointer itself: an address).</p>
+</div>
+<div class="paragraph">
+<p><code>cpointer-data-set!</code> permits to change the pointer stored in the <code>obj</code>
+cpointer to <code>adr</code>. This is of course very dangerous and could lead to
+fatal errors.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_cpointer-type-set!'></a><a id='P_cpointer-type'></a>
+
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(cpointer-type obj) </strong></code><br>
+<code><strong>(cpointer-type-set! obj tag) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>cpointer-type</code> returns the tag type associated to a cpointer. The C
+runtime or an extension can associate * a tag to a cpointer to make
+ some controls  (for instance, verify that <code>obj</code> is a cpointer  on a
+<code>widget</code> structure). This function returns <strong>void</strong> if a type has not
+been set before. The semantic associated to this tag is completely
+left to the extension writer.</p>
+</div>
+<div class="paragraph">
+<p><code>cpointer-type-set!</code> permits to set the tag of the <code>obj</code> cpointer to
+<code>tag</code> (which can be of any type).</p>
+</div>
+<div class="paragraph">
+<p><a id='P_cpointer->string'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(cpointer&#8594;string str) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the C (null terminated) string <code>str</code> as a Scheme string.
+If <code>str</code> doesn&#8217;t contain a C string, the result will probably result
+in a fatal error.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">((</span><span class="nf">match-lambda</span>
-  <span class="p">((</span><span class="nf">?x</span> <span class="nv">?x</span><span class="p">)</span> <span class="ss">'foo</span><span class="p">)</span>
-  <span class="p">((</span><span class="nf">?x</span> <span class="nv">?-</span> <span class="nv">?x</span><span class="p">)</span> <span class="ss">'bar</span><span class="p">))</span>
- <span class="o">'</span><span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="nv">a</span><span class="p">))</span>           <span class="nv">=&gt;</span> <span class="nv">bar</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-external</span> <span class="nv">c-ghn</span> <span class="p">((</span><span class="nf">s</span> <span class="nv">:pointer</span><span class="p">)</span> <span class="p">(</span><span class="nf">size</span> <span class="nv">:int</span><span class="p">))</span>
+                 <span class="nv">:entry-name</span> <span class="s">"gethostname"</span>
+                 <span class="nv">:return-type</span> <span class="nv">:int</span><span class="p">)</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">name</span> <span class="p">(</span><span class="nf">allocate-bytes</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="nv">name</span>                    <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">C-pointer</span> <span class="mi">7</span><span class="nv">fd830820f80</span> <span class="nv">@</span> <span class="mi">7</span><span class="nv">fd8305bee40</span><span class="p">]</span>
+<span class="p">(</span><span class="nf">c-ghn</span> <span class="nv">name</span> <span class="mi">9</span><span class="p">)</span>          <span class="nv">=&gt;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="nf">cpointer-&gt;string</span> <span class="nv">name</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="s">"socrates"</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><a id='P_allocate-bytes'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(allocate-bytes n) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Allocate-bytes</code> will allocate <code>n</code> consecutive bytes using
+the standard STklos allocation function (which uses the
+Boehm–Demers–Weiser garbage collector <a href="doc_bibliography.html#BoehmGC">[BoehmGC]</a>).
+It returns a <code>cpointer</code> Scheme object that points to the first byte
+allocated. This pointer is managed by the  standard GC and doesn&#8217;t need
+to be freed.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_free-bytes'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(free-bytes obj) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Obj</code> must be a <code>cpointer</code> to allocated data. When <code>Free-bytes</code> is called
+on <code>obj</code>, it will deallocate its data calling
+- the C function <code>free</code> (if it  was allocated by the standard C <code>malloc</code>
+  function), or
+- the Boehm GC free  function (if the pointer was allocated using
+  <code>allocate-bytes</code> primitive).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="p">(</span><span class="nf">allocate-bytes</span> <span class="mi">10</span><span class="p">))</span>
+<span class="nv">a</span>   <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">C-pointer</span> <span class="mi">7</span><span class="nv">fd91e8e0f80</span> <span class="nv">@</span> <span class="mi">7</span><span class="nv">fd91e897b70</span><span class="p">]</span>
+<span class="p">(</span><span class="nf">cpointer-type-set!</span> <span class="nv">a</span> <span class="ss">'myadress</span><span class="p">)</span>
+<span class="nv">a</span>   <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">myadress-pointer</span> <span class="mi">7</span><span class="nv">fd91e8e0f80</span> <span class="nv">@</span> <span class="mi">7</span><span class="nv">fd91e897b70</span><span class="p">]</span>
+<span class="p">(</span><span class="nf">free-bytes</span> <span class="nv">a</span><span class="p">)</span>
+<span class="nv">a</span>   <span class="nv">=&gt;</span> <span class="o">#</span><span class="p">[</span><span class="nf">myadress-pointer</span> <span class="mi">0</span> <span class="nv">@</span> <span class="mi">7</span><span class="nv">fd91e897b70</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the call to <code>free-bytes</code>, when <code>a</code> is printed, the first number
+shown is zero, indicating that its data pointer does not point to
+allocated memory (a NULL value for C).</p>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_regular_expressions.html">Regular Expressions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_exceptions_and_conditions.html">Exceptions and Conditions</a> →</p>
+<p>← Previous: <a href="doc_stklos_customization.html">STklos Customization</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_using_the_slib_package.html">Using the SLIB package</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1011,7 +1286,10 @@ which, once applied to an expression, behaves exactly like a
 <a href="#_footnoteref_2">2</a>. Port 13, if open, can be used for testing: making a connection to it permits to know the distant system&#8217;s idea of the time of day.
 </div>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="_bibliography.html#Bigloo">[Bigloo]</a>
+<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="doc_bibliography.html#Bigloo">[Bigloo]</a>
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
 </div>
 </div>
 </body>

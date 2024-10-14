@@ -444,7 +444,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_preface" class="book toc2 toc-left">
+<body id="doc_bibliography" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -454,39 +454,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html"><span class="toc-current">Preface</span></a>
-<ul class="sectlevel2">
-<li><a href="_preface.html#_licences">Licences</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-</ul>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_program_structure.html">3. Program structure</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
 </li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
 </li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
+<li><a href="doc_srfis.html">13. SRFIs</a>
 </li>
-<li><a href="_srfis.html">13. SRFIs</a>
-</li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_bibliography.html"><span class="toc-current">Bibliography</span></a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -497,65 +493,105 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_preface">Preface</h2>
+<h2 id="doc_bibliography">Bibliography</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>This document provides a complete list of procedures and special forms
-implemented in version <strong>2.10</strong> of <strong><em>STklos</em></strong>. Originally, the
-language implemented by <strong><em>STklos</em></strong> was (nearly) compliant with the
-language described in the Revised<sup>5</sup> Report on the Algorithmic
-Language Scheme (aka R<sup>5</sup>RS) <a href="_bibliography.html#R5RS">[R5RS]</a>. The fist public release of
-<strong><em>STklos</em></strong> was published in January 2001.</p>
-</div>
-<div class="paragraph">
-<p>Since the first <strong><em>STklos</em></strong> release, Scheme evolved and is now defined
-in the R<sup>7</sup>RS report <a href="_bibliography.html#R7RS">[R7RS]</a>. Consequently, the current version
-of <strong><em>STklos</em></strong> is compliant to this iteration of the language. Furthermore,
-<strong><em>STklos</em></strong> also offers most of the libraries defined in R<sup>7</sup>RS-large,
-a set of <em>standard</em> libraries.</p>
-</div>
-<div class="paragraph">
-<p>This document states the compliance of each construction relatively to
-these reports, or if it is a <strong><em>STklos</em></strong> extension.</p>
-</div>
-<div class="sect2">
-<h3 id="_licences">Licences</h3>
-<div class="ulist">
-<ul>
+<div class="ulist bibliography">
+<ul class="bibliography">
 <li>
-<p><strong><em>STklos</em></strong> program and supporting files are published under the terms of the
-<em>GNU General Public Licence version 2 or later</em>. This licence is available at the
-following URL: <a href="https://www.gnu.org/licenses/gpl-3.0.html" class="bare">https://www.gnu.org/licenses/gpl-3.0.html</a></p>
+<p><a id="AMOP"></a>[AMOP] Gregor Kickzales, Jim de Rivières and Daniel G. Bobrow&#8201;&#8212;&#8201;<strong>The Art of Meta Object Protocol</strong>&#8201;&#8212;&#8201;MIT Press, 1991.</p>
 </li>
 <li>
-<p>The manual you’re now reading is published under the terms of the
-<em>GNU Free Documentation License or later</em> (see <a href="FDL.html">Appendix B</a>).</p>
+<p><a id="Bigloo"></a>[Bigloo] Manuel Serrano&#8201;&#8212;&#8201;<a href="http://www-sop.inria.fr/mimosa/fp/Bigloo/"><strong>Bigloo</strong></a> Home Page.</p>
+</li>
+<li>
+<p><a id="BoehmGC"></a>[BoehmGC] Hans Boehm&#8201;&#8212;&#8201;<a href="https://www.hboehm.info/gc/">A garbage collector for C and C++ </a> Home Page.</p>
+</li>
+<li>
+<p><a id="CLtL2"></a>[CLtL2] Guy L. Steele Jr.&#8201;&#8212;&#8201;<strong>Common Lisp: the Language, 2nd Edition</strong>&#8201;&#8212;&#8201;Digital Press, 12 Crosby Drive, Bedford, MA 01730, USA, 1990.</p>
+</li>
+<li>
+<p><a id="DSSSL"></a>[DSSSL] ISO/IEC&#8201;&#8212;&#8201;<strong>Information technology, Processing Languages, Document Style Semantics and
+Specification Languages (DSSSL)</strong>&#8201;&#8212;&#8201;10179:1996(E), ISO, , 1996.</p>
+</li>
+<li>
+<p><a id="Dylan"></a>[Dylan] Apple Computer&#8201;&#8212;&#8201;<strong>Dylan: an Object Oriented Dynamic Language</strong>&#8201;&#8212;&#8201;Apple, April, 1992.</p>
+</li>
+<li>
+<p><a id="GTK"></a>[GTK] <a href="http://gtk.org/"><strong>The GTK+ Toolkit Home Page</strong></a></p>
+</li>
+<li>
+<p><a id="Libedit"></a>[Libedit] <a href="https://www.thrysoee.dk/editline">Editline library (libedit)</a></p>
+</li>
+<li>
+<p><a id="PCRE"></a>[PCRE] Philip Hazel&#8201;&#8212;&#8201;<a href="http://pcre.org/"><strong>PCRE (Perl Compatible Regular Expressions)</strong></a>
+Home page.</p>
+</li>
+<li>
+<p><a id="POSIX"></a>[POSIX] POSIX Committee&#8201;&#8212;&#8201;<strong>System Application Program Interface (API) [C Language]</strong>&#8201;&#8212;&#8201;2017.</p>
+</li>
+<li>
+<p><a id="QuG92"></a>[QuG92] C. Queinnec and J-M. Geffroy&#8201;&#8212;&#8201;<strong>Partial Evaluation Applied to Symbolic Pattern Matching
+with Intelligent Backtrack</strong>&#8201;&#8212;&#8201;Workshop in Static Analysis, Bigre, (81&#8212;&#8203;82), Bordeaux (France), September, 1992.</p>
+</li>
+<li>
+<p><a id="R5RS"></a>[R5RS] Kelsey, R. and Clinger, W. and Rees, J.&#8201;&#8212;&#8201;<a href="https://www.schemers.org/Documents/Standards/R5RS/HTML"><strong>The Revised5 Report on the Algorithmic Language Scheme</strong></a>&#8201;&#8212;&#8201;Higher-Order and Symbolic Computation, 11(1), Sep, 1998.</p>
+</li>
+<li>
+<p><a id="R7RS"></a>[R7RS] Alex S. Shinn, John Cowan and Arthur A. Gleckler&#8201;&#8212;&#8201;<a href="https://small.r7rs.org/attachment/r7rs.pdf"><strong>The Revised7 Report on the Algorithmic Language Scheme&#8201;&#8212;&#8201;R7RS small</strong></a>&#8201;&#8212;&#8201;July, 2013.</p>
+</li>
+<li>
+<p><a id="Readline"></a>[Readline] The GNU <a href="https://tiswww.case.edu/php/chet/readline/rltop.html">readline</a> library.</p>
+</li>
+<li>
+<p><a id="SLIB"></a>[SLIB] Aubrey Jaffer &#8201;&#8212;&#8201;<a href="https://people.csail.mit.edu/jaffer/SLIB"><strong>The SLIB Portable Scheme Library Home Page</strong></a></p>
+</li>
+<li>
+<p><a id="SOS"></a>[SOS] Chris Hanson&#8201;&#8212;&#8201;<a href="https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-sos.pdf">The SOS Reference Manual, version 1.9</a>&#8201;&#8212;&#8201;November, 2011.</p>
+</li>
+<li>
+<p><a id="STk"></a>[STk] Erick Gallesio&#8201;&#8212;&#8201;<a href="https://www.stklos.net/Doc/STk.pdf"><strong>STk Reference Manual</strong></a>&#8201;&#8212;&#8201;RT 95-31a,
+I3S CNRS / Université de Nice - Sophia Antipolis, juillet, 1995.</p>
+</li>
+<li>
+<p><a id="Tiny-Clos"></a>[Tiny-Clos] Gregor Kickzales&#8201;&#8212;&#8201;<a href="http://community.schemewiki.org/?Tiny-CLOS"><strong>Tiny-Clos</strong></a>&#8201;&#8212;&#8201;December, 1992.</p>
+</li>
+<li>
+<p><a id="Tk"></a>[Tk] John K. Ousterhout&#8201;&#8212;&#8201;<strong>An X11 toolkit based on the Tcl Language</strong>&#8201;&#8212;&#8201;USENIX Winter Conference, January, 1991, pp. 105&#8212;&#8203;115.</p>
+</li>
+<li>
+<p><a id="TuD96"></a>[TuD96] Sho-Huan Simon Tung and R. Kent Dybvig&#8201;&#8212;&#8201;<strong>Reliable Interactive Programming
+with Modules</strong>&#8201;&#8212;&#8201;LISP and Symbolic Computation, 91996, pp. 343&#8212;&#8203;358.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p> <br></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p>Copyright © 1999-2024 Erick Gallesio</p>
-</div>
-<div class="paragraph">
-<p>Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.3
-or any later version published by the Free Software Foundation;
-with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-A copy of the license is included in the section entitled <a href="FDL.html">"GNU
-Free Documentation License"</a>.</p>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_introduction.html">Introduction</a> →</p>
+<p>← Previous: <a href="doc_srfis.html">SRFIs</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_idiosync.html">Appendix A: STklos Idiosyncrasies</a> →</p>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Documentation about hygienic macros has been stolen in the SLIB manual
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. In fact <code>define-module</code> on a given name defines a new module only the first time it is invoked on this name. By this way, interactively reloading a module does not define a new entity, and the other modules which use it are not altered.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. This transcript uses the default toplevel loop             which displays the name of the current module in the evaluator             prompt.
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Under Unix, you can simply connect to a listening socket with the <code>telnet</code> of <code>netcat</code> command. For the given example, this can be achieved with <code>netcat localhost 12345</code>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Port 13, if open, can be used for testing: making a connection to it permits to know the distant system&#8217;s idea of the time of day.
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="doc_bibliography.html#Bigloo">[Bigloo]</a>
+</div>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
 </div>
 </div>
 </body>

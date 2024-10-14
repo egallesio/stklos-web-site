@@ -663,7 +663,7 @@ pre.rouge {
              .nav-footer{text-align: center; margin-top: auto;}
              .nav-footer > p > a {white-space: nowrap;}</style>
 </head>
-<body id="_threads_mutexes_and_condition_variables" class="book toc2 toc-left">
+<body id="doc_program_structure" class="book toc2 toc-left">
 <div id="header">
 <h1>STklos Reference Manual : (version 2.10)</h1>
 <div class="details">
@@ -673,45 +673,43 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <p><span class="toc-root"><a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a></span></p><ul class="sectlevel1">
-<li><a href="_preface.html">Preface</a>
+<li><a href="doc_preface.html">Preface</a>
 </li>
-<li><a href="_introduction.html">1. Introduction</a>
+<li><a href="doc_introduction.html">1. Introduction</a>
 </li>
-<li><a href="_expressions.html">2. Expressions</a>
+<li><a href="doc_expressions.html">2. Expressions</a>
 </li>
-<li><a href="_program_structure.html">3. Program structure</a>
-</li>
-<li><a href="_standard_procedures.html">4. Standard Procedures</a>
-</li>
-<li><a href="_regular_expressions.html">5. Regular Expressions</a>
-</li>
-<li><a href="_pattern_matching.html">6. Pattern Matching</a>
-</li>
-<li><a href="_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
-</li>
-<li><a href="_stklos_object_system.html">8. STklos Object System</a>
-</li>
-<li><a href="_threads_mutexes_and_condition_variables.html"><span class="toc-current">9. Threads, Mutexes and Condition Variables</span></a>
+<li><a href="doc_program_structure.html"><span class="toc-current">3. Program structure</span></a>
 <ul class="sectlevel2">
-<li><a href="_threads_mutexes_and_condition_variables.html#_threads">9.1. Threads</a>
+<li><a href="doc_program_structure.html#doc_modules">3.1. Modules</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html#_mutexes">9.2. Mutexes</a>
+<li><a href="doc_program_structure.html#doc_libraries">3.2. Libraries</a>
 </li>
-<li><a href="_threads_mutexes_and_condition_variables.html#_condition_variables">9.3. Condition Variables</a>
-</li>
-<li><a href="_threads_mutexes_and_condition_variables.html#_conditions_2">9.4. Conditions</a>
+<li><a href="doc_program_structure.html#doc_variables_and_constants">3.3. Variables and Constants</a>
 </li>
 </ul>
 </li>
-<li><a href="_stklos_customization.html">10. STklos Customization</a>
+<li><a href="doc_standard_procedures.html">4. Standard Procedures</a>
 </li>
-<li><a href="_foreign_function_interface.html">11. Foreign Function Interface</a>
+<li><a href="doc_regular_expressions.html">5. Regular Expressions</a>
 </li>
-<li><a href="_using_the_slib_package.html">12. Using the SLIB package</a>
+<li><a href="doc_pattern_matching.html">6. Pattern Matching</a>
 </li>
-<li><a href="_srfis.html">13. SRFIs</a>
+<li><a href="doc_exceptions_and_conditions.html">7. Exceptions and Conditions</a>
 </li>
-<li><a href="_bibliography.html">Bibliography</a>
+<li><a href="doc_stklos_object_system.html">8. STklos Object System</a>
+</li>
+<li><a href="doc_threads_mutexes_and_condition_variables.html">9. Threads, Mutexes and Condition Variables</a>
+</li>
+<li><a href="doc_stklos_customization.html">10. STklos Customization</a>
+</li>
+<li><a href="doc_foreign_function_interface.html">11. Foreign Function Interface</a>
+</li>
+<li><a href="doc_using_the_slib_package.html">12. Using the SLIB package</a>
+</li>
+<li><a href="doc_srfis.html">13. SRFIs</a>
+</li>
+<li><a href="doc_bibliography.html">Bibliography</a>
 </li>
 <li><a href="_idiosync.html">Appendix C: STklos Idiosyncrasies</a>
 </li>
@@ -722,68 +720,90 @@ pre.rouge {
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_threads_mutexes_and_condition_variables">9. Threads, Mutexes and Condition Variables</h2>
+<h2 id="doc_program_structure">3. Program structure</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>
 
 
 
-The thread system provides the following data types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Thread (a virtual processor which shares object space with all other threads)</p>
-</li>
-<li>
-<p>Mutex (a mutual exclusion device, also known as a lock and binary semaphore)</p>
-</li>
-<li>
-<p>Condition variable (a set of blocked threads)</p>
-</li>
-</ul>
+</p>
 </div>
 <div class="paragraph">
-<p>The <strong><em>STklos</em></strong> thread system is conform to <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></strong> (<em>Multithreading support</em>), and implement
-all the SRFI mechanisms. See this SRFI documentation for a more complete
-description</p>
+<p>Since its origin, <strong><em>STklos</em></strong> offers a module system which can be used
+to organize a program into separate environments (or <strong><em>name
+spaces</em></strong>). The module system is directly inherited from <strong><em>STk</em></strong>. This
+module system is largely inspired from the one of Tung and
+Dybvig exposed in Tung and Dybvig paper <a href="doc_bibliography.html#TuD96">[TuD96]</a>. As this module
+system, <strong><em>STk</em></strong> and <strong><em>STklos</em></strong> modules are defined to be easily used
+in an interactive environment.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>STklos</em></strong> modules provide a clean way to organize and enforce the
+barriers between the components of a program. At this time, the
+current version of Scheme was R<sup>5</sup>RS which didn&#8217;t define a module
+system. However, since then, R<sup>7</sup>RS has defined the notion of
+libraries, which are similar, in the intent, to <strong><em>STklos</em></strong> modules.
+Consequently, <strong><em>STklos</em></strong> offers both systems: modules and libraries
+(the latter being implemented on top of the former).</p>
 </div>
 <div class="sect2">
-<h3 id="_threads">9.1. Threads</h3>
-<div id="make-thread" class="paragraph">
-<p><a id='P_make-thread'></a>
+<h3 id="doc_modules">3.1. Modules</h3>
+<div class="paragraph">
+<p><a id='P_define-module'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(make-thread thunk) </strong></code><br>
-<code><strong>(make-thread thunk name) </strong></code><br>
-<code><strong>(make-thread thunk name stack-size) </strong></code><br></p>
+<p><code><strong>(define-module &lt;name&gt; &lt;expr1&gt; &lt;expr2&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns a new thread. This thread is not automatically made runnable
-(the procedure <code>thread-start!</code> must be used for this). A thread has the
-following fields:  name, specific, end-result, end-exception, and a list
-of locked/owned mutexes it owns. The thread&#8217;s execution consists of a call
-to thunk with the "initial continuation". This continuation causes the
-(then) current thread to store the result in its end-result field, abandon
-all mutexes it owns, and finally terminate. The dynamic-wind
-stack of the initial continuation is empty. The optional name is an
-arbitrary Scheme object which identifies the thread (useful for debugging);
-it defaults to an unspecified value. The specific field is set to an
-unspecified value.  The thread inherits the dynamic environment from the
-current thread. Moreover, in this dynamic environment the exception handler
-is bound to the "initial exception handler" which is a unary procedure
-which causes the (then) current thread to store in its end-exception
-field an "uncaught exception" object whose "reason" is the argument
-of the handler, abandon all mutexes it owns, and finally terminate.</p>
+<p><code>Define-module</code> evaluates the expressions <code>&lt;expr1&gt;</code>, <code>&lt;expr2&gt;</code> &#8230;&#8203; which
+constitute the body of the module <code>&lt;name&gt;</code> in the environment of that module.
+<code>Name</code> must be a valid symbol or a list constitued of symbols or positive integers.
+If <code>name</code> has not already been used to define a module, a new module, named <code>name</code>,
+is created.  Otherwise, the expressions <code>&lt;expr1&gt;</code>, <code>&lt;expr2&gt;</code> &#8230;&#8203; are evaluated in
+the environment of the (old) module <code>&lt;name&gt;</code><sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>Definitions done in a module are local to the module and do not interact with
+the definitions in other modules. Consider the following definitions,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M1</span>
+   <span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M2</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">b</span> <span class="p">(</span><span class="nb">*</span> <span class="mi">2</span> <span class="nv">x</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="p">(</span><span class="nf">M2</span> <span class="nv">m</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">100</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">x</span> <span class="mi">200</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, three modules are defined and they all bind the symbol <code>a</code> to a
+value. However, since <code>a</code> has been defined in distinct modules
+they denote three different locations.</p>
+</div>
+<div class="paragraph">
+<p>The <code>STklos</code> module, which is predefined, is a special module which
+contains all the <strong>global bindings</strong> of a R<sup>7</sup>RS program.  A symbol
+defined in the <code>STklos</code> module, if not hidden by a local definition, is
+always visible from inside a module. So, in the previous exemple, the
+<code>x</code> symbol refers the <code>x</code> symbol defined in the <code>STklos</code> module, which is
+of course different of the one defined in the module <code>(M2 m)</code>.</p>
+</div>
+<div class="paragraph">
+<p>The result of <code>define-module</code> is <strong><em>void</em></strong>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -792,15 +812,16 @@ of the handler, abandon all mutexes it owns, and finally terminate.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The optional parameter <code>stack-size</code> permits to specify
-the size (in words) reserved for the thread. This option does not exist
-in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></strong>.
+Internally, modules name are always represented by a symbol. If the module
+name is given as a list, the internal name is built by appending all the components
+of the list, separated by a <code>'/'</code> symbol. So the third module can be referenced with the
+name <code>(M2 m)</code> of <code>M2/m</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><a id='P_current-thread'></a>
+<p><a id='P_find-module'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -809,20 +830,43 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(current-thread) </strong></code><br></p>
+<p><code><strong>(find-module name) </strong></code><br>
+<code><strong>(find-module name default) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns the current thread.</p>
+<p>STklos modules are first class objects and <code>find-module</code> returns the
+module object associated to <code>name</code>, if it exists. If there is no module
+associated to <code>name</code>, an error is signaled if no <code>default</code> is
+provided, otherwise <code>find-module</code> returns <code>default</code>.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module? object) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns <code>#t</code> if <code>object</code> is a module and <code>#f</code> otherwise.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">)</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">))</span>  <span class="nv">=&gt;</span>  <span class="no">#t</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">module?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'STklos</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">module?</span> <span class="ss">'STklos</span><span class="p">)</span>                 <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">module?</span> <span class="mi">123</span> <span class="ss">'no</span><span class="p">)</span>                 <span class="nv">=&gt;</span> <span class="nv">no</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><a id='P_thread-start!'></a>
+<p><a id='P_module-name'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -831,25 +875,26 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(thread-start! thread) </strong></code><br></p>
+<p><code><strong>(module-name module) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Makes <code>thread</code> runnable. The <code>thread</code> must be a new thread.
-<code>Thread-start!</code> returns the thread.</p>
+<p>Returns the internal name (a symbol) associated to a <code>module</code>. As said before,
+module name is always represented as a symbol, even if expressed as a list.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">t</span> <span class="p">(</span><span class="nf">thread-start!</span> <span class="p">(</span><span class="nf">make-thread</span>
-                           <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nb">write</span> <span class="ss">'a</span><span class="p">))))))</span>
-   <span class="p">(</span><span class="nb">write</span> <span class="ss">'b</span><span class="p">)</span>
-   <span class="p">(</span><span class="nf">thread-join!</span> <span class="nv">t</span><span class="p">))</span>       <span class="nv">=&gt;</span>  <span class="nv">unspecified</span>
-                               <span class="nv">after</span> <span class="nv">writing</span> <span class="nv">ab</span> <span class="nv">or</span> <span class="nv">ba</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="p">(</span><span class="nf">M</span> <span class="nv">a</span><span class="p">)</span> <span class="p">)</span>   <span class="c1">; or M/a</span>
+<span class="p">(</span><span class="nf">define-module</span> <span class="p">(</span><span class="nf">M</span> <span class="nv">b</span><span class="p">)</span> <span class="p">)</span>   <span class="c1">; or M/b</span>
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M/c</span>   <span class="p">)</span>   <span class="c1">; or (M c)</span>
+
+<span class="p">(</span><span class="nb">map</span> <span class="p">(</span><span class="k">lambda</span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">module-name</span> <span class="p">(</span><span class="nf">find-module</span> <span class="nv">x</span><span class="p">)))</span> <span class="o">'</span><span class="p">(</span> <span class="p">(</span><span class="nf">M</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">M/b</span> <span class="p">(</span><span class="nf">M</span> <span class="nv">c</span><span class="p">)</span> <span class="p">))</span>
+                       <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">M/a</span> <span class="nv">M/b</span> <span class="nv">M/c</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><a id='P_thread-yield!'></a>
+<p><a id='P_current-module'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -858,16 +903,63 @@ in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(thread-yield!) </strong></code><br></p>
+<p><code><strong>(current-module) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>The current thread exits the running state as if its quantum had
-expired. <code>Thread-yield!</code> returns an unspecified value.</p>
+<p>Returns the current module.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M</span>
+  <span class="p">(</span><span class="nb">display</span>
+      <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nf">current-module</span><span class="p">)</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'M</span><span class="p">))</span>
+            <span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nf">current-module</span><span class="p">)</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'STklos</span><span class="p">)))))</span>  <span class="nv">|-</span> <span class="p">(</span><span class="no">#t</span> <span class="o">.</span> <span class="no">#f</span><span class="p">)</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p><a id='P_thread-terminate!'></a>
+<p><a id='P_select-module'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(select-module &lt;name&gt;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Changes the value of the current module to the module with the given <code>name</code>.
+The expressions evaluated after <code>select-module</code> will take place in
+module <code>name</code> environment.  Module <code>name</code> must have been created
+previously by a <code>define-module</code>. The result of <code>select-module</code> is
+<strong><em>void</em></strong>.</p>
+</div>
+<div class="paragraph">
+<p><code>Select-module</code> is particularly useful when debugging since it
+allows to place toplevel evaluation in a particular module. The
+following transcript shows an usage of <code>select-module</code>.
+<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="nv">stklos&gt;</span> <span class="p">(</span><span class="k">define</span> <span class="nv">foo</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nv">stklos&gt;</span> <span class="p">(</span><span class="nf">define-module</span> <span class="nv">bar</span> <span class="p">(</span><span class="k">define</span> <span class="nv">foo</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nv">stklos&gt;</span> <span class="nv">foo</span>
+<span class="mi">1</span>
+<span class="nv">stklos&gt;</span> <span class="p">(</span><span class="nf">select-module</span> <span class="nv">bar</span><span class="p">)</span>
+<span class="nv">bar&gt;</span> <span class="nv">foo</span>
+<span class="mi">2</span>
+<span class="nv">bar&gt;</span> <span class="p">(</span><span class="nf">select-module</span> <span class="nv">stklos</span><span class="p">)</span>
+<span class="nv">stklos&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_symbol-value'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -876,18 +968,141 @@ expired. <code>Thread-yield!</code> returns an unspecified value.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(thread-terminate! thread) </strong></code><br></p>
+<p><code><strong>(symbol-value symbol module) </strong></code><br>
+<code><strong>(symbol-value symbol module default) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Causes an abnormal termination of the <code>thread</code>. If the <code>thread</code> is not
-already terminated, all mutexes owned by the <code>thread</code> become
-unlocked/abandoned and a "terminated thread exception" object is stored
-in the thread&#8217;s end-exception field. If <code>thread</code> is the current thread,
-<code>thread-terminate!</code> does not return. Otherwise, <code>thread-terminate!</code>
-returns an unspecified value; the termination of the thread will occur
-before <code>thread-terminate!</code> returns.</p>
+<p>Returns the value bound to <code>symbol</code> in <code>module</code>. If <code>symbol</code> is not bound,
+an error is signaled if no <code>default</code> is provided, otherwise <code>symbol-value</code>
+returns <code>default</code>. <code>Module</code> can be an object module or a module name.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_symbol-value*'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(symbol-value* symbol module) </strong></code><br>
+<code><strong>(symbol-value* symbol module default) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the value bound to <code>symbol</code> in <code>module</code>. If <code>symbol</code> is not bound,
+an error is signaled if no <code>default</code> is provided, otherwise <code>symbol-value</code>
+returns <code>default</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that this function searches the value of <code>symbol</code> in <code>module</code>
+<strong>and</strong> in the STklos module if module is not a R<sup>7</sup>RS library.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_symbol-bound?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(symbol-bound? symb) </strong></code><br>
+<code><strong>(symbol-bound? symb module) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns #t is <code>symb</code> is bound in <code>module</code> and #f otherwise. If <code>module</code> is
+omitted it defaults to the current module.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module-symbols'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module-symbols module) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the list of symbols defined or imported in <code>module</code>. <code>Module</code>
+can be an object module or a module name.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module-symbols*'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module-symbols* module) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the the list of symbols acessible in <code>module</code> (that is the symbols
+defined in <code>module</code> and the one defined in the <code>STklos</code> module if module
+is not a R<sup>7</sup>RS library.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_export'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(export &lt;export spec1&gt; &lt;export spec2&gt; &#8230;&#8203;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Specifies the symbols which are exported (i.e. <strong>visible</strong> outside
+the current module). By default, symbols defined in a module are not
+visible outside this module, excepted if they appear in an <code>export</code>
+clause.</p>
+</div>
+<div class="paragraph">
+<p>An <code>&lt;export spec&gt;</code> takes one of the following forms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;identifier&gt;</code></p>
+</li>
+<li>
+<p><code>(rename &lt;identifier1&gt; &lt;identifier2&gt;)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the first form, <code>&lt;identifier&gt;</code> names a single binding defined within or
+imported into the module, where the external name for the export is the same
+as the name of the binding  within the module.</p>
+</div>
+<div class="paragraph">
+<p>In the second form,  the binding defined within or imported into the module and
+named by <code>&lt;identifier1&gt;</code> in each <code>(&lt;identifier1&gt; &lt;identifier2&gt;)</code> pairing,
+using <code>&lt;identifier2&gt;</code> as the external name.</p>
+</div>
+<div class="paragraph">
+<p>The result of <code>export</code> is <strong><em>void</em></strong>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -896,419 +1111,176 @@ before <code>thread-terminate!</code> returns.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>This operation must be used carefully because it terminates a thread
-abruptly and it is impossible for that thread to perform any kind of
-cleanup. This may be a problem if the thread is in the middle of a
-critical section where some structure has been put in an inconsistent
-state. However, another thread attempting to enter this critical section
-will raise an "abandoned mutex exception" because the mutex is
-unlocked/abandoned.</p>
-</li>
-<li>
-<p>On <em>Android</em>, <code>thread-terminate!</code> can be used only to terminate the
-current thread.  Trying to kill another thread produces an error.</p>
-</li>
-</ul>
-</div>
+the <code>export</code> form in <strong><em>STklos</em></strong> modules is compatible with the <code>export</code>
+clause in R<sup>7</sup>RS libraries.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><a id='P_thread-sleep!'></a>
+<p><a id='P_import'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(thread-sleep! timeout) </strong></code><br></p>
+<p><code><strong>(import &lt;import set1&gt; &lt;import set2&gt; &#8230;&#8203;) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>The current thread waits until the <code>timeout</code> is reached. This blocks the
-thread only if timeout represents a point in the future. It is an error
-for timeout to be <code>#f</code>. <code>Thread-sleep!</code> returns an unspecified value.</p>
-</div>
-<div id="thread-join" class="paragraph">
-<p><a id='P_thread-join!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread-join! thread) </strong></code><br>
-<code><strong>(thread-join! thread timeout) </strong></code><br>
-<code><strong>(thread-join! thread timeout timeout-val) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>The current thread waits until the <code>thread</code> terminates (normally or not)
-or until the timeout is reached if <code>timeout</code> is supplied.
-If the timeout is reached, <code>thread-join!</code> returns <code>timeout-val</code> if it is
-supplied, otherwise a "join timeout exception" is raised.
-If the <code>thread</code> terminated normally, the content of the end-result
-field is returned, otherwise the content of the end-exception field
-is raised.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">t</span> <span class="p">(</span><span class="nf">thread-start!</span> <span class="p">(</span><span class="nf">make-thread</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span>
-                                       <span class="p">(</span><span class="nb">expt</span> <span class="mi">2</span> <span class="mi">100</span><span class="p">))))))</span>
-  <span class="p">(</span><span class="nf">thread-sleep!</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">thread-join!</span> <span class="nv">t</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="mi">1267650600228229401496703205376</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_thread?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread? obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a thread, otherwise returns <code>#f</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">thread?</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">))</span>  <span class="nv">=&gt;</span> <span class="no">#t</span>
-<span class="p">(</span><span class="nf">thread?</span> <span class="ss">'foo</span><span class="p">)</span>              <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_thread-name'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread-name thread) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the name of the <code>thread</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">thread-name</span> <span class="p">(</span><span class="nf">make-thread</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="no">#f</span><span class="p">)</span> <span class="ss">'foo</span><span class="p">))</span>  <span class="nv">=&gt;</span>  <span class="nv">foo</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_thread-stack-size'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread-stack-size thread) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the allocated stack size for <code>thread</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">thread-stack-size</span> <span class="p">(</span><span class="nf">make-thread</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="no">#f</span><span class="p">)</span> <span class="ss">'foo</span> <span class="mi">2000</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="mi">2000</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note that this procedure is not present in <strong><a href="http://srfi.schemers.org/srfi-18/srfi-18.html">SRFI-18</a></strong>.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_thread-specific'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread-specific thread) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the content of the `thread&#8217;s specific field.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_thread-specific-set!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(thread-specific-set! thread) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Stores <code>obj</code> into the <code>thread&#8217;s specific field. `Thread-specific-set!</code>
-returns an unspecified value.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">thread-specific-set!</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">)</span> <span class="s">"hello"</span><span class="p">)</span>
-           <span class="nv">=&gt;</span>  <span class="nv">unspecified</span>
-<span class="p">(</span><span class="nf">thread-specific</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">))</span>
-           <span class="nv">=&gt;</span>  <span class="s">"hello"</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_mutexes">9.2. Mutexes</h3>
-<div class="paragraph">
-<p><a id='P_make-mutex'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(make-mutex) </strong></code><br>
-<code><strong>(make-mutex name) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns a new mutex in the unlocked/not-abandoned state. The optional <code>name</code>
-is an arbitrary Scheme object which identifies the mutex
-(useful for debugging); it defaults to an unspecified value.
-The mutex&#8217;s specific field is set to an unspecified value.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex? obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns <code>#t</code> if obj is a mutex, otherwise returns <code>#f</code>.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex-name'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex-name mutex) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the name of the <code>mutex</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">mutex-name</span> <span class="p">(</span><span class="nf">make-mutex</span> <span class="ss">'foo</span><span class="p">))</span>  <span class="nv">=&gt;</span>  <span class="nv">foo</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex-specific'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex-specific mutex) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the content of the `mutex&#8217;s specific field.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex-specific-set!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex-specific! mutex obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Stores <code>obj</code> into the `mutex&#8217;s specific field and eturns an unspecified value.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">m</span> <span class="p">(</span><span class="nf">make-mutex</span><span class="p">))</span>
-<span class="p">(</span><span class="nf">mutex-specific-set!</span> <span class="nv">m</span> <span class="s">"hello"</span><span class="p">)</span>  <span class="nv">=&gt;</span>  <span class="nv">unspecified</span>
-<span class="p">(</span><span class="nf">mutex-specific</span> <span class="nv">m</span><span class="p">)</span>               <span class="nv">=&gt;</span>  <span class="s">"hello"</span>
-
-<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">mutex-lock-recursively!</span> <span class="nv">mutex</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">eq?</span> <span class="p">(</span><span class="nf">mutex-state</span> <span class="nv">mutex</span><span class="p">)</span> <span class="p">(</span><span class="nf">current-thread</span><span class="p">))</span>
-      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">n</span> <span class="p">(</span><span class="nf">mutex-specific</span> <span class="nv">mutex</span><span class="p">)))</span>
-        <span class="p">(</span><span class="nf">mutex-specific-set!</span> <span class="nv">mutex</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">n</span> <span class="mi">1</span><span class="p">)))</span>
-      <span class="p">(</span><span class="k">begin</span>
-        <span class="p">(</span><span class="nf">mutex-lock!</span> <span class="nv">mutex</span><span class="p">)</span>
-        <span class="p">(</span><span class="nf">mutex-specific-set!</span> <span class="nv">mutex</span> <span class="mi">0</span><span class="p">))))</span>
-
-<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">mutex-unlock-recursively!</span> <span class="nv">mutex</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">n</span> <span class="p">(</span><span class="nf">mutex-specific</span> <span class="nv">mutex</span><span class="p">)))</span>
-    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">=</span> <span class="nv">n</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">(</span><span class="nf">mutex-unlock!</span> <span class="nv">mutex</span><span class="p">)</span>
-        <span class="p">(</span><span class="nf">mutex-specific-set!</span> <span class="nv">mutex</span> <span class="p">(</span><span class="nb">-</span> <span class="nv">n</span> <span class="mi">1</span><span class="p">)))))</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex-state'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex-state mutex) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns information about the state of the <code>mutex</code>. The possible results
-are:</p>
+<p>An import declaration provides a way to import identifiers
+exported by a module.  Each <code>&lt;import set&gt;</code> names a set of bindings
+from a module and possibly specifies local names for the
+imported bindings. It takes one of the following forms:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>a thread <strong>T</strong>: the mutex is in the locked/owned state and
-thread <strong>T</strong> is the owner of the mutex</p>
+<p><code>&lt;module name&gt;</code></p>
 </li>
 <li>
-<p>the symbol <strong>not-owned</strong>: the mutex is in the locked/not-owned
-state</p>
+<p><code>(only &lt;import set&gt; &lt;identifier&gt; &#8230;&#8203;)</code></p>
 </li>
 <li>
-<p>the symbol <strong>abandoned</strong>: the mutex is in the unlocked/abandoned
-state</p>
+<p><code>(except &lt;import set&gt; &lt;identifier&gt; &#8230;&#8203;)</code></p>
 </li>
 <li>
-<p>the symbol <strong>not-abandoned</strong>: the mutex is in the
-unlocked/not-abandoned state</p>
+<p><code>(prefix &lt;import set&gt; &lt;identifier&gt;)</code></p>
+</li>
+<li>
+<p><code>(rename &lt;import set&gt; (&lt;identifier1&gt; &lt;identifier2&gt;) &#8230;&#8203;)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the first form, all of the identifiers in the named
+module&#8217;s export clauses are imported with the same names
+(or the exported names if exported with <code>rename</code>).</p>
+</div>
+<div class="paragraph">
+<p>The additional <code>import set</code> forms modify this set as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>only</code> produces a subset of the given &lt;import set&gt;} including
+only the listed identifiers (after any renaming).  It is an
+error if any of the listed identifiers are not found in the
+original set.</p>
+</li>
+<li>
+<p><code>except</code> produces a subset of the given <code>&lt;import set&gt;</code>, excluding
+the listed identifiers (after any renaming). It is an error if
+any of the listed identifiers are not found in the original set.</p>
+</li>
+<li>
+<p><code>rename</code> modifies the given <code>&lt;import set&gt;</code>, replacing each
+instance of <code>&lt;identifier1&gt;</code> with <code>&lt;identifier2&gt;</code>. It is an
+error if any of the listed <code>&lt;identifiers&gt;</code> are not found in
+the original set.</p>
+</li>
+<li>
+<p><code>prefix</code> automatically renames all identifiers in the given
+<code>&lt;import set&gt;</code>, prefixing each with the specified <code>&lt;identifier&gt;</code>.</p>
 </li>
 </ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">mutex-state</span> <span class="p">(</span><span class="nf">make-mutex</span><span class="p">))</span>  <span class="nv">=&gt;</span>  <span class="nv">not-abandoned</span>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M1</span>
+  <span class="p">(</span><span class="nf">export</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="ss">'M1-a</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">b</span> <span class="ss">'M1-b</span><span class="p">))</span>
 
-<span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">thread-alive?</span> <span class="nv">thread</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">mutex</span> <span class="p">(</span><span class="nf">make-mutex</span><span class="p">)))</span>
-    <span class="p">(</span><span class="nf">mutex-lock!</span> <span class="nv">mutex</span> <span class="no">#f</span> <span class="nv">thread</span><span class="p">)</span>
-    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">state</span> <span class="p">(</span><span class="nf">mutex-state</span> <span class="nv">mutex</span><span class="p">)))</span>
-      <span class="p">(</span><span class="nf">mutex-unlock!</span> <span class="nv">mutex</span><span class="p">)</span> <span class="c1">; avoid space leak</span>
-      <span class="p">(</span><span class="nb">eq?</span> <span class="nv">state</span> <span class="nv">thread</span><span class="p">))))</span></code></pre>
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M2</span>
+  <span class="p">(</span><span class="nf">export</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">b</span> <span class="ss">'M2-b</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">c</span> <span class="ss">'M2-c</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">d</span> <span class="ss">'M2-d</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M3</span>
+  <span class="p">(</span><span class="nf">import</span> <span class="nv">M1</span> <span class="nv">M2</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">)))</span>  <span class="nv">|-</span> <span class="p">(</span><span class="nf">M1-a</span> <span class="nv">M2-b</span> <span class="nv">M2-c</span> <span class="nv">M2-d</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M4</span>
+  <span class="p">(</span><span class="nf">import</span> <span class="nv">M2</span> <span class="nv">M1</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">)))</span>  <span class="nv">|-</span> <span class="p">(</span><span class="nf">M1-a</span> <span class="nv">M1-b</span> <span class="nv">M2-c</span> <span class="nv">M2-d</span><span class="p">)</span></code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p><a id='P_mutex-lock!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(mutex-lock! mutex) </strong></code><br>
-<code><strong>(mutex-lock! mutex timeout) </strong></code><br>
-<code><strong>(mutex-lock! mutex timeout thread) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>If the <code>mutex</code> is currently locked, the current thread waits until the
-<code>mutex</code> is unlocked, or until the timeout is reached if <code>timeout</code> is supplied.
-If the <code>timeout</code> is reached, <code>mutex-lock!</code> returns <code>#f</code>.
-Otherwise, the state of the mutex is changed as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>if thread is <code>#f</code> the mutex becomes <em>locked/not-owned</em>,</p>
-</li>
-<li>
-<p>otherwise, let T be thread (or the current thread if thread
-is not supplied),</p>
-<div class="ulist">
-<ul>
-<li>
-<p>if T is terminated the mutex becomes <em>unlocked/abandoned</em>,</p>
-</li>
-<li>
-<p>otherwise mutex becomes <em>locked/owned</em> with T as the owner.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>After changing the state of the mutex, an "abandoned mutex exception" is
-raised if the mutex was unlocked/abandoned before the state change,
-otherwise <code>mutex-lock!</code> returns <code>#t</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="p">(</span><span class="nf">sleep!</span> <span class="nv">timeout</span><span class="p">)</span>
-  <span class="c1">;; an alternate implementation of thread-sleep!</span>
-  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nf">m</span> <span class="p">(</span><span class="nf">make-mutex</span><span class="p">)))</span>
-  <span class="p">(</span><span class="nf">mutex-lock!</span> <span class="nv">m</span> <span class="no">#f</span> <span class="no">#f</span><span class="p">)</span>
-  <span class="p">(</span><span class="nf">mutex-lock!</span> <span class="nv">m</span> <span class="nv">timeout</span> <span class="no">#f</span><span class="p">)))</span></code></pre>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M1</span>
+  <span class="p">(</span><span class="nf">export</span> <span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span> <span class="nv">d</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">b</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">c</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">define</span> <span class="nv">d</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">M2</span>
+  <span class="p">(</span><span class="nf">import</span> <span class="p">(</span><span class="nf">prefix</span> <span class="p">(</span><span class="nf">rename</span> <span class="p">(</span><span class="nf">except</span> <span class="nv">M1</span> <span class="nv">a</span><span class="p">)</span>
+                          <span class="p">(</span><span class="nf">b</span> <span class="nv">bb</span><span class="p">)</span> <span class="p">(</span><span class="nf">c</span> <span class="nv">cc</span><span class="p">))</span>
+                  <span class="nv">M1-</span><span class="p">))</span>
+  <span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nf">module-symbols</span> <span class="p">(</span><span class="nf">current-module</span><span class="p">))))</span>
+                             <span class="nv">|-</span> <span class="p">(</span><span class="nf">M1-bb</span> <span class="nv">M1-cc</span> <span class="nv">M1-d</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><a id='P_mutex-unlock!'></a>
+<p>Here, <code>M1</code> module exports the symbols <code>a</code>, <code>b</code>, <code>c</code> and <code>d</code>. In the
+<code>M2</code> module, the <code>except</code> rule permits to import only <code>b</code>, <code>c</code> and
+<code>d</code>. With <code>rename</code>, identifiers <code>b</code> and <code>c</code> of <code>M1</code> are renamed <code>bb</code>
+and <code>cc</code>. Finally, with <code>prefix</code> alls identifier names are prefixed
+by <code>M1-</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the <code>import</code> form in <strong><em>STklos</em></strong> modules is compatible with the
+<code>import</code> clause in R<sup>7</sup>RS libraries.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The module <code>STklos</code>, which contains the <em>global variables</em>
+is always implicitly imported from a module. Furthermore,
+this module is always placed at the end of the list of imported
+modules.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Note that importing a module will try to load a file if the module
+is not already defined. For instance,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M</span>
+   <span class="p">(</span><span class="nf">import</span> <span class="p">(</span><span class="nf">srfi</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nf">foo</span> <span class="nv">bar</span> <span class="nv">baz</span><span class="p">))</span>
+    <span class="o">...</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will load the file <code>srfi/1</code> and <code>foo/bar/baz</code> modules (or libraries) if
+they are not yet defined (habitual rules on the load paths and the load
+suffixes applies to find  those files).</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module-imports'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1317,27 +1289,16 @@ otherwise <code>mutex-lock!</code> returns <code>#t</code>.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(mutex-unlock! mutex) </strong></code><br>
-<code><strong>(mutex-unlock! mutex condition-variable) </strong></code><br>
-<code><strong>(mutex-unlock! mutex condition-variable timeout) </strong></code><br></p>
+<p><code><strong>(module-imports module) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Unlocks the <code>mutex</code> by making it unlocked/not-abandoned. It is not an error
-to unlock an unlocked mutex and a mutex that is owned by any thread.
-If <code>condition-variable</code> is supplied, the current thread is blocked and
-added to the <code>condition-variable</code> before unlocking <code>mutex</code>; the thread
-can unblock at any time but no later than when an appropriate call to
-<code>condition-variable-signal!</code> or <code>condition-variable-broadcast!</code> is
-performed (see below), and no later than the timeout (if timeout is
-supplied). If there are threads waiting to lock this mutex, the scheduler
-selects a thread, the <code>mutex</code> becomes locked/owned or locked/not-owned,
-and the thread is unblocked. <code>mutex-unlock!</code> returns <code>#f</code> when the
-<code>timeout</code> is reached, otherwise it returns <code>#t</code>.</p>
+<p>Returns the list of modules that <code>module</code> imports (that is, the ones
+it depends on).</p>
 </div>
 <div class="paragraph">
-<p><a id='P_with-mutex'></a>
+<p><a id='P_module-exports'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1346,21 +1307,223 @@ and the thread is unblocked. <code>mutex-unlock!</code> returns <code>#f</code> 
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(with-mutex mtx &lt;thunk&gt;) </strong></code><br></p>
+<p><code><strong>(module-exports module) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Executes <code>thunk</code>, protected by mutex <code>mtx</code>. The mutex will
-be locked before and released after execution of <code>body</code>, and
-also on entrance or departure of its dynamic context
-(lock and unlock are used within <code>dynamic-wind</code>).</p>
+<p>Returns the list of symbols exported by <code>module</code>. Note that this function
+returns the list of symbols given in the module <code>export</code> clause and that
+some of these symbols can be not yet defined.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M</span>
+  <span class="p">(</span><span class="nf">export</span> <span class="nv">a</span> <span class="nv">b</span> <span class="p">(</span><span class="nf">rename</span> <span class="nv">c</span> <span class="nv">M-c</span><span class="p">))</span>
+  <span class="p">(</span><span class="nb">display</span> <span class="p">(</span><span class="nf">module-exports</span> <span class="p">(</span><span class="nf">current-module</span><span class="p">))))</span>
+                         <span class="nv">|-</span> <span class="p">(</span><span class="nf">a</span> <span class="nv">b</span> <span class="nv">M-c</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_module-immutable!'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module-immutable! mod) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Makes the module <code>mod</code> immutable, so that it will be impossible
+to define new symbols in it or change the value of already defined ones.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module-mutable?'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module-mutable? mod) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns <code>#t</code> if <code>mod</code> is an immutable module and <code>#f</code>  otherwise.  Note that the
+<code>SCHEME</code> module, which contains the original bindings of the STklos at boot
+time, is immutable. The parameter <code>mod</code> can be a module object or a module name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">module-mutable?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'STklos</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">module-mutable?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'SCHEME</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">module-mutable?</span> <span class="ss">'SCHEME</span><span class="p">)</span>               <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_in-module'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(in-module mod s) </strong></code><br>
+<code><strong>(in-module mod s default) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This form returns the value of symbol with name <code>s</code> in the module with name
+<code>mod</code>. If this symbol is not bound,  an error is signaled if no <code>default</code> is
+provided, otherwise <code>in-module</code> returns <code>default</code>. Note that the value of <code>s</code>
+is searched in <code>mod</code> and all the modules it imports.</p>
+</div>
+<div class="paragraph">
+<p>This form is in fact a shortcut. In effect,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">in-module</span> <span class="nv">my-module</span> <span class="nv">foo</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is equivalent to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">symbol-value*</span> <span class="ss">'foo</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'my-module</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a id='P_all-modules'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(all-modules) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the list of all the living modules (or libraries). Use
+<code>module-list</code> to obtain a list of modules without libraries.</p>
+</div>
+<div class="paragraph">
+<p><a id='P_module-list'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(module-list) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Returns the list of all the living modules.</pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_condition_variables">9.3. Condition Variables</h3>
+<h3 id="doc_libraries">3.2. Libraries</h3>
 <div class="paragraph">
-<p><a id='P_make-condition-variable'></a>
+<p>The library concept is defined in R<sup>7</sup>RS ans is supported in <strong><em>STklos</em></strong>.
+As said before, libraries are implemented with modules. Briefly
+stated, the library |(lib a b)| will be implemented with a module whose name
+is |lib/a/b| and the |STklos| module has been deleted from the import list.</p>
+</div>
+<div class="paragraph">
+<p>
+
+
+
+
+
+
+<a id='P_define-library'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>7</sup>RS syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(define-library &lt;library name&gt; &lt;library declaration&gt; &#8230;&#8203;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The form <code>define-library</code> is defined in R<sup>7</sup>RS. The <code>&lt;library name&gt;</code> can be
+a symbol or a list (as modules).</p>
+</div>
+<div class="paragraph">
+<p>A <code>&lt;library declaration&gt;</code> is any of</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>(export &lt;export spec&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(import &lt;import set&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(begin &lt;command or definition&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(include &lt;filename1&gt; &lt;filename2&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(include-ci &lt;filename1&gt; &lt;filename2&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(include-library-declarations &lt;filename1&gt; &lt;filename2&gt; &#8230;&#8203;)</code></p>
+</li>
+<li>
+<p><code>(cond-expand &lt;clause1&gt; &lt;clause2&gt; &#8230;&#8203;)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See R<sup>7</sup>RS for more information (or the specific entries in this document)
+about each <code>&lt;library declaration&gt;</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+R<sup>7</sup>RS permits to use library declarations only in
+a library definition; <strong><em>STklos</em></strong> permits to use them (except
+<code>include-library-declarations</code>) anywhere at toplevel.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a id='P_library?'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1369,19 +1532,28 @@ also on entrance or departure of its dynamic context
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(make-conditon-variable) </strong></code><br>
-<code><strong>(make-conditon-variable name) </strong></code><br></p>
+<p><code><strong>(library? object) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns a new empty condition variable. The optional <code>name</code> is an arbitrary
-Scheme object which identifies the condition variable (useful for debugging);
-it defaults to an unspecified value. The condition variable&#8217;s specific
-field is set to an unspecified value.</p>
+<p>Returns <code>#t</code> if <code>object</code> is a module defined as a R<sup>7</sup>RS library and <code>#f</code> otherwise.
+Note that R<sup>7</sup>RS libraries, since they are implemented using <strong><em>STklos</em></strong> modules, are
+also modules.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">a</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">define-library</span> <span class="p">(</span><span class="nf">b</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">module?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'a</span><span class="p">))</span>     <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">module?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="o">'</span><span class="p">(</span><span class="nf">b</span><span class="p">)))</span>   <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">library?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'a</span><span class="p">))</span>    <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="nf">library?</span> <span class="p">(</span><span class="nf">find-module</span> <span class="o">'</span><span class="p">(</span><span class="nf">b</span><span class="p">)))</span>  <span class="nv">=&gt;</span> <span class="no">#t</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p><a id='P_condition-variable?'></a>
+<p><a id='P_library-name'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1390,15 +1562,32 @@ field is set to an unspecified value.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(conditon-variable? obj) </strong></code><br></p>
+<p><code><strong>(library-name lib) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a condition variable, otherwise returns <code>#f</code>.</p>
+<p>Returns the name of <code>lib</code> if it was defined as an R<sup>7</sup>RS library,
+and <code>#f</code> if the library is anonymous. If <code>lib</code> is not a library,
+<code>library-name</code> raises an error. If a name is returned, it is
+as a list.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-library</span> <span class="p">(</span><span class="nf">example</span> <span class="nv">cool-library</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">library-name</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'example/cool-library</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">example</span> <span class="nv">cool-library</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">library-name</span> <span class="p">(</span><span class="nf">find-module</span> <span class="o">'</span><span class="p">(</span><span class="nf">example</span> <span class="nv">cool-library</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nf">example</span> <span class="nv">cool-library</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">module-name</span>  <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'example/cool-library</span><span class="p">))</span>   <span class="nv">=&gt;</span> <span class="nv">example/cool-library</span>
+<span class="p">(</span><span class="nf">module-name</span>  <span class="p">(</span><span class="nf">find-module</span> <span class="o">'</span><span class="p">(</span><span class="nf">example</span> <span class="nv">cool-library</span><span class="p">)))</span> <span class="nv">=&gt;</span> <span class="nv">example/cool-library</span>
+
+<span class="p">(</span><span class="nf">define-module</span> <span class="nv">example/a-module</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">library-name</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'example/a-module</span><span class="p">))</span>     <span class="nv">=&gt;</span> <span class="nv">error</span>
+
+<span class="p">(</span><span class="nf">library-name</span> <span class="nv">quotient</span><span class="p">)</span>                            <span class="nv">=&gt;</span> <span class="nv">error</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p><a id='P_condition-variable-name'></a>
+<p><a id='P_library-list'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1407,89 +1596,74 @@ field is set to an unspecified value.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(conditon-variable-name conditon-variable) </strong></code><br></p>
+<p><code><strong>(library-list) </strong></code><br></p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p>Returns the name of the <code>condition-variable</code>.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-variable-specific'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
+<div class="literalblock">
 <div class="content">
-<div class="paragraph small">
-<p><code><strong>(conditon-variable-specific conditon-variable) </strong></code><br></p>
+<pre>Returns the list of all the living libraries.</pre>
 </div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the content of the `condition-variable&#8217;s specific field.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-variable-specific-set!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(conditon-variable-specific-set! conditon-variable obj) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Stores <code>obj</code> into the `condition-variable&#8217;s specific field.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-variable-signal!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-variable-signal! condition-variable) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>If there are threads blocked on the <code>condition-variable</code>, the scheduler
-selects a thread and unblocks it. <code>Condition-variable-signal!</code>  returns
-an unspecified value.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_condition-variable-broadcast!'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(condition-variable-broadcast! condition-variable) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Unblocks all the threads blocked on the <code>condition-variable</code>.
-<code>Condition-variable-broadcast!</code> returns an unspecified value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_conditions_2">9.4. Conditions</h3>
+<h3 id="doc_variables_and_constants">3.3. Variables and Constants</h3>
 <div class="paragraph">
-<p><a id='P_join-timeout-exception?'></a>
+<p><a id='P_define'></a>
+</p>
+</div>
+<div class="paragraph rmargin text-right">
+<p><span class="rmargin small silver">R<sup>5</sup>RS syntax</span></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph small">
+<p><code><strong>(define &lt;variable&gt; &lt;expresssion&gt;) </strong></code><br>
+<code><strong>(define (&lt;variable&gt; &lt;formals&gt;) &lt;body&gt;) </strong></code><br>
+<code><strong>(define (&lt;variable&gt; . &lt;formal&gt;) &lt;body&gt;) </strong></code><br></p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Theses forms bind an identifier to a a value.</p>
+</div>
+<div class="paragraph">
+<p>The first form binds the <code>&lt;variable&gt;</code> to the result of the evaluation of
+<code>&lt;expression&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The second form of <code>define</code> is equivalent to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">&lt;variable&gt;</span>
+        <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nf">&lt;formals&gt;</span><span class="p">)</span> <span class="nv">body</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The third <code>define</code> form, where <code>&lt;formal&gt;</code> is a single variable, is equivalent to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">&lt;variable&gt;</span>
+        <span class="p">(</span><span class="k">lambda</span> <span class="nv">&lt;formals&gt;</span> <span class="nv">body</span><span class="p">))</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>define</code> form accepts also the definition of higher order lambda as
+defined in <strong><a href="http://srfi.schemers.org/srfi-219/srfi-219.html">SRFI-219</a></strong> (<em>Define higher-order lambda</em>).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a id='P_define-constant'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1498,20 +1672,27 @@ an unspecified value.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(join-timeout-exception? obj) </strong></code><br></p>
+<p><code><strong>(define-constant &lt;variable&gt; &lt;expression&gt;) </strong></code><br>
+<code><strong>(define-constant (&lt;variable&gt; &lt;formals&gt;) body) </strong></code><br>
+<code><strong>(define-constant (&lt;variable&gt; . &lt;formal&gt;) body) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a <em>join timeout exception</em> object,
-otherwise returns <code>#f</code>.</p>
+<p>This form is similar to <code>define</code>, except the binding of <code>&lt;variable&gt;</code> which
+is non mutable.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-constant</span> <span class="nv">a</span> <span class="ss">'hello</span><span class="p">)</span>
+<span class="p">(</span><span class="k">set!</span> <span class="nv">a</span> <span class="ss">'goodbye</span><span class="p">)</span>             <span class="nv">=&gt;</span> <span class="nv">error</span>
+<span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">2</span><span class="p">)</span>                  <span class="c1">; is  ok (it's a new binding)</span>
+<span class="p">(</span><span class="nf">define-constant</span> <span class="p">((</span><span class="nf">foo</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">b</span><span class="p">)</span>  <span class="c1">; foo is (lambda (a) (lambda (b) ...)))</span>
+    <span class="o">...</span><span class="p">)</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>A <em>join timeout exception</em> is raised when thread-join! is called, the timeout
-is reached and no timeout-val is supplied.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_abandoned-mutex-exception?'></a>
+<p><a id='P_symbol-immutable!'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1520,20 +1701,26 @@ is reached and no timeout-val is supplied.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(abandoned-mutex-exception? obj) </strong></code><br></p>
+<p><code><strong>(symbol-immutable! symb) </strong></code><br>
+<code><strong>(symbol-immutable! symb mod) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is an <em>abandoned mutex exception</em> object,
-otherwise returns <code>#f</code>.</p>
+<p>Makes the symbol <code>symb</code> in module <code>mod</code> immutable. If <code>mod</code> is not specified,
+the current module is used.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="k">define</span> <span class="nv">a</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">symbol-mutable?</span> <span class="ss">'a</span><span class="p">)</span>     <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">symbol-immutable!</span> <span class="ss">'a</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">symbol-mutable?</span> <span class="ss">'a</span><span class="p">)</span>     <span class="nv">=&gt;</span> <span class="no">#f</span>
+<span class="p">(</span><span class="k">set!</span> <span class="nv">a</span> <span class="mi">10</span><span class="p">)</span>              <span class="nv">=&gt;</span> <span class="nv">error</span></code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>An <em>abandoned mutex exception</em> is raised when the current thread locks
-a mutex that was owned by a thread which terminated ,(see <code>mutex-lock!</code>).</p>
-</div>
-<div class="paragraph">
-<p><a id='P_terminated-thread-exception?'></a>
+<p><a id='P_symbol-mutable?'></a>
 </p>
 </div>
 <div class="paragraph rmargin text-right">
@@ -1542,65 +1729,33 @@ a mutex that was owned by a thread which terminated ,(see <code>mutex-lock!</cod
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph small">
-<p><code><strong>(terminated-thread-exception? obj) </strong></code><br></p>
+<p><code><strong>(symbol-mutable? symb) </strong></code><br>
+<code><strong>(symbol-mutable? symb module) </strong></code><br></p>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is a <em>terminated thread exception</em> object, otherwise
-returns <code>#f</code>.</p>
+<p>Returns <code>#t</code> if <code>symb</code> is mutable in <code>module</code> and <code>#f</code> otherwise. If <code>module</code>
+is omitted it defaults to the current module. Note that imported symbols are
+always not mutable.</p>
 </div>
-<div class="paragraph">
-<p>A <em>terminated thread exception</em> is raised when thread-join! is
-called and the target thread has terminated as a result of a call to
-<code>thread-terminate!</code>.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_uncaught-exception?'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph small">
-<p><code><strong>(uncaught-exception? obj) </strong></code><br></p>
+<pre class="rouge highlight"><code data-lang="scheme"><span class="p">(</span><span class="nf">define-module</span> <span class="nv">M</span>
+   <span class="p">(</span><span class="nf">export</span> <span class="nv">x</span><span class="p">)</span>
+   <span class="p">(</span><span class="k">define</span> <span class="nv">x</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">symbol-mutable?</span> <span class="ss">'x</span> <span class="p">(</span><span class="nf">find-module</span> <span class="ss">'M</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="no">#t</span>
+<span class="p">(</span><span class="nf">symbol-mutable?</span> <span class="ss">'x</span><span class="p">)</span>                  <span class="nv">=&gt;</span> <span class="nv">error,</span> <span class="nv">if</span> <span class="nv">not</span> <span class="nv">defined</span> <span class="nv">in</span> <span class="nv">current</span> <span class="nv">module</span>
+<span class="p">(</span><span class="nf">import</span> <span class="nv">M</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">symbol-mutable?</span> <span class="ss">'x</span><span class="p">)</span>                  <span class="nv">=&gt;</span> <span class="no">#f</span></code></pre>
 </div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns <code>#t</code> if <code>obj</code> is an <em>uncaught exception</em> object, otherwise
-returns <code>#f</code>.</p>
-</div>
-<div class="paragraph">
-<p>An <em>uncaught exception</em> is raised when <code>thread-join!</code> is called and the
-target thread has terminated because it raised an exception that called
-the initial exception handler of that thread.</p>
-</div>
-<div class="paragraph">
-<p><a id='P_uncaught-exception-reason'></a>
-</p>
-</div>
-<div class="paragraph rmargin text-right">
-<p><span class="rmargin small silver"><em>STklos</em> procedure</span></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph small">
-<p><code><strong>(uncaught-exception-reason exc) </strong></code><br></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Returns the object which was passed to the initial exception handler
-of that thread (<code>exc</code> must be an <em>uncaught exception</em> object).</p>
 </div>
 </div>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← Previous: <a href="_stklos_object_system.html">STklos Object System</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="_stklos_customization.html">STklos Customization</a> →</p>
+<p>← Previous: <a href="doc_expressions.html">Expressions</a> | ↑ Up: <a href="stklos-ref-multi.html">STklos Reference Manual : (version 2.10)</a> | Next: <a href="doc_standard_procedures.html">Standard Procedures</a> →</p>
 </div>
 </div>
 <div id="footnotes">
@@ -1613,18 +1768,6 @@ of that thread (<code>exc</code> must be an <em>uncaught exception</em> object).
 </div>
 <div class="footnote" id="_footnotedef_2">
 <a href="#_footnoteref_2">2</a>. This transcript uses the default toplevel loop             which displays the name of the current module in the evaluator             prompt.
-</div>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Under Unix, you can simply connect to a listening socket with the <code>telnet</code> of <code>netcat</code> command. For the given example, this can be achieved with <code>netcat localhost 12345</code>
-</div>
-<div class="footnote" id="_footnotedef_2">
-<a href="#_footnoteref_2">2</a>. Port 13, if open, can be used for testing: making a connection to it permits to know the distant system&#8217;s idea of the time of day.
-</div>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. The "pattern matching compiler" has been written by Jean-Marie Geffroy and is part of the Manuel Serrano&#8217;s Bigloo compiler since several years <a href="_bibliography.html#Bigloo">[Bigloo]</a>
-</div>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. This section is an adaptation of Jeff Dalton&#8217;s (<a href="mailto:J.Dalton@ed.ac.uk">J.Dalton@ed.ac.uk</a>) "<strong><em>Brief introduction to CLOS</em></strong>" which can be found at <a href="http://www.aiai.ed.ac.uk/~jeff/clos-guide.html" class="bare">http://www.aiai.ed.ac.uk/~jeff/clos-guide.html</a>
 </div>
 </div>
 </body>
