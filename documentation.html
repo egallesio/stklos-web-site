@@ -88,11 +88,11 @@ unstable. Versions with a numbered tag correspond to the versions built
 from a stable release. Both images weight approximately 15Mb.</p>
 <p><strong>Example:</strong></p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ docker pull stklos/stklos:2.00          # grab the 2.00 version of STklos</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>$ docker run -ti stklos/stklos:2.00       # and run it</span>
+class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>$ docker pull stklos/stklos:2.10          # grab the 2.10 version of STklos</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>$ docker run -ti stklos/stklos:2.10       # and run it</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>...</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>stklos&gt; (version)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&quot;2.00&quot;</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>&quot;2.10&quot;</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stklos&gt; (exit)</span></code></pre></div>
 <p>If you want to run a script file against such an image, you can bind
 the directory containing your script to the <code>/home</code> directory
@@ -129,7 +129,6 @@ autotools</em>. Installing STklos is three (or four) step process:</p>
 default, this script will try to use the libraries installed on your
 system. When a library is absent, a version of the library embedded with
 the source distribution will be used.</p>
-<p>The main options of the <code>configure</code> script are</p>
 <ul>
 <li><code>--prefix=PATH</code>: place where the files will be installed
 (default to <code>/usr/local</code>)</li>
@@ -140,33 +139,49 @@ library</li>
 <li><code>--with-provided-regexp</code>: use the provided Regexp (PCRE)
 library</li>
 <li><code>--with-provided-ffi:</code> use the provided FFI library</li>
-<li><code>--enable-case-insensitive</code>: be case insensitive by
-default as in R5RS</li>
-<li><code>--enable-threads=TYPE</code>: choose threading package (value
-can be ‘none’ or ‘pthreads’, the default)</li>
+<li><code>--with-gmp-light</code>: a synonym for
+<code>--with-provided-bignum</code></li>
+</ul>
+<p>By default the following options are enabled, but can be disabled
+with the following <code>configure</code> options</p>
+<ul>
+<li><code>--disable-threads</code>: disable Posix threads support</li>
+<li><code>--disable-control-fast-math</code>: do not verify that
+parameters of fx/fl functions are correct fixnums/flonums</li>
+<li><code>--disable-ffi</code>: disable FFI (Foreign Function Interface)
+support</li>
 </ul>
 <p>You can also choose the compiler and the compiler options to use for
 building <strong>STklos</strong> with the <code>CC</code> and
 <code>CFLAGS</code> parameters:</p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./configure <span class="at">--prefix</span><span class="op">=</span>/opt <span class="at">--with-provided-gc</span> CC=clang CFLAGS=<span class="st">&quot;-O3 -Wall&quot;</span></span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./configure <span class="at">--prefix</span><span class="op">=</span>/opt <span class="at">--with-provided-gc</span> CC=clang-18 CFLAGS=<span class="st">&quot;-O3 -Wall&quot;</span></span></code></pre></div>
 <p>A summary will be printed at the end of the execution of the script
 as shown below:</p>
 <div class="sourceCode" id="cb5"><pre
-class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a> SUMMARY</span>
+class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SUMMARY</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>*******</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>               System:  Linux-6.1.44-1-MANJARO</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              OS nick:  LINUX_6_1</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              OS type:  unix</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       Install prefix:  /opt</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           C compiler:  clang</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    Compilation flags:  -O3 -Wall</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>               Loader:  ld</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       Thread support:  pthreads</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>     Case sensitivity:  true (by default)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Control fx parameters:  yes</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>System libraries used:  libffi libpcre2 libgmp</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>   Compiled libraries:  libgc</span></code></pre></div></li>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                System:  Linux-6.10.9-arch1-1</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>               OS nick:  LINUX_6_10</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               OS type:  unix</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        Install prefix:  /opt</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     C compiler binary:  clang-18</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    C compiler version:  clang version 18.1.8</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>     Compilation flags:  -O3 -Wall</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                Loader:  ld</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        Thread support:  yes</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>           FFI support:  yes</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a> Control fx parameters:  yes</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a> System libraries used:  ffi (3.4.6) pcre2 (10.44) gmp (6.3.0)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    Compiled libraries:  gc</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    STklos load prefix:  /opt</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      Binary load path:  /opt/lib/stklos/2.10</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>      Scheme load path:  /opt/share/stklos/2.10</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>     Documentation dir:  /opt/share/doc/stklos/2.10</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  Documentation update:  yes (since Asciidoctor is installed)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>If this is correct, you can just type &#39;make&#39; now at your shell prompt.</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>Otherwise, re-run &#39;configure&#39; with correct options.</span></code></pre></div></li>
 <li><p>If everything is correct, you can just type <code>make</code> now
 at your shell prompt. Note that STklos supports <a
 href="https://www.gnu.org/software/make/manual/html_node/Parallel.html">parallel
@@ -231,7 +246,7 @@ available on <a href="https://melpa.org">MELPA repository</a>.</p></li>
      </article>
     <footer class="foot w3-container w3-tab w3-small w3-light-grey">
       <span class="w3-bar-item"><b>STklos</b></span>
-      <span class="w3-bar-item w3-right"><i>Updated:</i> 10-Sep-2023 11:50&nbsp;&nbsp;</span>
+      <span class="w3-bar-item w3-right"><i>Updated:</i> 14-Oct-2024 18:20&nbsp;&nbsp;</span>
     </footer>
   </body>
 </html>
